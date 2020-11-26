@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import Navbar from './Navbar.js'
 
-function Newsfeed() {
+function NewsFeed() {
     return (
-        <Navbar/>
+        <Navbar name="Pranav Aurora" id ="123"/>
     )
 }
 
-export default Newsfeed;
+export default NewsFeed;

@@ -34,7 +34,7 @@ function LoginForm(props) {
                         className="form-control" 
                         id="password" 
                         placeholder="Password"
-                        value={state.confirmpassword}
+                        value={state.password}
                         onChange={handleChange} 
                     />
         <button 
