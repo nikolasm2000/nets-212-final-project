@@ -1,11 +1,23 @@
-import React from 'react';
-function navbar() {
-    return(
-        <nav class="navbar navbar-dark bg-primary">
-            <div className="row col-12 d-flex justify-content-center text-white">
-            <span className="h3">Register</span>
+import React, {useState} from 'react'
+import { Navbar,Nav,NavDropdown,Form,FormControl,Button } from 'react-bootstrap'
+import { useHistory } from "react-router-dom";
+
+
+class NavigationBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {name: ""};
+    } 
+    render () {
+        return (
+            <div>
+                <Navbar bg="dark">
+                    <Navbar.Brand href="#home">
+                        PennBooks
+                    </Navbar.Brand>
+                </Navbar>
             </div>
-        </nav>
-    )
+        )
+    } 
 }
-export default navbar;
+export default NavigationBar;
