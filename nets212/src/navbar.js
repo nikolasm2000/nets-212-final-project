@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import { Navbar,Nav,Form,FormControl,Button, Container } from 'react-bootstrap'
+import React from 'react'
+import { Navbar,Nav,Form,FormControl,Button, Container, NavDropdown } from 'react-bootstrap'
 
 
 
@@ -19,34 +19,28 @@ class NavigationBar extends React.Component {
     
     render () {
         return (
-            <div>
-                <Navbar bg="dark" variant="dark" fixed="top"> 
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Notifications 
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item">First</a>
-                            <a class="dropdown-item">Second</a>
-                            <a class="dropdown-item">Third</a>
-                        </div>
-                        <Navbar.Text>
-                            <a href={this.state.url}>{this.props.name}</a>       
-                        </Navbar.Text>
-                        <Navbar.Text>
-                            <a href="/messages"> Messages! </a>
-                        </Navbar.Text>
-                            <Navbar.Brand href="/home" classname="px-3">
-                                PennBooks
-                            </Navbar.Brand>
-                            <Form inline>
-                                <FormControl type="text" placeholder="Search for Users" onChange={this.handleChange}/>
-                                <Button type="submit" onClick={this.handleSubmit}>Submit</Button>
-                            </Form>
-                        <Navbar.Text>
-                            <a href="/"> Log Out! </a>
-                        </Navbar.Text>
-                    </Navbar>
-            </div>
+            <Navbar bg="dark" expand="lg" variant="dark" sticky="top">
+                <Navbar.Brand href="/">PennBooks</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    <Nav.Link href="/messages">Messages</Nav.Link>
+                    <NavDropdown title="Notifications" id="basic-nav-dropdown">
+                        <NavDropdown.Item> Notification 1</NavDropdown.Item>
+                        <NavDropdown.Item> Notification 2</NavDropdown.Item>
+                        <NavDropdown.Item>Something</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="#action/3.4">See all Notifications!</NavDropdown.Item>
+                    </NavDropdown>
+                    <Nav.Link href={this.state.url}> {this.props.name}</Nav.Link>
+
+                 </Nav>
+                <Form inline>
+                    <FormControl type="text" placeholder="Search for" className="mr-sm-2" />
+                    <Button variant="outline-success">Search</Button>
+                </Form>
+                </Navbar.Collapse>
+            </Navbar>
         )
     } 
 }

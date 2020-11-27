@@ -10,8 +10,8 @@ function Newsfeed() {
             <Navbar name="Pranav Aurora" id ="123"/>
             <div style={{backgroundColor: "lightblue", width:750}}>
                 <Post text="hello"/>
-                <UserPage />
             </div>
+            <UserPage />
         </div>
     )
 }
