@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
 import Newsfeed from './Newsfeed';
+import Update from './Update';
 
 import {
   BrowserRouter as Router,
@@ -26,6 +27,9 @@ return (
             </Route>
             <Route path = "/home" exact={true}>
               <Newsfeed />
+            </Route>
+            <Route path = "/update" exact={true}>
+              <Update/>
             </Route>
           </Switch>
        </div>
