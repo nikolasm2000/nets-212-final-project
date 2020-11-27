@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar,Nav,Form,FormControl,Button, Container, NavDropdown } from 'react-bootstrap'
+import { Navbar,Nav,Form,FormControl,Button, NavDropdown } from 'react-bootstrap'
 
 
 
@@ -30,7 +30,7 @@ class NavigationBar extends React.Component {
                         <NavDropdown.Item> Notification 2</NavDropdown.Item>
                         <NavDropdown.Item>Something</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">See all Notifications!</NavDropdown.Item>
+                        <NavDropdown.Item href="/Notifications">See all Notifications</NavDropdown.Item>
                     </NavDropdown>
                     <Nav.Link href={this.state.url}> {this.props.name}</Nav.Link>
 
