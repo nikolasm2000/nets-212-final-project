@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import Navbar from './Navbar.js'
 import Post from './Post.js'
 import UserPage from './UserPage.js'
+import Likes from './Likes.js'
+import Comment from './Comment.js'
 
 
 function Newsfeed() {
@@ -12,6 +14,8 @@ function Newsfeed() {
                 <Post text="hello"/>
             </div>
             <UserPage />
+            <Likes />
+            <Comment />
         </div>
     )
 }
