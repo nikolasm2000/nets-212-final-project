@@ -1,9 +1,15 @@
 import React, {useState} from 'react'
 import Navbar from './Navbar.js'
 
-function NewsFeed() {
+
+function Newsfeed() {
     return (
-        <Navbar name="Pranav Aurora" id ="123"/>
+        <div>
+            <Navbar name="Pranav Aurora" id ="123"/>
+            <div style={{backgroundColor: "lightblue", width:750}}>
+                <Post text="hello"/>
+            </div>
+        </div>
     )
 }
 
