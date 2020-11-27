@@ -8,6 +8,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import UserPage from './UserPage';
 function App() {
 return (
     <Router>
@@ -19,6 +20,9 @@ return (
             </Route>
             <Route path="/register" exact={true}>
               <RegistrationForm />
+            </Route>
+            <Route path="/user/0" exact={true}>
+              <UserPage />
             </Route>
             <Route path = "/home" exact={true}>
               <Newsfeed />
