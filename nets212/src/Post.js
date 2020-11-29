@@ -3,21 +3,14 @@ import Username from './Username';
 
 function Post(props) {
     return (
-        <div>
-            <table>
-                <tr>
-                    <td><Username name="Test" userURL="/test"/></td>
-                </tr>
-                <tr>
-                    <td><p>{props.text}</p></td>
-                </tr>
-                <tr>
-                    <td><img src={props.imageURL}/></td>
-                </tr>
-                <tr>
-                    <p>Likes: {props.likes}</p>
-                </tr>
-            </table>
+        <div class="card" stlye="width:200px">
+            <div class="card-body">
+                <div class="card-title"> <Username name="Test" userURL="/test"/></div>
+                <p class="card-text">{props.text}</p>
+                <img src={props.imageURL}/>
+                <p>Likes: {props.likes}</p>
+            </div>
+
         </div>
     )
 }
