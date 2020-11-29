@@ -4,6 +4,7 @@ import Post from './Post.js'
 import UserPage from './UserPage.js'
 import Likes from './Likes.js'
 import Comment from './Comment.js'
+import FriendSugg from './FriendSugg.js'
 
 
 function Newsfeed() {
@@ -16,6 +17,7 @@ function Newsfeed() {
             <UserPage />
             <Likes />
             <Comment />
+            <FriendSugg />
         </div>
     )
 }

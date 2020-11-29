@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap'
 function Comment(props) {
     const [state , setState] = useState({
         name : "Niko Mihailidis",
-		comment : "Hello World!",
+		comment : "This is a comment",
     })
 
     return (
