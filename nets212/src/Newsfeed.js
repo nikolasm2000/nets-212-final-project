@@ -7,17 +7,17 @@ import Comment from './Comment.js'
 import FriendSugg from './FriendSugg.js'
 
 
-function Newsfeed() {
+function Newsfeed(props) {
+    //This will produce all the posts that were passed in from an array to newsfeed
+    const posts = props.posts.map((post) =>
+        <Post post={post}/>
+    );
     return (
         <div>
             <Navbar name="Pranav Aurora" id ="123"/>
-            <div style={{backgroundColor: "lightblue", width:750}}>
-                <Post text="hello"/>
+            <div class="d-flex flex-column align-items-center" style={{width:750}}>
+                {posts}
             </div>
-            <UserPage />
-            <Likes />
-            <Comment />
-            <FriendSugg />
         </div>
     )
 }
