@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+import { Button } from 'react-bootstrap'
+
 
 function UserPage(props) {
     const [state , setState] = useState({
@@ -29,6 +31,10 @@ function UserPage(props) {
       				<h3 class="text-right lead" style={{paddingTop: 30}}>Birthday: {state.birthday} </h3>
     			</div>
   			</div>
+			<div class="col text-center">
+					Information not accurate?<Button variant="link" href="/update"> Update your account here </Button>
+			</div>
+			
 		</div>
 	 </div>   
     )
