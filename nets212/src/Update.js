@@ -31,7 +31,7 @@ function Update(props) {
         //need to update this function.
     }
     return(
-            <div className="card col-12 col-lg-6 login-card mt-4 hv-center p-3 mb-4">
+            <div className="card col-12 col-lg-5 login-card mt-4 hv-center p-3 mb-4">
                 <h1> Update your account</h1>
                 <br></br>
 

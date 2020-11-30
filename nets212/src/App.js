@@ -3,6 +3,7 @@ import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
 import Newsfeed from './Newsfeed';
 import Update from './Update';
+import HomePage from './HomePage';
 
 import {
   BrowserRouter as Router,
@@ -17,7 +18,7 @@ function App() {
 return (
     <Router>
     <div className="App">
-        <div className="container d-flex align-items-center flex-column">
+        <div className="container-fluid p-0 d-flex align-items-center flex-column">
           <Switch>
             <Route path = "/" exact = {true}>
               <LoginForm/>
@@ -29,7 +30,7 @@ return (
               <UserPage />
             </Route>
             <Route path = "/home" exact={true}>
-              <Newsfeed posts={posts}/>
+              <HomePage posts={posts}/>
             </Route>
             <Route path = "/update" exact={true}>
               <Update/>
