@@ -31,13 +31,13 @@ function Update(props) {
         //need to update this function.
     }
     return(
-            <div className="card col-12 col-lg-6 login-card mt-4 hv-center">
+            <div className="card col-12 col-lg-6 login-card mt-4 hv-center p-3 mb-4">
                 <h1> Update your account</h1>
                 <br></br>
 
                 <h5>Change Email?</h5>
                 <input type="email" 
-                        className="form-control" 
+                        className="form-control mt-2" 
                         id="email" 
                         placeholder="Enter new Email"
                         value={state.email}
@@ -45,7 +45,7 @@ function Update(props) {
                     />
                 <button 
                     type="submit" 
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-3"
                     onClick={handleSubmit}
                     id="email"
                     >
@@ -55,7 +55,7 @@ function Update(props) {
 
                 <h5>Change Password?</h5>
                 <input type="password" 
-                        className="form-control" 
+                        className="form-control mt-2" 
                         id="password" 
                         placeholder="Enter new Password"
                         value={state.password}
@@ -63,7 +63,7 @@ function Update(props) {
                     />
 
                 <input type="password" 
-                        className="form-control" 
+                        className="form-control mt-2" 
                         id="confirmpassword" 
                         placeholder="ConfirmPassword"
                         value={state.confirmpassword}
@@ -72,7 +72,7 @@ function Update(props) {
 
                 <button 
                     type="submit" 
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-3"
                     onClick={handleSubmit}
                     id="password"
                     >
@@ -82,7 +82,7 @@ function Update(props) {
 
                 <h5>Change Affiliation?</h5>
                 <input type="email" 
-                        className="form-control" 
+                        className="form-control mt-2" 
                         id="affiliation" 
                         placeholder="Enter new Affiliation"
                         value={state.affiliation}
@@ -90,7 +90,7 @@ function Update(props) {
                     />
                 <button 
                     type="submit" 
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-3"
                     onClick={handleSubmit}
                     id="Affiliation"
                     >
@@ -106,7 +106,7 @@ function Update(props) {
 
                 <button 
                     type="submit" 
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-3"
                     onClick={handleSubmit}
                     id="birthday"
                     >
@@ -116,7 +116,7 @@ function Update(props) {
                 <br></br>
                 <h5>Change interest in news?</h5>
                 <input type="email" 
-                        className="form-control" 
+                        className="form-control mt-2" 
                         id="news" 
                         placeholder="Enter new Interest"
                         value={state.news}
@@ -125,7 +125,7 @@ function Update(props) {
 
                 <button 
                     type="submit" 
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-3"
                     onClick={handleSubmit}
                     id="news"
                     >
