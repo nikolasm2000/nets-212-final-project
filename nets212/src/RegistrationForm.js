@@ -94,7 +94,7 @@ function RegistrationForm(props) {
 
         <button 
                     type="submit" 
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-4 mb-2"
                     onClick={handleSubmit}
           >
                     Register

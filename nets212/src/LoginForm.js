@@ -19,11 +19,11 @@ function LoginForm(props) {
         // to implement function that checks if user is authenticated.
     }
     return (
-        <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
+        <div className="card col-12 col-lg-4 login-card mt-2 hv-center p-3">
             <h1> Log into PennBooks Here:</h1>
             Email:
             <input type="email" 
-                       className="form-control" 
+                       className="form-control mb-2" 
                        id="email" 
                        placeholder="Enter email" 
                        value={state.email}
@@ -39,7 +39,7 @@ function LoginForm(props) {
                     />
         <button 
                     type="submit" 
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-4 mb-2"
                     onClick={handleSubmit}
           >
                     Log in. 
