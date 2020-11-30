@@ -5,6 +5,7 @@ import UserPage from './UserPage.js'
 import Likes from './Likes.js'
 import Comment from './Comment.js'
 import FriendSugg from './FriendSugg.js'
+import PostInput from './PostInput.js'
 
 
 function Newsfeed(props) {
@@ -15,6 +16,8 @@ function Newsfeed(props) {
     return (
         <div>
             <Navbar name="Pranav Aurora" id ="123"/>
+            <br></br>
+            <PostInput/>
             <div class="d-flex flex-column align-items-center" style={{width:750}}>
                 {posts}
             </div>
