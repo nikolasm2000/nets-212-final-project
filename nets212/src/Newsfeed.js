@@ -5,6 +5,7 @@ import UserPage from './UserPage.js'
 import Likes from './Likes.js'
 import Comment from './Comment.js'
 import FriendSugg from './FriendSugg.js'
+import PostInput from './PostInput.js'
 
 
 function Newsfeed(props) {
