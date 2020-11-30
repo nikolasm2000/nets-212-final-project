@@ -23,16 +23,19 @@ function PostInput() {
         
     };
     return (
-            <div class="container-fluid p-0 mt-4">
+        <div>
+            <div className="input-group mb-3">
                 <input className ="form-control input-lg" type = 'text' placeholder= "what's on your mind?" id = "text" onChange={handleChange}/> 
-                <div className="input-group mb-3">
-                    <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="inputGroupFile02"/>
-                        <label className="custom-file-label" for="inputGroupFile02">choose file</label>
-                    </div>
+                <div className="input-group-append">
+                    <button className="btn btn-primary" onClick = {handleClick}> Post </button>
                 </div>
-                <button className="btn btn-primary" onClick={handleClick}>Post</button>
             </div>
+                <div className="custom-file">
+                    <input type="file" className="custom-file-input" id="inputGroupFile02" accept="image/x-png,image/gif,image/jpeg" />
+                    <label className="custom-file-label" for="inputGroupFile02">choose file</label>
+                </div>
+        </div>
+            
     );
 }
 
