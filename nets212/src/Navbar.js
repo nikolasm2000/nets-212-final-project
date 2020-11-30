@@ -3,6 +3,8 @@ import { Navbar,Nav,Form, Button, NavDropdown } from 'react-bootstrap'
 import Autosuggest from 'react-autosuggest'
 import _default from 'react-bootstrap/esm/CardColumns';
 import Username from './Username';
+import './autosuggest.css';
+
 const people = [ 
     {
         name: "Pranav Aurora", 
@@ -44,7 +46,7 @@ const getSuggestions = (value) => {
 const displaySuggestion = (suggestion) => suggestion.name;
 
 const renderSuggest = suggestion => (
-    <div >
+    <div>
         <Username firstName = {suggestion.name} userURL = {suggestion.userUrl}/>
     </div>
 );
@@ -83,7 +85,7 @@ class NavigationBar extends React.Component {
         const { value, suggestion } = this.state;
 
         const inputProps = {
-            placeholder: 'search for users',
+            placeholder: 'Search for users',
             value, 
             onChange: this.onChange
         };
