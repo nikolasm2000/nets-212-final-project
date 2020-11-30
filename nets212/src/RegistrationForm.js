@@ -33,7 +33,7 @@ function RegistrationForm(props) {
     }
     
     return(
-    <div className="card col-12 col-lg-6 login-card mt-4 hv-center">
+    <div className="card col-12 col-lg-5 login-card mt-4 hv-center p-4">
         <h1> Register for PennBooks Here:</h1>
       Email:
       <input type="email" 

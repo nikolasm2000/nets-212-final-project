@@ -19,7 +19,7 @@ function LoginForm(props) {
         // to implement function that checks if user is authenticated.
     }
     return (
-        <div className="card col-12 col-lg-4 login-card mt-2 hv-center p-3">
+        <div className="card col-12 col-lg-3 login-card mt-2 hv-center p-4">
             <h1> Log into PennBooks Here:</h1>
             Email:
             <input type="email" 

@@ -15,9 +15,6 @@ function Newsfeed(props) {
     );
     return (
         <div>
-            <Navbar name="Pranav Aurora" id ="123"/>
-            <br></br>
-            <PostInput/>
             <div class="d-flex flex-column align-items-center" style={{width:750}}>
                 {posts}
             </div>
