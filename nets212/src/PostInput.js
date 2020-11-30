@@ -23,7 +23,7 @@ function PostInput() {
         
     };
     return (
-            <div>
+            <div class="container-fluid p-0 mt-4">
                 <input className ="form-control input-lg" type = 'text' placeholder= "what's on your mind?" id = "text" onChange={handleChange}/> 
                 <div className="input-group mb-3">
                     <div className="custom-file">

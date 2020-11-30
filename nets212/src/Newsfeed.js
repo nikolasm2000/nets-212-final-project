@@ -15,9 +15,11 @@ function Newsfeed(props) {
     );
     return (
         <div>
+            <PostInput/>
             <div class="d-flex flex-column align-items-center" style={{width:750}}>
                 {posts}
             </div>
+            <br/>
         </div>
     )
 }
