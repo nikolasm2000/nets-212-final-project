@@ -27,38 +27,38 @@ function FriendSugg(props) {
         			</div>
    			 	</div>
   			</div>
-  			<div class="row">
-    			<div class="col">
-      				<img class="card-img" src= {state.pic1} class="rounded-circle"  style={{width: 50}}></img>
+  			<div className="row">
+    			<div className="col">
+      				<img className="card-img" src= {state.pic1} className="rounded-circle"  style={{width: 50}}></img>
    		 		</div>
-    			<div class="col">
-      				<img class="card-img" src= {state.pic2} class="rounded-circle"  style={{width: 50}}></img>
+    			<div className="col">
+      				<img className="card-img" src= {state.pic2} className="rounded-circle"  style={{width: 50}}></img>
     			</div>
-    			<div class="col">
-      				<img class="card-img" src= {state.pic3} class="rounded-circle"  style={{width: 50}}></img>
+    			<div className="col">
+      				<img className="card-img" src= {state.pic3} className="rounded-circle"  style={{width: 50}}></img>
     			</div>
-				<div class="col">
-      				<img class="card-img" src= {state.pic4} class="rounded-circle"  style={{width: 50}}></img>
+				<div className="col">
+      				<img className="card-img" src= {state.pic4} className="rounded-circle"  style={{width: 50}}></img>
     			</div>
-				<div class="col">
-      				<img class="card-img" src= {state.pic5} class="rounded-circle"  style={{width: 50}}></img>
+				<div className="col">
+      				<img className="card-img" src= {state.pic5} className="rounded-circle"  style={{width: 50}}></img>
     			</div>
   			</div>
-			<div class="row">
-    			<div class="col">
-      				<p class="text-left">{state.name1} </p>
+			<div className="row">
+    			<div className="col">
+      				<p className="text-left">{state.name1} </p>
    		 		</div>
-    			<div class="col">
-      				<p class="text-left">{state.name2} </p>
+    			<div className="col">
+      				<p className="text-left">{state.name2} </p>
     			</div>
-    			<div class="col">
-      				<p class="text-left">{state.name3} </p>
+    			<div className="col">
+      				<p className="text-left">{state.name3} </p>
     			</div>
-				<div class="col">
-      				<p class="text-left">{state.name4} </p>
+				<div className="col">
+      				<p className="text-left">{state.name4} </p>
     			</div>
-				<div class="col">
-      				<p class="text-left">{state.name5} </p>
+				<div className="col">
+      				<p className="text-left">{state.name5} </p>
     			</div>
   			</div>
 		</div>

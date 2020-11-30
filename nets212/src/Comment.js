@@ -9,11 +9,11 @@ function Comment(props) {
     })
 
     return (
-<div class="card">
-  <h5 class="card-header">{state.name}</h5>
-  <div class="card-body">
+<div className="card">
+  <h5 className="card-header">{state.name}</h5>
+  <div className="card-body">
     
-    <p class="card-text">{state.comment}</p>
+    <p className="card-text">{state.comment}</p>
   </div>
 </div>
     )
