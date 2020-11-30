@@ -20,7 +20,7 @@ class NavigationBar extends React.Component {
     render () {
         return (
             <Navbar bg="dark" expand="lg" variant="dark" sticky="top">
-                <Navbar.Brand href="/">PennBooks</Navbar.Brand>
+                <Navbar.Brand href="/home">PennBooks</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">

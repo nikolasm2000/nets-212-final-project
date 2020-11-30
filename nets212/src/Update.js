@@ -1,26 +1,36 @@
 import React, {useState} from 'react'
 import DatePicker from 'react-date-picker' 
 
-class Update extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {name: "", email: "", birthday:"", affiliation: "", news:"", password:"", confirmpassword:""};
-    } 
-    handleChange = (e) => {
-        const {id , value} = e.target
-        this.setState={id: value};
+
+function Update(props) {
+    const [state , setState] = useState({
+        email : "",
+        password : "",
+        confirmpassword : "",
+        birthday : "",
+        affiliation: "",
+        news: ""
+    })
+    const handleChange = (e) => {
+        const {id , value} = e.target   
+        setState(prevState => ({
+            ...prevState,
+            [id] : value
+        }))
+    }
+    const handleChange2 = (date) => {
+        console.log(date);
+        setState(prevState => ({
+            ...prevState,
+            birthday: date
+        }))
     }
 
-    handleChange2 = (date) => {
-        this.setState={birthday: date}
-    }
-
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         const {id} = e.target
         //need to update this function.
     }
-    render () {
-        return(
+    return(
             <div className="card col-12 col-lg-6 login-card mt-4 hv-center">
                 <h1> Update your account</h1>
                 <br></br>
@@ -30,13 +40,13 @@ class Update extends React.Component {
                         className="form-control" 
                         id="email" 
                         placeholder="Enter new Email"
-                        value={this.state.email}
-                        onChange={this.handleChange} 
+                        value={state.email}
+                        onChange={handleChange} 
                     />
                 <button 
                     type="submit" 
                     className="btn btn-primary"
-                    onClick={this.handleSubmit}
+                    onClick={handleSubmit}
                     id="email"
                     >
                 Change Email
@@ -48,22 +58,22 @@ class Update extends React.Component {
                         className="form-control" 
                         id="password" 
                         placeholder="Enter new Password"
-                        value={this.state.password}
-                        onChange={this.handleChange} 
+                        value={state.password}
+                        onChange={handleChange} 
                     />
 
                 <input type="password" 
                         className="form-control" 
                         id="confirmpassword" 
                         placeholder="ConfirmPassword"
-                        value={this.state.confirmpassword}
-                        onChange={this.handleChange} 
+                        value={state.confirmpassword}
+                        onChange={handleChange} 
                     />
 
                 <button 
                     type="submit" 
                     className="btn btn-primary"
-                    onClick={this.handleSubmit}
+                    onClick={handleSubmit}
                     id="password"
                     >
                 Change Password
@@ -75,13 +85,13 @@ class Update extends React.Component {
                         className="form-control" 
                         id="affiliation" 
                         placeholder="Enter new Affiliation"
-                        value={this.state.affiliation}
-                        onChange={this.handleChange} 
+                        value={state.affiliation}
+                        onChange={handleChange} 
                     />
                 <button 
                     type="submit" 
                     className="btn btn-primary"
-                    onClick={this.handleSubmit}
+                    onClick={handleSubmit}
                     id="Affiliation"
                     >
                     Change Affiliation
@@ -89,16 +99,16 @@ class Update extends React.Component {
                 <br></br>
                 <h5>Birthday Change?</h5>
                 <DatePicker 
-                    onChange={this.handleChange2} 
-                    selected={this.state.birthday}
-                    value={this.state.birthday}
+                    onChange={handleChange2} 
+                    selected={state.birthday}
+                    value={state.birthday}
                 />
 
                 <button 
                     type="submit" 
                     className="btn btn-primary"
-                    onClick={this.handleSubmit}
-                    id="password"
+                    onClick={handleSubmit}
+                    id="birthday"
                     >
                     Change Birthday
                 </button>
@@ -109,14 +119,14 @@ class Update extends React.Component {
                         className="form-control" 
                         id="news" 
                         placeholder="Enter new Interest"
-                        value={this.state.news}
-                        onChange={this.handleChange} 
+                        value={state.news}
+                        onChange={handleChange} 
                     />
 
                 <button 
                     type="submit" 
                     className="btn btn-primary"
-                    onClick={this.handleSubmit}
+                    onClick={handleSubmit}
                     id="news"
                     >
                     Change News
@@ -126,6 +136,4 @@ class Update extends React.Component {
 
         )
     }
-}
-
 export default Update;
