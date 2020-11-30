@@ -16,10 +16,7 @@ function PostInput() {
     }
 
     const handleClick = e => {
-        e.preventDefault();
-
-        //need to upload the image to the s3 bucket, get the URl, and set the state.
-        
+        e.preventDefault();    
         
     };
     return (
