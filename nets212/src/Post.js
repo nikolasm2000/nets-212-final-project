@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Username from './Username';
-import Likes from './Likes'
+import Likes from './Likes';
+import Comment from './Comment';
 
 function Post(props) {
     return (

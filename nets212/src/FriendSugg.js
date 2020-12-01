@@ -12,22 +12,20 @@ function FriendSugg(props) {
 		pic3 : "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic3.jpg",
 		name4 : "Person4",
 		pic4 : "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic4.jpg",
-		name5 : "Person5",
-		pic5 : "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic2.jpeg",
     })
 
     return (
-<div class="card" style={{width: 500}}>
-		<div class="container">
+<div class="card" style={{width: 400}}>
+		<div class="container p-0 m-0">
   			<div class="row">
     			<div class="col">
-      				<div className="text-left " style={{paddingTop: 10}}>
-						<h5 class="card-title">Friend Suggestions</h5>
+      				<div className="card-header pb-0 pl-2" style={{paddingTop: 10}}>
+						<h5 class="card-title"><b>Friend Suggestions</b></h5>
             			
         			</div>
    			 	</div>
   			</div>
-  			<div className="row">
+  			<div className="row pt-2 pl-3">
     			<div className="col">
       				<img className="card-img" src= {state.pic1} className="rounded-circle"  style={{width: 50}}></img>
    		 		</div>
@@ -40,11 +38,8 @@ function FriendSugg(props) {
 				<div className="col">
       				<img className="card-img" src= {state.pic4} className="rounded-circle"  style={{width: 50}}></img>
     			</div>
-				<div className="col">
-      				<img className="card-img" src= {state.pic5} className="rounded-circle"  style={{width: 50}}></img>
-    			</div>
   			</div>
-			<div className="row">
+			<div className="row pl-3">
     			<div className="col">
       				<p className="text-left">{state.name1} </p>
    		 		</div>
@@ -56,9 +51,6 @@ function FriendSugg(props) {
     			</div>
 				<div className="col">
       				<p className="text-left">{state.name4} </p>
-    			</div>
-				<div className="col">
-      				<p className="text-left">{state.name5} </p>
     			</div>
   			</div>
 		</div>
