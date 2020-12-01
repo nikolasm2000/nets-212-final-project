@@ -32,13 +32,9 @@ function RegistrationForm(props) {
         // to implement function to send data to backend. 
     }
     
-    const switchtoLogin = () => {
-        props.history.push(`/`);
-    }
-
     return(
-      <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
-      <h1> Register for PennBooks Here:</h1>
+    <div className="card col-12 col-lg-5 login-card mt-4 hv-center p-4">
+        <h1> Register for PennBooks Here:</h1>
       Email:
       <input type="email" 
                        className="form-control" 
@@ -98,7 +94,7 @@ function RegistrationForm(props) {
 
         <button 
                     type="submit" 
-                    className="btn btn-primary"
+                    className="btn btn-primary mt-4 mb-2"
                     onClick={handleSubmit}
           >
                     Register
