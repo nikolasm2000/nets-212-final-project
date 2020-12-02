@@ -1,6 +1,6 @@
 var express = require('express');
-var routes = require('./routes/routes.js');
 var session = require('express-session');
+var user = require('user.js')
 var app = express();
 var router = express.Router()
 app.use(express.urlencoded());
@@ -13,21 +13,21 @@ app.use(express.urlencoded());
    between app.get and app.post; normal web requests are GETs, but
    POST is often used when submitting web forms ('method="post"'). */
 
-app.get('/', routes.get_main);
-app.post('/checklogin', routes.login);
-app.get('/signup', routes.get_signup);
-app.post('/createaccount', routes.create_account);
-app.get('/restaurants', routes.show_restaurants);
-app.post('/addrestaurant', routes.create_restaurant);
-app.post('/removerestaurant', routes.delete_restaurant);
-app.post('/getrestaurants', routes.get_restaurants);
-app.get('/logout', routes.logout);
 
+//router.use(() => {}); // General middleware
+router.post('/user/:id', user.get);
+router.post('/user/create', user.create);
+router.post('/user/:id/update', user.update);
+router.post('/login', user.login);
+router.post('/logout', user.logout);
+router.post('/friends', friends.getAll);
+router.post('/friends/:id/isfriend',friends.isFriend);
+router.post('/friends/requests', friends.getAll);//requests);
+router.post('/friends/suggestions', friends.getAll);//suggestions);
+router.post('/posts/homepage', posts.getAll);//homepage);
+router.post('/posts/wall/:id', posts.getAll);//wall);
+router.post('/posts/:id', posts.get);
 
-router.use(() => {}); // General middleware
-router.get('/route1', () => {})
-router.get('/route2', () => {})
-router.post('/route2', () => {})
 
 app.use('/api', router);
 

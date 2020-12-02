@@ -9,6 +9,7 @@
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "dateformat": "^4.0.0",
+    "express-session": "^1.17.1",
     "mdbreact": "^4.27.0",
     "moment": "^2.29.1",
     "react": "^17.0.1",
