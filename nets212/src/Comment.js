@@ -16,7 +16,7 @@ function Comment(props) {
     <img src= {state.profPic} className="rounded-circle"  style={{width: 40}}></img> {state.name}</h5>
   <div className="card-body">
     
-    <p className="card-text">{state.comment}</p>
+    <p className="card-text" ><p className="text-left">{state.comment}</p></p>
   </div>
 </div>
 </div>
