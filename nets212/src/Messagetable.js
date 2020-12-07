@@ -9,8 +9,18 @@ class Messagetable extends React.Component {
 
     render() {
         return(
-            
-            <Message/>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <Message sent="false"/>
+                        <br></br>
+                    </div>
+                    <div class="col-sm">
+                        <Message sent="true"/>
+                    </div>
+                </div>
+
+            </div>
 
         )
 
