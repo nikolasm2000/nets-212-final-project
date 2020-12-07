@@ -8,8 +8,8 @@ class Chatheader extends React.Component {
     }
     render () {
         return (
-            <div className="card sticky-top">
-                <div className = "card-title m-10" style={{paddingTop:"10px"}}>
+            <div className="card mt-2">
+                <div className = "card-title m-10 pl-3 pt-2">
                     <Username firstName="Pranav" lastName="Aurora" showImage="true" userURL="user/123"/>
                     <small class={(this.state.status === "Online") ? "text-success" : "text-muted"}>{this.state.status}</small>
                 </div>

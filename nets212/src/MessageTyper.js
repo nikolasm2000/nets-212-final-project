@@ -7,7 +7,7 @@ class MessageTyper extends React.Component {
     }
     render() {
         return (
-            <div className= "card fixed-bottom mx-auto" style={{maxWidth:"60%"}}>
+            <div className= "card mx-auto mt-2" style={{maxWidth:"60%"}}>
                 <div className="input-group">
                 <input className ="form-control input-lg m-0 pb-0 pt-0" type = 'text' placeholder= "Type a message" id = "text"/> 
                 <div className="input-group-append m-0">

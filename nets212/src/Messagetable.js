@@ -2,6 +2,7 @@ import React from 'react';
 import Messages from './Messages'
 import Chatheader from './Chatheader'
 import MessageTyper from './MessageTyper'
+import './column.css';
 
 class Messagetable extends React.Component {
     constructor(props) {
@@ -12,12 +13,20 @@ class Messagetable extends React.Component {
     render() {
         return(
             <div className="container mb-10 p-40 w-75% max-auto">
-                <Chatheader/>
-                <div className="h-75 d-line block">
-                    <Messages/>
+                <div class="row">
+                    <div class="col">
+                        <Chatheader/>
+                    </div>
                 </div>
-                <div className="d-line block">
-                <MessageTyper/>
+                <div class="row">
+                    <div class="col col-scroll col-scroll-messages">
+                        <Messages/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <MessageTyper/>
+                    </div>
                 </div>
             </div>
         )

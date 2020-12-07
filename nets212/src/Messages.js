@@ -61,7 +61,7 @@ class Messages extends React.Component {
         <Message sent={item.sent} />
         );
         return (
-            <div className="container" style={{paddingBottom:"10px", maxHeight:"75%"}}>
+            <div className="container mt-2 mb-2" style={{maxHeight:"75%"}}>
                 {messages}
             </div>
         )
