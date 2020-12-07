@@ -12,11 +12,11 @@ function FriendsList(props) {
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid d-flex flex-column">
+                <div class="card-body p-0">
                     <Friend/>
-                    <hr/>
+                    <hr class="m-0 p-0"/>
                     <Friend/>
-                    <hr/>
+                    <hr class="m-0 p-0"/>
                     <Friend/>
                 </div>
             </div>
