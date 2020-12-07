@@ -1,6 +1,7 @@
 import React from 'react';
-import Message from './Message'
-import Username from './Username'
+import Messages from './Messages'
+import Chatheader from './Chatheader'
+import MessageTyper from './MessageTyper'
 
 class Messagetable extends React.Component {
     constructor(props) {
@@ -10,11 +11,14 @@ class Messagetable extends React.Component {
 
     render() {
         return(
-            <div>
-                <Username firstName="Pranav" lastName="Aurora" userURL="user/123" showImage="true"/>
-                <br></br>
-                <Message sent="false"/>
-                <Message sent="true"/>
+            <div className="container mb-10 p-40 w-75% max-auto">
+                <Chatheader/>
+                <div className="h-75 d-line block">
+                    <Messages/>
+                </div>
+                <div className="d-line block">
+                <MessageTyper/>
+                </div>
             </div>
         )
     }

@@ -1,9 +1,7 @@
 import React from 'react'
 
-const message = [ 
-    {
-        messageID:100, 
-    }];
+//need to pass this a message ID. This component will then do the look up. Get the message text and date to display. 
+//along with message ID, need to pass a prop of whether it was received or sent. 
     
     class Message extends React.Component {
     constructor(props) {
@@ -13,20 +11,35 @@ const message = [
     render(){
         let card;
         if (this.props.sent === "true") {
-            card = <div className="card text-right ml-auto" style={{backgroundColor:"#6fa0ed", borderRadius:"25px", paddingLeft:"15px", paddingBottom:"0px", maxWidth:"300px"}}>
-                    <div class="card-body">
-                        This is a sent messsage. Notice how this stacks.
-                    </div>
-                    </div>
+            card =      <div className="card ml-auto border-0">
+                            <div className="card text-right ml-auto" style={{backgroundColor:"#6fa0ed", borderRadius:"25px", paddingLeft:"15px", maxWidth:"400px"}}>
+                                <div class="card-body p-2">
+                                This is a sent messsage. Notice how this stacks. smelly vagina rocks
+                                </div>
+                            </div>
+                            <div className="card text-right ml-auto border-0" style={{borderRadius:"15px", maxWidth:"200px"}}>
+                                <div class="card-body p-0" style={{fontSize:"0.6em"}}>
+                                Sent by __ on ___. 
+                                </div>
+                            </div>
+                        </div>        
         } else {
-            card = <div className="card text-left" style={{borderRadius:"25px", paddingRight:"15px", backgroundColor:"#b5b7ba", maxWidth:"300px"}}>
-                    <div class="card-body">
-                        received message. So hi whats up. How are you. Blah blah blah
+            card = <div className="card border-0">
+                <div className="card ml-auto" style={{borderRadius:"25px", paddingLeft:"15px", maxWidth:"400px"}}>
+                    <div class="card-body p-2">
+                    This is a received messsage. Notice how this stacks. blabj blak blak
                     </div>
                 </div>
+                <div className="card text-right ml-auto border-0" style={{borderRadius:"15px", maxWidth:"200px"}}>
+                    <div class="card-body p-0" style={{fontSize:"0.6em"}}>
+                    Sent by __ on ___. 
+                    </div>
+                </div>
+        </div>
+
         }
         return (
-            <div className= "d-flex" style={{width:"600px"}}>
+            <div className= "d-flex">
                 {card}
             </div>
 
