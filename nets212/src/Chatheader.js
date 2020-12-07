@@ -11,7 +11,6 @@ class Chatheader extends React.Component {
             <div className="card mt-2">
                 <div className = "card-title m-10 pl-3 pt-2">
                     <Username firstName="Pranav" lastName="Aurora" showImage="true" userURL="user/123"/>
-                    <small class={(this.state.status === "Online") ? "text-success" : "text-muted"}>{this.state.status}</small>
                 </div>
             </div>
         )
