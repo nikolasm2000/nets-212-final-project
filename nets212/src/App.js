@@ -4,7 +4,7 @@ import LoginForm from './LoginForm';
 import Newsfeed from './Newsfeed';
 import Update from './Update';
 import HomePage from './HomePage';
-
+import Messagetable from './Messagetable';
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,7 +29,7 @@ return (
             <Route path="/register" exact={true}>
               <RegistrationForm />
             </Route>
-            <Route path="/user/0" exact={true}>
+            <Route path="/user/" exact={true}>
               <UserPage />
             </Route>
             <Route path = "/home" exact={true}>
@@ -37,6 +37,9 @@ return (
             </Route>
             <Route path = "/update" exact={true}>
               <Update/>
+            </Route>
+            <Route path = '/messages' exact={true}>
+              <Messagetable/>
             </Route>
           </Switch>
        </div>
