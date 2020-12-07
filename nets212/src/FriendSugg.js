@@ -1,21 +1,21 @@
 import React, {useState} from 'react'
-import { Button } from 'react-bootstrap'
-
+import Truncate from 'react-truncate'
 
 function FriendSugg(props) {
     const [state , setState] = useState({
-        name1 : "Person1",
+        name1 : "Nikolas Mihailidis",
 		pic1 : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
-		name2 : "Person2",
+		name2 : "Pranav Aurora",
 		pic2 : "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic5.jpg",
-		name3 : "Person3",
+		name3 : "Rafael Marques",
 		pic3 : "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic3.jpg",
-		name4 : "Person4",
+		name4 : "Henrique Lorente",
 		pic4 : "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic4.jpg",
-    })
+	})
+	
 
     return (
-<div class="card container-fluid p-0 m-0">
+<div class="card container-fluid p-0 m-0" >
 		<div class="container p-0 m-0">
   			<div class="row">
     			<div class="col">
@@ -38,18 +38,34 @@ function FriendSugg(props) {
       				<img className="card-img img-fluid" src= {state.pic4} className="rounded-circle"  style={{maxWidth: 50}}></img>
     			</div>
   			</div>
-			<div className="row pl-3 pr-3">
+			<div className="row pl-4 pr-4">
     			<div className="col">
-      				<p className="text-left">{state.name1} </p>
+      				<p className="text-left">
+					<Truncate lines={1} ellipsis={<span>..</span>} width = {50}>
+                		{state.name1}
+            		</Truncate>
+					</p>
    		 		</div>
     			<div className="col">
-      				<p className="text-left">{state.name2} </p>
+      				<p className="text-left">
+					<Truncate lines={1} ellipsis={<span>..</span>} width = {50}>
+                		{state.name2}
+            		</Truncate>
+					</p>
     			</div>
     			<div className="col">
-      				<p className="text-left">{state.name3} </p>
+      				<p className="text-left">
+					<Truncate lines={1} ellipsis={<span>..</span>} width = {50}>
+                		{state.name3}
+            		</Truncate>
+					</p>
     			</div>
 				<div className="col">
-      				<p className="text-left">{state.name4} </p>
+      				<p className="text-left">
+					<Truncate lines={1} ellipsis={<span>..</span>} width = {50}>
+                		{state.name4}
+            		</Truncate>
+					</p>
     			</div>
   			</div>
 		</div>
@@ -58,4 +74,6 @@ function FriendSugg(props) {
 
 }
 
+
 export default FriendSugg;
+
