@@ -20,8 +20,16 @@ function Post(props) {
                 <p class="card-text">{props.post.text}</p>
                 {props.post.imageURL ? <div> <hr/> <div class="d-flex flex-column align-items-center"> <img class="img-fluid" src={props.post.imageURL}/> </div> </div>: null}
                 <hr/>
-                <Likes/>
-                <Comments  comments = {comments} />
+                <div class="row p-0 m-0 d-flex align-items-center">
+                    <div class="col p-0 m-0">
+                        <Likes/>
+                    </div>
+                </div>
+                <div class="row p-0 m-0 d-flex align-items-center">
+                    <div class="col">
+                        <Comments className="ml-3" comments = {comments} />
+                    </div>
+                </div>
             </div>
         </div>
     )
