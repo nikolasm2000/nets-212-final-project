@@ -17,13 +17,13 @@ class Friend extends React.Component {
     
         return (
         <div class="container p-2 pl-3 friend m-0">
-            <div class="row align-items-center justify-content-start">
-                <div class="col-8 pr-0 mr-0">
+            <div class="row align-items-center justify-content-end">
+                <div class="col pr-0 mr-0">
                     <Username firstName="Pranav" lastName="Aurora" userURL="/id?123" showImage="true"/>
                 </div>
 
-                <div class="col">
-                    <button type="button" class="btn btn-sm btn-outline-primary ml-2" onClick={this.handleMessage}>
+                <div class="col-3 p-0 m-0 mr-2">
+                    <button type="button" class="btn btn-sm btn-outline-primary" onClick={this.handleMessage}>
                         Message
                     </button>
                 </div>
