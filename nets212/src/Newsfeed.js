@@ -17,7 +17,7 @@ function Newsfeed(props) {
         <div>
             <PostInput/>
             <hr class="mt-4 mb-0 p-0"/>
-            <div class="d-flex flex-column align-items-center" style={{width:750}}>
+            <div class="d-flex flex-column align-items-center">
                 {posts}
             </div>
             <br/>
