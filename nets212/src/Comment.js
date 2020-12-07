@@ -1,25 +1,26 @@
 import React, {useState} from 'react'
 import { Button } from 'react-bootstrap'
-
+import Username from './Username.js'
 
 function Comment(props) {
     const [state , setState] = useState({
-    name : props.comment.user.firstName + " " + props.comment.user.lastName,
+    firstName : props.comment.user.firstName,
+    lastName:  props.comment.user.lastName,
     comment : props.comment.text,
     profPic: props.comment.user.profilePic,
     })
 
     return (
       <div style={{paddingTop: 20}}>
-<div className="card">
-  <h5 className="card-header" >
-    <img src= {state.profPic} className="rounded-circle"  style={{width: 40}}></img> {state.name}</h5>
-  <div className="card-body">
-    
-    <p className="card-text">{state.comment}</p>
-  </div>
-</div>
-</div>
+        <div className="card">
+          <div class="card-header">
+            <Username firstName={state.firstName} lastName={state.lastName} userURL="/id?123" showImage="true"/>
+          </div>
+          <div className="card-body">
+            <p className="card-text">{state.comment}</p>
+          </div>
+        </div>
+      </div>
     )
 
 }

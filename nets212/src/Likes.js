@@ -53,7 +53,3 @@ function UnlikeButton(props) {
   );
 }
 
-ReactDOM.render(
-  <Likes />,
-  document.getElementById('root')
-);
