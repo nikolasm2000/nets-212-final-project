@@ -97,13 +97,6 @@ class NavigationBar extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/messages">Messages</Nav.Link>
-                    <NavDropdown title="Notifications" id="basic-nav-dropdown">
-                        <NavDropdown.Item> Notification 1</NavDropdown.Item>
-                        <NavDropdown.Item> Notification 2</NavDropdown.Item>
-                        <NavDropdown.Item>Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="/Notifications">See all Notifications</NavDropdown.Item>
-                    </NavDropdown>
                     <Nav.Link href={this.state.url}> {this.props.name}</Nav.Link>
 
                  </Nav>
