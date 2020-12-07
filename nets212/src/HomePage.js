@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Navbar from './Navbar.js'
 import Newsfeed from './Newsfeed.js'
 import FriendSugg from './FriendSugg.js'
+import FriendsList from './FriendsList.js'
 import './column.css';
 
 function HomePage(props) {
@@ -20,6 +21,9 @@ function HomePage(props) {
                         <Newsfeed posts={props.posts}/>
                     </div>
                     <div class="col col-scroll">
+                        <div class="mt-3">
+                            <FriendsList/>
+                        </div>
                     </div>
                 </div>
             </div>

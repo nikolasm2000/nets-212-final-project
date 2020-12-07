@@ -21,7 +21,7 @@ function App() {
 return (
     <Router>
     <div className="App">
-        <div className="container-fluid p-0 d-flex align-items-center flex-column">
+        <div className="container-fluid p-0 d-flex align-items-center flex-column m-0">
           <Switch>
             <Route path = "/" exact = {true}>
               <LoginForm/>

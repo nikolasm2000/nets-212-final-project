@@ -20,8 +20,7 @@ function FriendSugg(props) {
   			<div class="row">
     			<div class="col">
       				<div className="card-header pb-0 pl-2" style={{paddingTop: 10}}>
-						<h5 class="card-title"><b>Friend Suggestions</b></h5>
-            			
+						<h5 class="card-title"><b>Friend Suggestions</b></h5>	
         			</div>
    			 	</div>
   			</div>
