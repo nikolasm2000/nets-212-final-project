@@ -3,6 +3,7 @@ import { Collapse } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
 import ReactDOM from 'react-dom'
 import Comment from './Comment.js'
+import CommentInput from './CommentInput.js'
 
 function Comments(props) {
   const [open, setOpen] = useState(false);
@@ -12,6 +13,7 @@ function Comments(props) {
     );
 
   return (
+    <div>
     <div className="text-center">
       <Button
         onClick={() => setOpen(!open)}
@@ -26,6 +28,8 @@ function Comments(props) {
           {posts}
         </div>
       </Collapse>
+    </div>
+    <CommentInput/>
     </div>
   );
 } export default Comments;

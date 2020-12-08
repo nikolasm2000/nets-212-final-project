@@ -3,6 +3,7 @@ import Navbar from './Navbar.js'
 import Newsfeed from './Newsfeed.js'
 import FriendsList from './FriendsList.js'
 import Notifications from './Notifications.js'
+import FriendSugg from './FriendSugg.js'
 import './column.css';
 
 function HomePage(props) {
@@ -15,6 +16,9 @@ function HomePage(props) {
                     <div class="col">
                         <div class="mt-3">
                             <Notifications/>
+                            <div style={{paddingTop: 20}}>
+                            <FriendSugg/>
+                            </div>
                         </div>
                     </div>
                     <div class="col-6 col-scroll">
