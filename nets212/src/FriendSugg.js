@@ -6,11 +6,12 @@ function FriendSugg(props) {
         name1 : "Nikolas Mihailidis",
 		pic1 : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
 		name2 : "Pranav Aurora",
-		pic2 : "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic5.jpg",
+		pic2 : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
 		name3 : "Rafael Marques",
-		pic3 : "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic3.jpg",
+		pic3 : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
 		name4 : "Henrique Lorente",
-		pic4 : "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic4.jpg",
+		pic4 : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
+		userUrl: "/id?123"
 	})
 	
 
@@ -26,44 +27,49 @@ function FriendSugg(props) {
   			</div>
   			<div className="row pt-2 pl-3">
     			<div className="col">
-      				<img className="card-img img-fluid" src= {state.pic1} className="rounded-circle"  style={{maxWidth: 50}}></img>
+					<a href = {state.userUrl}>
+      				<img className="card-img img-fluid" src= {state.pic1} className="rounded-circle"  style={{maxWidth: 50}} ></img>
+					  </a>
    		 		</div>
     			<div className="col">
+					<a href = {state.userUrl}>
       				<img className="card-img img-fluid" src= {state.pic2} className="rounded-circle"  style={{maxWidth: 50}}></img>
-    			</div>
+    			</a></div>
     			<div className="col">
+					<a href = {state.userUrl}>
       				<img className="card-img img-fluid" src= {state.pic3} className="rounded-circle"  style={{maxWidth: 50}}></img>
-    			</div>
+    			</a></div>
 				<div className="col">
+					<a href = {state.userUrl}>
       				<img className="card-img img-fluid" src= {state.pic4} className="rounded-circle"  style={{maxWidth: 50}}></img>
-    			</div>
+    			</a></div>
   			</div>
-			<div className="row pl-4 pr-4">
+			<div className="row pl-4 pr-4" >
     			<div className="col">
-      				<p className="text-left">
+      				<p className="text-left" class="text-primary">
 					<Truncate lines={1} ellipsis={<span>..</span>} width = {50}>
                 		{state.name1}
             		</Truncate>
 					</p>
    		 		</div>
     			<div className="col">
-      				<p className="text-left">
+      				<p className="text-left" class="text-primary">
 					<Truncate lines={1} ellipsis={<span>..</span>} width = {50}>
                 		{state.name2}
             		</Truncate>
 					</p>
     			</div>
     			<div className="col">
-      				<p className="text-left">
+      				<p className="text-left" class="text-primary">
 					<Truncate lines={1} ellipsis={<span>..</span>} width = {50}>
                 		{state.name3}
             		</Truncate>
 					</p>
     			</div>
 				<div className="col">
-      				<p className="text-left">
-					<Truncate lines={1} ellipsis={<span>..</span>} width = {50}>
-                		{state.name4}
+      				<p className="text-left" class="text-primary">
+					<Truncate lines={1} ellipsis={<span>..</span>} width = {55} >
+						{state.name4}
             		</Truncate>
 					</p>
     			</div>
