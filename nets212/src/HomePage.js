@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import Navbar from './Navbar.js'
 import Newsfeed from './Newsfeed.js'
-import FriendSugg from './FriendSugg.js'
 import FriendsList from './FriendsList.js'
+import Notifications from './Notifications.js'
 import './column.css';
 
 function HomePage(props) {
@@ -14,7 +14,7 @@ function HomePage(props) {
                 <div class="row">
                     <div class="col">
                         <div class="mt-3">
-                            <FriendSugg/>
+                            <Notifications/>
                         </div>
                     </div>
                     <div class="col-6 col-scroll">
