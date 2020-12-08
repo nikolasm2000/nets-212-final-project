@@ -4,6 +4,7 @@ import Autosuggest from 'react-autosuggest'
 import _default from 'react-bootstrap/esm/CardColumns';
 import Username from './Username';
 import './autosuggest.css';
+import './friendstyle.css';
 
 const people = [ 
     {
@@ -47,7 +48,7 @@ const displaySuggestion = (suggestion) => suggestion.name;
 
 const renderSuggest = suggestion => (
     <div>
-        <Username firstName = {suggestion.name} userURL = {suggestion.userUrl}/>
+        <Username firstName = {suggestion.name} userURL = {suggestion.userUrl} showImage="true"/>
     </div>
 );
 
