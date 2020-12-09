@@ -25,7 +25,7 @@ import React from 'react'
                         </div>        
         } else {
             card = <div className="card border-0">
-                <div className="card ml-auto" style={{borderRadius:"25px", paddingLeft:"15px", maxWidth:"400px"}}>
+                <div className="card ml-auto" style={{backgroundColor:"#EEEEEE",borderRadius:"25px", paddingLeft:"15px", maxWidth:"400px"}}>
                     <div class="card-body p-2">
                     This is a received messsage. Notice how this stacks. blabj blak blak
                     </div>
