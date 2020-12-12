@@ -1,11 +1,8 @@
-import React from 'react'
+import React from 'react';
+import Autosuggest from 'react-autosuggest';
 import { Navbar,Nav,Form, Button, NavDropdown } from 'react-bootstrap'
-import Autosuggest from 'react-autosuggest'
-import _default from 'react-bootstrap/esm/CardColumns';
 import Username from './Username';
-import Seacher from './Searcher';
 import './autosuggest.css';
-import './friendstyle.css';
 
 const people = [ 
     {
@@ -34,7 +31,6 @@ const people = [
         userUrl: "user/126"
     }]
 
-
 const getSuggestions = (value) => {
     const trimmedInput = value.trim().toLowerCase();
     const length = trimmedInput.length;
@@ -53,11 +49,11 @@ const renderSuggest = suggestion => (
     </div>
 );
 
-class NavigationBar extends React.Component {
-    constructor(props) {
+class Searcher extends React.Component{
+    constructor (props) {
         super(props);
-        this.state = {name: "", url: "/user/" + this.props.id, value: '', suggestion: [], selectedURL: "", Redirect: null};
-    } 
+        this.state = {suggestion: [], value: "", chat: this.props.chat}
+    };
 
     onChange = (event, { newValue }) => {
         this.setState({
@@ -73,39 +69,46 @@ class NavigationBar extends React.Component {
 
     onSuggestionsClear = () => {
         this.setState({
-            suggestion : []
+            suggestion : [],
+            value : ""
         });
     };
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, index, method }) => {
+        if (this.props.chat === "true") {
+            //need different functionality for adding users to the chat"
+        }
         this.setState({ selectedURL: suggestion.userUrl})  
         console.log(this.state.selectedURL);     
-    }
-    
+    };
     render () {
-        const { value, suggestion } = this.state;
-
+        const { value, suggestion, chat } = this.state; 
+        var displayText = "";
+        if (chat === "true") {
+            displayText = 'Add users to the chat';
+        } else {
+            displayText = 'Search for Users';
+        }
         const inputProps = {
-            placeholder: 'Search for users',
-            value, 
+            placeholder: displayText,
+            value: this.state.value, 
             onChange: this.onChange
         };
-
         return (
-            <Navbar bg="dark" expand="lg" variant="dark" sticky="top">
-                <Navbar.Brand href="/home">PennBooks</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                    <Nav.Link href="/messages">Messages</Nav.Link>
-                    <Nav.Link href={this.state.url}> {this.props.name}</Nav.Link>
-
-                 </Nav>
-                </Navbar.Collapse>
-                <Seacher/>
-
-            </Navbar>
+        <Form inline>
+            <Autosuggest
+                suggestions={this.state.suggestion}
+                onSuggestionsFetchRequested={this.onSuggestionFetch}
+                onSuggestionsClearRequested={this.onSuggestionsClear}
+                getSuggestionValue={displaySuggestion}
+                renderSuggestion={renderSuggest}
+                inputProps={inputProps}
+                onSuggestionSelected={this.onSuggestionSelected}
+            />
+        </Form>
         )
-    } 
+    }
+    
 }
-export default NavigationBar;
+
+export default Searcher;

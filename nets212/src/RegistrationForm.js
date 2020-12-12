@@ -10,6 +10,7 @@ function RegistrationForm(props) {
         first : "",
         last : "",
         affiliation: "",
+        interests: "",
         birthday: ""
     })
     const handleChange = (e) => {
@@ -35,7 +36,7 @@ function RegistrationForm(props) {
     return(
     <div className="card col-12 col-lg-5 login-card mt-4 hv-center p-4">
         <h1> Register for PennBooks Here:</h1>
-      Email:
+    Email:
       <input type="email" 
                        className="form-control" 
                        id="email" 
@@ -43,7 +44,7 @@ function RegistrationForm(props) {
                        value={state.email}
                        onChange={handleChange}
                 />
-      Password:
+    Password:
       <input type="password" 
                         className="form-control" 
                         id="password" 
@@ -52,7 +53,7 @@ function RegistrationForm(props) {
                         onChange={handleChange} 
                     />
 
-      Confirm Password:
+    Confirm Password:
       <input type="password" 
                         className="form-control" 
                         id="confirmpassword" 
@@ -60,7 +61,7 @@ function RegistrationForm(props) {
                         value={state.confirmpassword}
                         onChange={handleChange} 
                     />
-      First Name: 
+    First Name: 
       <input type="first" 
                         className="form-control" 
                         id="first" 
@@ -68,7 +69,7 @@ function RegistrationForm(props) {
                         value={state.first}
                         onChange={handleChange} 
                     />
-      Last Name: 
+    Last Name: 
       <input type="last" 
                         className="form-control" 
                         id="last" 
@@ -76,12 +77,21 @@ function RegistrationForm(props) {
                         value={state.last}
                         onChange={handleChange} 
                     />
-       Affiliation:
+    Affiliation:
       <input type="affiliation" 
                         className="form-control" 
                         id="affiliation" 
                         placeholder="Affiliation to PennBooks"
                         value={state.affiliation}
+                        onChange={handleChange} 
+                    />
+
+    Interests:
+      <input type="interests" 
+                        className="form-control" 
+                        id="interests" 
+                        placeholder="What are you interested in?"
+                        value={state.interests}
                         onChange={handleChange} 
                     />
 
