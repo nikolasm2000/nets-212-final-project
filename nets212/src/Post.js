@@ -13,8 +13,21 @@ function Post(props) {
     return (
         <div class="card mt-4 mb-2 container-fluid p-0 m-0">
             <div class="card-header d-flex flex-row pb-2 align-items-center justify-content-between">
-                <div class="card-title m-0 p-0"> <Username firstName={props.post.user.firstName} lastName={props.post.user.lastName} userURL={props.post.user.userURL} showImage="true"/></div>
-                <p class="card-text m-0 p-0 ml-3"><small class="text-muted">Posted 3 mins ago</small></p>
+                <div class="card-title m-0 p-0 pb-1 row align-items-end"> 
+                    <div class="col-auto m-0 p-0">
+                    <Username firstName={props.post.user.firstName} lastName={props.post.user.lastName} userURL={props.post.user.userURL} showImage="true"/>
+                    </div>
+                    {props.post.user2 ? <div class="col-auto m-0 pr-3 pl-3"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z"/>
+                        </svg>
+                    </div> : null}
+
+                    {props.post.user2 ? <div class="col-auto m-0 p-0"> 
+                    <Username firstName={props.post.user2.firstName} lastName={props.post.user2.lastName} userURL={props.post.user2.userURL} showImage="true"/> 
+                    </div>: null}
+                </div>
+                <p class="card-text m-0 p-0"><small class="text-muted">Posted 3 mins ago</small></p>
             </div>
             <div class="card-body">
                 <p class="card-text">{props.post.text}</p>
