@@ -22,12 +22,12 @@ class Friend extends React.Component {
     
         return (
         <div class="container p-2 friend m-0">
-            <div class="row align-items-center justify-content-around">
-                <div class="col-auto pr-0 mr-3 ml-0">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto pr-0 mr-3 ml-3">
                     <Username firstName="Pranav" lastName="Aurora" userURL="/id?123" showImage="true"/>
                 </div>
 
-                <div class="col-auto p-0 m-0 mr-2">
+                <div class="col-auto p-0 m-0 mr-4">
                     <div class="row p-0 m-0 align-items-center justify-content-center">
                         <div class="col-auto p-0 m-0">                       
                             <button type="button" class="btn btn-sm btn-outline-primary p-0 pr-1 pl-1 mr-2" onClick={this.handleMessage}>
