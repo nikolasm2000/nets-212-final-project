@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Notification from './Notification.js'
 import FriendRequest from './FriendRequest'
-
+import ChatRequest from './ChatRequest'
 function Notifications(props) {
     return (
         <div class="card container-fluid p-0 m-0">
@@ -21,6 +21,8 @@ function Notifications(props) {
                 </div>
                 <div class="card-body p-0">
                     <Notification/>
+                    <hr class="m-0 p-0"/>
+                    <ChatRequest/>
                     <hr class="m-0 p-0"/>
                     <Notification/>
                     <hr class="m-0 p-0"/>
