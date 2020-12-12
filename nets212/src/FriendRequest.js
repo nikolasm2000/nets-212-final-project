@@ -20,9 +20,9 @@ class FriendRequest extends React.Component {
     render() {
     
         return (
-        <div class="container m-2 friend pl-1">
+        <div class="container p-2 friend pl-1">
             <div class="row align-items-center justify-content-between m-0 p-0">
-                <div class="col-auto pr-0 mr-0 m-0 p-0">
+                <div class="col-auto pr-0 mr-0 m-0 p-0 ml-2">
                     <div class="row align-items-center p-0 m-0">
                         <Username firstName="Pranav" lastName="Aurora" userURL="/id?123" showImage="true"/>
                     </div>
