@@ -95,7 +95,7 @@ function RegistrationForm(props) {
             });
             request.done((result) => {
                 history.push("/home");
-            })
+            }) 
         }
     }
     

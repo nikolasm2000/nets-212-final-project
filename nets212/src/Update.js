@@ -18,18 +18,92 @@ function Update(props) {
             [id] : value
         }))
     }
-    const handleChange2 = (date) => {
-        console.log(date);
-        setState(prevState => ({
-            ...prevState,
-            birthday: date
-        }))
+
+
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const handleSubmitEmail = (e) => {
+        e.preventDefault();
+        if (state.email === "") {
+            setState(prevState => ({
+                ...prevState,
+                errorEmail: "Email cannot be empty!",
+                successEmail : ""
+            }))
+        } else if (!re.test(state.email.toLowerCase())) {
+            setState(prevState => ({
+                ...prevState,
+                errorEmail : "Email of wrong format!",
+                successEmail : ""
+            })) 
+        } else {
+            setState(prevState => ({
+                ...prevState,
+                errorEmail : "",
+                successEmail : "successfuly changed email"
+            })) 
+            ///NEED post request to the backend to change email
+        }
     }
 
-    const handleSubmit = (e) => {
-        const {id} = e.target
-        //need to update this function.
+    const handleSubmitPassword = (e) => {
+        e.preventDefault();
+        if (state.password === "" || state.confirmpassword === "") {
+            setState(prevState => ({
+                ...prevState,
+                errorPassword: "password fields cannot be empty!",
+                successPassword : ""
+            }))
+        } else if (state.password !==  state.confirmpassword) {
+            setState(prevState => ({
+                ...prevState,
+                errorPassword : "passwords DO NOT MATCH",
+                successPassword : ""
+            })) 
+        } else {
+            setState(prevState => ({
+                ...prevState,
+                errorPassword : "",
+                successPassword : "successfuly changed password "
+            })) 
+            ///NEED post request to the backend to change password
+        }
     }
+
+    const handleSubmitAffiliation = (e) => {
+        if (state.affiliation === "") {
+            setState(prevState => ({
+                ...prevState,
+                errorAffiliation: "field cannot be empty!",
+                successAffiliation : ""
+            }))
+        } else {
+            setState(prevState => ({
+                ...prevState,
+                errorAffiliation: "",
+                successAffiliation : "Successfuly Changed Affiliation"
+            }))
+        }
+        // need to trigger a post. 
+    }
+
+    const handleSubmitInterest = (e) => {
+        if (state.news === "") {
+            setState(prevState => ({
+                ...prevState,
+                errorInterest: "field cannot be empty!",
+                successInterest : ""
+            }))
+        } else {
+            setState(prevState => ({
+                ...prevState,
+                errorInterest: "",
+                successInterest : "Successfuly Changed Interest"
+            }))
+        }
+        // need to trigger a post. 
+    }
+
+
     return(
             <div className="card col-12 col-lg-5 login-card mt-4 hv-center p-3 mb-4">
                 <h1> Update your account</h1>
@@ -46,13 +120,18 @@ function Update(props) {
                 <button 
                     type="submit" 
                     className="btn btn-primary mt-3"
-                    onClick={handleSubmit}
+                    onClick={handleSubmitEmail}
                     id="email"
                     >
                 Change Email
                 </button>   
+                <p class = "text-danger">
+                    {state.errorEmail}
+                 </p>
+                 <p class = "text-success">
+                    {state.successEmail}
+                 </p>
                 <br></br>
-
                 <h5>Change Password?</h5>
                 <input type="password" 
                         className="form-control mt-2" 
@@ -61,7 +140,6 @@ function Update(props) {
                         value={state.password}
                         onChange={handleChange} 
                     />
-
                 <input type="password" 
                         className="form-control mt-2" 
                         id="confirmpassword" 
@@ -73,11 +151,17 @@ function Update(props) {
                 <button 
                     type="submit" 
                     className="btn btn-primary mt-3"
-                    onClick={handleSubmit}
+                    onClick={handleSubmitPassword}
                     id="password"
                     >
                 Change Password
                 </button>  
+                <p class = "text-danger">
+                    {state.errorPassword}
+                 </p>
+                 <p class = "text-success">
+                    {state.successPassword}
+                 </p>
                 <br></br>
 
                 <h5>Change Affiliation?</h5>
@@ -91,30 +175,22 @@ function Update(props) {
                 <button 
                     type="submit" 
                     className="btn btn-primary mt-3"
-                    onClick={handleSubmit}
+                    onClick={handleSubmitAffiliation}
                     id="Affiliation"
                     >
                     Change Affiliation
                 </button>  
                 <br></br>
-                <h5>Birthday Change?</h5>
-                <DatePicker 
-                    onChange={handleChange2} 
-                    selected={state.birthday}
-                    value={state.birthday}
-                />
 
-                <button 
-                    type="submit" 
-                    className="btn btn-primary mt-3"
-                    onClick={handleSubmit}
-                    id="birthday"
-                    >
-                    Change Birthday
-                </button>
+                <p class = "text-danger">
+                    {state.errorAffiliation}
+                 </p>
+                 <p class = "text-success">
+                    {state.successAffiliation}
+                 </p>
 
                 <br></br>
-                <h5>Change interest in news?</h5>
+                <h5>Add an interest in news</h5>
                 <input type="email" 
                         className="form-control mt-2" 
                         id="news" 
@@ -126,11 +202,17 @@ function Update(props) {
                 <button 
                     type="submit" 
                     className="btn btn-primary mt-3"
-                    onClick={handleSubmit}
+                    onClick={handleSubmitInterest}
                     id="news"
                     >
-                    Change News
+                    Add a news Interest!
                 </button>  
+                <p class = "text-danger">
+                    {state.errorInterest}
+                 </p>
+                 <p class = "text-success">
+                    {state.successInterest}
+                 </p>
 
             </div>
 
