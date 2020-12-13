@@ -18,6 +18,7 @@ var get = function(req,res){
 }
 
 var create = function(req,res){
+    console.log("user create called");
     db.user.create(req.body,dataCallback(res));
 }
 

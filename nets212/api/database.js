@@ -117,7 +117,7 @@ var ChatMembers = dynamo.define('ChatMembers',{
         PBuser: Joi.number(),
         date_joined: Joi.number(),
         admin: Joi.boolean(),
-    }
+    },
 
     indexes: [{
         hashKey : 'PBuser', name : 'UserIndex', type : 'global'

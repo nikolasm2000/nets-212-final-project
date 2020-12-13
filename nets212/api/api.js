@@ -17,6 +17,12 @@ var posts = require('./posts.js');
 
 
 //router.use(() => {}); // General middleware
+router.use(function (req, res, next) {
+   console.log('Request received.')
+   console.log('Time:', Date.now())
+   console.log('Route: ', req.url)
+   next()
+ })
 router.post('/user/:id/get', user.get);
 router.post('/user/create', user.create);
 router.post('/user/:id/update', user.update);
