@@ -39,4 +39,4 @@ app.use('/api', router);
 /* Run the server */
 
 app.listen(8080);
-console.log('API Server running on port 80. Now open http://localhost:80/ in your browser!');
+console.log('API Server running on port 8080. Now open http://localhost:8080/ in your browser!');

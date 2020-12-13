@@ -41,20 +41,20 @@ var Interests = dynamo.define('Interests', {
 });
 
 var UserInterests = dynamo.define('UserInterests',{
-    hashKey: 'user',
+    hashKey: 'PBuser',
     rangeKey: 'interest',
     schema:{
-        user: Joi.number(),
+        PBuser: Joi.number(),
         interest: Joi.number(),
     }
 })
 
 var Friends = dynamo.define('Friends', {
-    hashKey:'user',
+    hashKey:'PBuser',
     rangeKey: 'friend',
     timestamps: false,
     schema: {
-        user: Joi.number(),
+        PBuser: Joi.number(),
         friend: Joi.number(),
         request: Joi.boolean(), //Do I need this? to be seen
         accepted: Joi.boolean()
@@ -110,14 +110,18 @@ var Chats = dynamo.define('Chats',{
 
 var ChatMembers = dynamo.define('ChatMembers',{
     hashKey: 'chat',
-    rangeKey: 'user',
+    rangeKey: 'PBuser',
     timestamps: false,
     schema:{
         chat: Joi.number(),
-        user: Joi.number(),
+        PBuser: Joi.number(),
         date_joined: Joi.number(),
         admin: Joi.boolean(),
     }
+
+    indexes: [{
+        hashKey : 'PBuser', name : 'UserIndex', type : 'global'
+    }]
 });
 
 var Messages = dynamo.define('Messages',{
@@ -130,6 +134,19 @@ var Messages = dynamo.define('Messages',{
         user: Joi.number(),
         text: Joi.string(),
     }
+});
+
+var Search = dynamo.define('Inverted',{
+    hashKey:'keyword',
+    rangeKey:'id',
+    timestamps: false,
+    schema:{
+        id: dynamo.types.uuid(),
+        article: Joi.boolean(),
+        PBuser: Joi.boolean(),
+        obj_id: Joi.number(),
+    }
+    
 });
 
 //var News = dynamo.define()
