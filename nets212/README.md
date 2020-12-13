@@ -68,3 +68,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Backend
+
+## Running the backend
+
+Ensure you have all the dependencies installed with `npm install`. Then `cd api` and `node api.js`.
+
+## Routes
+
+All the routes can be found inside the api.js file. Please note that all of them are preceded by a /api. Send requests to port 8080.
