@@ -3,7 +3,9 @@ import { Navbar,Nav,Form, Button, NavDropdown } from 'react-bootstrap'
 import Autosuggest from 'react-autosuggest'
 import _default from 'react-bootstrap/esm/CardColumns';
 import Username from './Username';
+import Searcher from './Searcher';
 import './autosuggest.css';
+import './friendstyle.css';
 
 const people = [ 
     {
@@ -47,7 +49,7 @@ const displaySuggestion = (suggestion) => suggestion.name;
 
 const renderSuggest = suggestion => (
     <div>
-        <Username firstName = {suggestion.name} userURL = {suggestion.userUrl}/>
+        <Username firstName = {suggestion.name} userURL = {suggestion.userUrl} showImage="true"/>
     </div>
 );
 
@@ -76,7 +78,6 @@ class NavigationBar extends React.Component {
     };
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, index, method }) => {
-        console.log("get in here")
         this.setState({ selectedURL: suggestion.userUrl})  
         console.log(this.state.selectedURL);     
     }
@@ -97,28 +98,12 @@ class NavigationBar extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/messages">Messages</Nav.Link>
-                    <NavDropdown title="Notifications" id="basic-nav-dropdown">
-                        <NavDropdown.Item> Notification 1</NavDropdown.Item>
-                        <NavDropdown.Item> Notification 2</NavDropdown.Item>
-                        <NavDropdown.Item>Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="/Notifications">See all Notifications</NavDropdown.Item>
-                    </NavDropdown>
                     <Nav.Link href={this.state.url}> {this.props.name}</Nav.Link>
 
                  </Nav>
-                <Form inline>
-                    <Autosuggest
-                        suggestions={suggestion}
-                        onSuggestionsFetchRequested={this.onSuggestionFetch}
-                        onSuggestionsClearRequested={this.onSuggestionsClear}
-                        getSuggestionValue={displaySuggestion}
-                        renderSuggestion={renderSuggest}
-                        inputProps={inputProps}
-                        onSuggestionSelected={this.onSuggestionSelected}
-                     />
-                </Form>
                 </Navbar.Collapse>
+                <Searcher/>
+
             </Navbar>
         )
     } 

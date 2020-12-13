@@ -8,7 +8,7 @@ var config = require("./Config.js")
 
 function RegistrationForm(props) {
     const history = useHistory();
-    
+
     const [state , setState] = useState({
         email : "",
         password : "",

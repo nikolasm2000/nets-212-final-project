@@ -7,21 +7,30 @@ import CommentInput from './CommentInput.js'
 
 function Comments(props) {
   const [open, setOpen] = useState(false);
+  const [text , setText] = useState("Show comments...");
 
   const posts = props.comments.map((comment) =>
         <Comment comment={comment}/>
     );
 
+    function clicked() {
+      setOpen(!open);
+      if(open) {
+        setText("Show comments...");
+      } else {
+        setText("Hide comments...");
+      }
+    }
   return (
     <div>
     <div className="text-center">
       <Button
-        onClick={() => setOpen(!open)}
+        onClick={clicked}
         aria-controls="example-collapse-text"
         aria-expanded={open}
         class="btn btn-secondary"
       >
-        Show comments...
+        {text}
       </Button>
       <Collapse in={open}>
         <div id="example-collapse-text">
