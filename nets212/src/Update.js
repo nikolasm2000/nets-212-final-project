@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import DatePicker from 'react-date-picker' 
-
+import React, {useState} from 'react';
+import DatePicker from 'react-date-picker';
+import {Redirect} from 'react-router-dom';
 
 function Update(props) {
     const [state , setState] = useState({
@@ -30,6 +30,12 @@ function Update(props) {
         const {id} = e.target
         //need to update this function.
     }
+
+    //Check if user is logged in
+    if(false) {
+        return <Redirect to='/'/>
+    }
+
     return(
             <div className="card col-12 col-lg-5 login-card mt-4 hv-center p-3 mb-4">
                 <h1> Update your account</h1>

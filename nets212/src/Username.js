@@ -1,9 +1,34 @@
 import React, {useState} from 'react'
+var config = require("./Config.js")
 
 class Username extends React.Component {
     constructor(props) {
       super(props);
       this.state = {status: "Online"};
+    }
+
+    componentDidMount() {
+        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.refreshID);
+    }
+
+    refresh() {
+        //Check if user is online
+
+        var isOnline = true;
+        if(isOnline) {
+            this.setState({
+                status: "Online"
+            });
+        } else {
+            this.setState({
+                status: "Offline"
+            });
+        }
+
     }
 
     render() {

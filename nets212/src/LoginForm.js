@@ -1,6 +1,11 @@
 import React, {useState} from 'react'
+import $ from 'jquery'; 
+import { useHistory } from "react-router-dom";
+var config = require('./Config');
 
 function LoginForm(props) {
+    var history = useHistory();
+
     const [state , setState] = useState({
         email : "",
         password : "",
@@ -32,6 +37,20 @@ function LoginForm(props) {
                 error : "Email of wrong format!"
             }))
         } else {
+            //Make call here
+            var request = $.post(config.serverUrl + "/user/create",{
+                email: state.email,
+                password: state.password
+    
+            });
+    
+            request.done((result) => {
+                history.push("/home");
+            })
+
+            request.fail((error) => {
+                //Login failed for some reason
+            });
             setState(prevState => ({
                 ...prevState,
                 error: ""
