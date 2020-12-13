@@ -17,7 +17,7 @@ var posts = require('./posts.js');
 
 
 //router.use(() => {}); // General middleware
-router.post('/user/:id', user.get);
+router.post('/user/:id/get', user.get);
 router.post('/user/create', user.create);
 router.post('/user/:id/update', user.update);
 router.post('/login', user.login);
@@ -28,7 +28,7 @@ router.post('/friends/:id/request',friends.request);
 router.post('/friends/:id/accept',friends.accept);
 router.post('/friends/requests', friends.getAll);//requests);
 router.post('/friends/suggestions', friends.getAll);//suggestions);
-//router.post('/posts/:id', posts.get);
+router.post('/posts/:id/get', posts.get);
 router.post('/posts/create', posts.create);
 router.post('/posts/homepage', posts.getAll);//homepage);
 router.post('/posts/wall/:id', posts.getAll);//wall);

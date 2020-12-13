@@ -23,8 +23,13 @@ var get = function(req,res){
 }
 
 var create = function(req,res){
-    console.log("create post called")
-    db.posts.create(req.body,dataCallback(res));
+    console.log("create post called");
+    console.log("req obj:")
+    console.log(req);
+    console.log("req.body:")
+    console.log(req.body);
+    console.log(req.query);
+    db.posts.create(req.query,dataCallback(res));
 }
 
 var update = function(req,res){
@@ -37,11 +42,11 @@ var getAll = function(req, res){
     db.posts
     .scan()
     .loadAll()
-    .exec(function(err, data){
-        console.log("data:");
-        console.log(data);
-    })
-    //.exec(dataCallback(res));
+    // .exec(function(err, data){
+    //     console.log("data:");
+    //     console.log(data);
+    // })
+    .exec(dataCallback(res));
 }
 
 var posts = {
