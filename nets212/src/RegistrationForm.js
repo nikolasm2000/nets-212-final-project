@@ -1,9 +1,14 @@
 import React, {useState} from 'react'
 import DatePicker from 'react-date-picker' 
 import $ from 'jquery'; 
+import moment from 'moment';
+import { useHistory } from "react-router-dom";
+
 var config = require("./Config.js")
 
 function RegistrationForm(props) {
+    const history = useHistory();
+    
     const [state , setState] = useState({
         email : "",
         password : "",
@@ -31,16 +36,19 @@ function RegistrationForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        $.post(config.serverUrl + "/user/create",{
+        state.birthday = moment(state.birthday).unix();
+        var request = $.post(config.serverUrl + "/user/create",{
             email: state.email,
             password: state.password,
             first_name: state.first,
             last_name: state.last_name,
-            //birthday: state.birthday
+            birthday: state.birthday
 
-        }, (result) => {
-            console.log(result)
         });
+
+        request.done((result) => {
+            history.push("/home");
+        })
     }
     
     return(
@@ -110,7 +118,7 @@ function RegistrationForm(props) {
                     onChange={handleChange2} 
                     selected={state.birthday}
                     value={state.birthday}
-                    dateFormat="mm/dd/yyyy"
+                    dateFormat="MM/dd/yyyy"
                 />
 
         <button 
