@@ -12,9 +12,9 @@ const Joi = require('joi');
 
 var Users = dynamo.define('Users', {
     hashKey : 'id',
-    
+
     timestamps : true,
-    
+
     schema: {
         id: dynamo.types.uuid(),
         email: Joi.string().email(),
@@ -117,7 +117,7 @@ var ChatMembers = dynamo.define('ChatMembers',{
         PBuser: Joi.number(),
         date_joined: Joi.number(),
         admin: Joi.boolean(),
-    }
+    },
 
     indexes: [{
         hashKey : 'PBuser', name : 'UserIndex', type : 'global'
@@ -146,7 +146,7 @@ var Search = dynamo.define('Inverted',{
         PBuser: Joi.boolean(),
         obj_id: Joi.number(),
     }
-    
+
 });
 
 //var News = dynamo.define()
@@ -164,7 +164,7 @@ var createTables = function(){
 
 
 //create database object with database classes
-var database = { 
+var database = {
 	user: Users,
 	friends: Friends,
 	posts: Posts,
@@ -177,4 +177,4 @@ var database = {
 };
 
  module.exports = database;
-                                        
+
