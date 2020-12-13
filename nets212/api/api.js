@@ -1,8 +1,10 @@
 var express = require('express');
 var session = require('express-session');
+var cors = require("cors");
 
 var app = express();
 var router = express.Router()
+app.use(cors());
 app.use(express.urlencoded());
 app.use(session({ secret: 'pennbook_user', cookie: { maxAge: 864000000 }}))
 

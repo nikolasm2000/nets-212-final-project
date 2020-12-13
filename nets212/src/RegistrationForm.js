@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import DatePicker from 'react-date-picker' 
-
+import $ from 'jquery'; 
+var config = require("./Config.js")
 
 function RegistrationForm(props) {
     const [state , setState] = useState({
@@ -30,7 +31,16 @@ function RegistrationForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // to implement function to send data to backend. 
+        $.post(config.serverUrl + "/user/create",{
+            email: state.email,
+            password: state.password,
+            first_name: state.first,
+            last_name: state.last_name,
+            //birthday: state.birthday
+
+        }, (result) => {
+            console.log(result)
+        });
     }
     
     return(
@@ -100,6 +110,7 @@ function RegistrationForm(props) {
                     onChange={handleChange2} 
                     selected={state.birthday}
                     value={state.birthday}
+                    dateFormat="mm/dd/yyyy"
                 />
 
         <button 
