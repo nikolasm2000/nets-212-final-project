@@ -3,7 +3,7 @@ db = require('./database.js');
 var dataCallback = function(res){
     callback = function(err, data){
         if(err){
-			//error from DB - return with error 
+			//error from DB - return with error
 			res.json({'err': err});
 		} else {
 			//return with data
@@ -34,7 +34,7 @@ var logout = function(req,res){
     res.json({'success' : true});
 }
 
-var user = { 
+var user = {
 	get: get,
 	create: create,
 	update: update,

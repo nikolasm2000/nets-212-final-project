@@ -3,7 +3,7 @@ import { Navbar,Nav,Form, Button, NavDropdown } from 'react-bootstrap'
 import Autosuggest from 'react-autosuggest'
 import _default from 'react-bootstrap/esm/CardColumns';
 import Username from './Username';
-import Seacher from './Searcher';
+import Searcher from './Searcher';
 import './autosuggest.css';
 import './friendstyle.css';
 
@@ -102,7 +102,7 @@ class NavigationBar extends React.Component {
 
                  </Nav>
                 </Navbar.Collapse>
-                <Seacher/>
+                <Searcher/>
 
             </Navbar>
         )
