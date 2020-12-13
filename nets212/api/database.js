@@ -109,6 +109,17 @@ var NewsLikes = dynamo.define('NewsLikes',{
     }
 });
 
+var FinalWeights = dynamo.define('NewsLikes',{
+    hashKey: 'PBuser',
+    rangeKey: 'article',
+
+    schema: {
+        PBuser: Joi.number(),
+        article: Joi.number(),
+        weight: Joi.number(),
+    }
+});
+
 var Chats = dynamo.define('Chats',{
     hashKey: 'id',
     timestamps: true,
