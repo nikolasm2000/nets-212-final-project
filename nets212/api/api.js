@@ -1,12 +1,14 @@
 var express = require('express');
 var session = require('express-session');
-var user = require('user.js')
+
 var app = express();
 var router = express.Router()
 app.use(express.urlencoded());
-//app.use(session({ secret: 'restaurant_search', cookie: { maxAge: 864000000 }}))
+app.use(session({ secret: 'pennbook_user', cookie: { maxAge: 864000000 }}))
 
-
+var user = require('./user.js');
+var friends = require('./friends.js');
+var posts = require('./posts.js');
 /* Below we install the routes. The first argument is the URL that we
    are routing, and the second argument is the handler function that
    should be invoked when someone opens that URL. Note the difference
@@ -22,16 +24,19 @@ router.post('/login', user.login);
 router.post('/logout', user.logout);
 router.post('/friends', friends.getAll);
 router.post('/friends/:id/isfriend',friends.isFriend);
+router.post('/friends/:id/request',friends.request);
+router.post('/friends/:id/accept',friends.accept);
 router.post('/friends/requests', friends.getAll);//requests);
 router.post('/friends/suggestions', friends.getAll);//suggestions);
+//router.post('/posts/:id', posts.get);
+router.post('/posts/create', posts.create);
 router.post('/posts/homepage', posts.getAll);//homepage);
 router.post('/posts/wall/:id', posts.getAll);//wall);
-router.post('/posts/:id', posts.get);
 
 
 app.use('/api', router);
 
 /* Run the server */
 
-app.listen(80);
+app.listen(8080);
 console.log('API Server running on port 80. Now open http://localhost:80/ in your browser!');
