@@ -4,6 +4,7 @@ import Newsfeed from './Newsfeed.js'
 import FriendsList from './FriendsList.js'
 import Notifications from './Notifications.js'
 import FriendSugg from './FriendSugg.js'
+import ChatList from './ChatList.js'
 import './column.css';
 
 function HomePage(props) {
@@ -27,6 +28,10 @@ function HomePage(props) {
                     <div class="col col-scroll">
                         <div class="mt-3">
                             <FriendsList/>
+                        </div>
+
+                        <div class="mt-3">
+                            <ChatList/>
                         </div>
                     </div>
                 </div>

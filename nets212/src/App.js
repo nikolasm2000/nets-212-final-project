@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
-import Newsfeed from './Newsfeed';
 import Update from './Update';
 import HomePage from './HomePage';
 import Messagetable from './Messagetable';
