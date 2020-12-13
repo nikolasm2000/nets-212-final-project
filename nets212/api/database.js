@@ -97,6 +97,29 @@ var Reactions = dynamo.define('Reactions',{
     }
 });
 
+var NewsLikes = dynamo.define('NewsLikes',{
+    hashKey: 'news',
+    rangeKey: 'id',
+    timestamps: true,
+
+    schema: {
+        id: dynamo.types.uuid(),
+        news: Joi.number(),
+        author: Joi.number(),
+    }
+});
+
+var FinalWeights = dynamo.define('NewsLikes',{
+    hashKey: 'PBuser',
+    rangeKey: 'article',
+
+    schema: {
+        PBuser: Joi.number(),
+        article: Joi.number(),
+        weight: Joi.number(),
+    }
+});
+
 var Chats = dynamo.define('Chats',{
     hashKey: 'id',
     timestamps: true,
