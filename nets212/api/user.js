@@ -83,9 +83,9 @@ var login = function(req,res){
                 //return with data
                 if(data.Count == 0){
                     res.status(400).json({"err":"User not found"});
-                } else if(sha256(req.body.password) == data.Items[0].password){
-                    req.session.user = data.Items[0].id;
-                    res.json(data.Items[0]);
+                } else if(sha256(req.body.password) == data.Items[0].attrs.password){
+                    req.session.user = data.Items[0].attrs.id;
+                    res.json(data.Items[0].attrs);
                 } else {
                     res.status(400).json({"err":"Password incorrect"});
                 }
