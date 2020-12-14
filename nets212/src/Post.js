@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import Username from './Username';
 import Likes from './Likes';
 import Comments from './Comments.js';
-
+import $ from 'jquery'
+var config = require('./Config.js')
 const comments = [{text:"Damn I look good in this!", user:{firstName:"Pranav", lastName:"Aurora", userURL:"id=?2131", profilePic: "https://scontent.ffxe1-1.fna.fbcdn.net/v/t1.0-9/55817175_1278692865621197_1432642661486952448_n.jpg?_nc_cat=109&ccb=2&_nc_sid=a4a2d7&_nc_ohc=5yGvxbSXra8AX-nMbDB&_nc_ht=scontent.ffxe1-1.fna&oh=1e14b237408342c652ac4f440691df0e&oe=5FE99984"} }, 
   {text:"Wow! I need this officer to arrest me...", user:{firstName:"Stacy", lastName:"K.", userURL:"id=?2231", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic5.jpg"} },
 {text:"Real cute fella this guy", user:{firstName:"Stan", lastName:"Smith", userURL:"id=?133", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic3.jpg"} },
@@ -16,30 +17,43 @@ class Post extends React.Component {
         this.state = {};
     }
 
+<<<<<<< HEAD
     componentDidMount() {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+=======
+
+    componentWillMount() {
+        //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+>>>>>>> ffa00851938d7dd296afe9641548342c84763fa3
         //Make call to backend to get POST details
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
             request.done((result) => {
-                this.setState = {
+                console.log(result)
+                this.setState({
                     //posted by
-                    userID: ___,
+                    userID: result.author,
                     //optional, posted on whose wall
-                    user2: ____,
+                    user2: result.wall,
                     //time posted
-                    timeStamp: ____,
+                    timeStamp: result.created_on,
                     //URL of image
-                    imageURL: _____,
+                    imageURL: result.pictures[0],
                     //text of the post
-                    text: _____,
+                    text: result.text,
                     //number of likes
-                    numLikes: _____,
+                    numLikes: result.likes,
                     //whether userliked
-                    liked: _____,
+                    liked: result.liked,
                     //list of comment IDs on the post
+<<<<<<< HEAD
                     commentIDs: ____,
                 }
+=======
+                    commentIDs: result.commentIDs,
+                });
+
+>>>>>>> ffa00851938d7dd296afe9641548342c84763fa3
             });
         }
     }
@@ -75,7 +89,7 @@ class Post extends React.Component {
                 </div>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col">
-                        <Comments className="ml-3" comments = {this.state.commentIDs} />
+                        
                     </div>
                 </div>
             </div>

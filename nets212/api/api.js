@@ -39,7 +39,7 @@ router.post('/friends/requests', friends.getAll);//requests);
 router.post('/friends/suggestions', friends.getAll);//suggestions);
 router.post('/posts/:id/get', posts.get);
 router.post('/posts/create', posts.create);
-router.post('/posts/homepage', posts.getAll);//homepage);
+router.post('/posts/homepage', posts.getAllIDs);//homepage);
 router.post('/posts/wall/:id', posts.getAll);//wall);
 
 

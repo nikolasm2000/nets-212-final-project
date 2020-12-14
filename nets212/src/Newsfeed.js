@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import Post from './Post.js'
 import PostInput from './PostInput.js'
-
+import $ from 'jquery'
+import { findAllInRenderedTree } from 'react-dom/test-utils'
+var config = require('./Config.js')
 
 //newsfeed should just be passed a userID. this should query the posts/homepage
 
@@ -9,45 +11,46 @@ import PostInput from './PostInput.js'
 class Newsfeed extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = { posts: []}
     }
 
-    componentDidMount() {
-        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+    componentWillMount() {
+        //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
         //Make call to backend to get POST details
 
-        //for wall. 
-        if (this____) {
-            var request = $.post(config.serverUrl + '/posts/wall/' + this.props.id );
+        //TWO SEPARATE CALLS
+        if (this.props.id) {
+            var request = $.post(config.serverUrl + '/posts/wall/' +  this.props.id);
             request.done((result) => {
                 this.setState = {
                     //will just get a set of Post IDs. 
-                    postIDs: _____
+                    //postIDs: _____
                 }
             });
-        }
-
-        //for homepage
-        if (this____) {
+        } else {
             var request = $.post(config.serverUrl + '/posts/homepage');
             request.done((result) => {
-                this.setState = {
-                    //will just get a set of Post IDs. 
-                    postIDs: _____
-                }
+                console.log(result.Items)
+                this.setState({
+                    posts: result.Items
+                });
             });
+
         }
-
-
     }
-    
+
 
     //need to iteate over the set postIDs and call each post then. 
 
     render () {
+        console.log(this.state.posts);
+        const posts = this.state.posts.map((post) => {
+            return <Post id={post.id}/>
+        });
+
         return (
             <div>
-                <PostInput user={props.user}/>
+                <PostInput/>
                 <hr class="mt-4 mb-0 p-0"/>
                 <div class="d-flex flex-column align-items-center">
                     {posts}

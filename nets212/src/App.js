@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import UserPage from './UserPage';
 import GraphVisualizer from './GraphVisualizer';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
 
@@ -30,21 +31,11 @@ return (
             <Route path="/register" exact={true}>
               <RegistrationForm />
             </Route>
-            <Route path="/user/" exact={true}>
-              <UserPage />
-            </Route>
-            <Route path = "/home" exact={true}>
-              <HomePage posts={posts}/>
-            </Route>
-            <Route path = "/update" exact={true}>
-              <Update/>
-            </Route>
-            <Route path = '/messages' exact={true}>
-              <Messagetable/>
-            </Route>
-            <Route path = '/graph' exact={true}>
-              <GraphVisualizer/>
-            </Route>
+            <PrivateRoute path="/user/:id" exact={true} component={UserPage}/>
+            <PrivateRoute path = "/home" exact={true} component={HomePage}/>
+            <PrivateRoute path = "/update" exact={true} component={Update}/>
+            <PrivateRoute path = '/messages' exact={true} component={Messagetable}/>
+            <PrivateRoute path = '/graph' exact={true} component={GraphVisualizer}/>
           </Switch>
        </div>
    </div>

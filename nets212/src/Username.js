@@ -12,9 +12,12 @@ class Username extends React.Component {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
         //Make call to backend to get username details
         if (this.props.id) {
-            var request = $.post(config.serverUrl + '/user/:' + this.props.id + '/get');
+            this.setState({ status: "Online", userURL: '/user/' + this.props.id})
+            var request = $.post(config.serverUrl + '/user/' + this.props.id + '/get');
             request.done((result) => {
-
+                //this.state.firstName = result.first_name;
+                //this.state.lastName = result.last_name;
+                this.state.userURL = '/user/' + this.props.id;
             });
         }
     }
@@ -44,7 +47,7 @@ class Username extends React.Component {
             <div class="container p-0 m-0 d-flex flex-row align-items-center">
                 {this.props.showImage === "true" ? <img className="rounded-circle p-0 m-0" src="https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png" style={{maxWidth:40}} /> : null}
                 <div class="d-flex flex-column align-items-start pl-2 justify-content-center">
-                    <a class="p-0 m-0" href={this.props.userURL}>{this.props.firstName} {this.props.lastName}</a>
+                    <a class="p-0 m-0" href={this.state.userURL}>{this.props.firstName} {this.state.lastName}</a>
                     <small class={(this.state.status === "Online") ? "text-success m-0 p-0" : "text-muted m-0 p-0"}>{this.state.status}</small>
                 </div>
             </div>

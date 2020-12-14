@@ -38,24 +38,28 @@ function LoginForm(props) {
             }))
         } else {
             //Make call here
-            var request = $.post(config.serverUrl + "/user/create",{
+            var request = $.post(config.serverUrl + "/login",{
                 email: state.email,
                 password: state.password
     
             });
     
+            //SUCCESS
             request.done((result) => {
+                setState(prevState => ({
+                    ...prevState,
+                    error: ""
+                }))
+                localStorage.setItem('user', result.id);
                 history.push("/home");
             })
 
             request.fail((error) => {
-                //Login failed for some reason
+                setState(prevState => ({
+                    ...prevState,
+                    error : "Invalid email/password"
+                }))
             });
-            setState(prevState => ({
-                ...prevState,
-                error: ""
-            }))
-            // SEND REQUEST 
         }
 
         
