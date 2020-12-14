@@ -1,21 +1,6 @@
 var db = require('./database.js');
 var sha256 = require('js-sha256');
 
-var dataCallback = function(res){
-    callback = function(err, data){
-        if(err){
-			//error from DB - return with error
-			res.status(400).json({'err': err});
-		} else {
-            //return with data
-            console.log("data returned:");
-            console.log(data);
-			res.json(data);
-		}
-    }
-    return callback;
-}
-
 var get = function(req,res){
     console.log("user get called");
     // db.user
@@ -35,7 +20,7 @@ var get = function(req,res){
     //     })
 
 
-    db.user.get(req.params.id, dataCallback(res));
+    db.user.get(req.params.id, db.dataCallback(res));
 }
 
 var create = function(req,res){
@@ -51,11 +36,11 @@ var create = function(req,res){
         console.log(req.body.password);
     }
 
-    db.user.create(req.body,dataCallback(res));
+    db.user.create(req.body,db.dataCallback(res));
 }
 
 var update = function(req,res){
-    db.user.update(req.body,dataCallback(res));
+    db.user.update(req.body,db.dataCallback(res));
 }
 
 var login = function(req,res){
@@ -71,9 +56,9 @@ var login = function(req,res){
                 res.status(400).json({'err': err});
             } else {
                 //return with data
-                if(sha256(req.body.password) == data.attrs.password){
-                    req.session.user = data.attrs.id;
-                    res.json(data);
+                if(sha256(req.body.password) == data.Items[0].password){
+                    req.session.user = data.Items[0].id;
+                    res.json(data.Items[0]);
                 } else {
                     res.status(400).json({"err":"Password incorrect"});
                 }

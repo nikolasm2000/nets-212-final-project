@@ -1,66 +1,39 @@
 db = require('./database.js');
 const { DateTime } = require("luxon");
 
-var dataCallback = function(res){
-    callback = function(err, data){
-        console.log("callback called");
-        console.log(err);
-        console.log(data);
-        if(err){
-			//error from DB - return with error 
-			res.json({'err': err});
-		} else {
-            //return with data
-            if(typeof data.attrs.createdAt != undefined){
-                console.log(data.attrs.createdAt);
-                var createDate = DateTime.fromISO(data.attrs.createdAt);
-                data.attrs.createdAt = createDate.toSeconds();
-                console.log(createDate.toSeconds())
-            }
-            if(typeof data.attrs.updatedAt != undefined){
-                console.log(data.attrs.updatedAt);
-                var updateDate = DateTime.fromISO(data.attrs.updatedAt);
-                data.attrs.updatedAt = updateDate.toSeconds();
-                console.log(updateDate.toSeconds())
-            }
 
-			res.json(data);
-		}
-    }
-    return callback;
-}
 
 var get = function(req,res){
     console.log("get called");
-    db.posts.get(req.params.id, dataCallback(res));
+    db.posts.get(req.params.id, db.dataCallback(res));
 }
 
 var create = function(req,res){
     console.log("create post called");
     req.body.parent = "0";
-    db.posts.create(req.body,dataCallback(res));
+    db.posts.create(req.body, db.dataCallback(res));
 }
 
 var createComment = function(req, res){
     console.log("create comment called");
-    db.posts.create(req.body,dataCallback(res));
+    db.posts.create(req.body, db.dataCallback(res));
 }
 
 var createReaction = function(req, res){
     console.log("create reaction called");
-    db.reactions.create(req.body,dataCallback(res));
+    db.reactions.create(req.body, db.dataCallback(res));
 }
 
 var getReactions = function(req,res){
     console.log("get reactions called");
     db.reactions
         .query(req.params.id)
-        .exec(dataCallback(res));
+        .exec(db.dataCallback(res));
 }
 
 var update = function(req,res){
     console.log("update post called")
-    db.posts.update(req.body,dataCallback(res));
+    db.posts.update(req.body, db.dataCallback(res));
 }
 
 var getAll = function(req, res){
@@ -72,7 +45,7 @@ var getAll = function(req, res){
     //     console.log("data:");
     //     console.log(data);
     // })
-    .exec(dataCallback(res));
+    .exec(db.dataCallback(res));
 }
 
 var getAllIDs = function(req, res){
@@ -99,10 +72,7 @@ var getAllIDs = function(req, res){
 			res.json(result);
 		}
     });
-
-
 }
-
 
 
 var posts = {
