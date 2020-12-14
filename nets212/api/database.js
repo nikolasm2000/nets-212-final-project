@@ -217,8 +217,11 @@ var dataCallback = function(res){
                     data.attrs.updatedAt = updateDate.toSeconds();
                     console.log(updateDate.toSeconds())
                 }
+
+                res.json(data);
             }
-			res.json(data);
+
+			res.status(404).json({"err":"User not found"});
 		}
     }
     return callback;
