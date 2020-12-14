@@ -18,6 +18,7 @@ var get = function(req,res){
     db.user.query(req.params.id)
         usingINdex('IDIndex')
         .exec(function(err, data){
+            console.log("user get result:")
             console.log(data);
             if(err){
                 //error from DB - return with error
