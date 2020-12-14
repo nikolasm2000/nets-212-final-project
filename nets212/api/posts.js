@@ -1,4 +1,5 @@
 db = require('./database.js');
+const { DateTime } = require("luxon");
 
 var dataCallback = function(res){
     callback = function(err, data){
@@ -9,7 +10,15 @@ var dataCallback = function(res){
 			//error from DB - return with error 
 			res.json({'err': err});
 		} else {
-			//return with data
+            //return with data
+            if(typeof data.attrs.createdAt != undefined){
+                console.log(data.attrs.createdAt);
+                var createDate = DateTime.fromISO(data.attrs.createdAt);
+                console.log(createDate);
+                data.attrs.createdAt = createDate.valueOf();
+                console.log(createDate.valueOf())
+            }
+
 			res.json(data);
 		}
     }
