@@ -17,8 +17,9 @@ var dataCallback = function(res){
 }
 
 var get = function(req,res){
-    db.user.query(req.params.id)
-        usingINdex('IDIndex')
+    db.user
+        .query(req.params.id)
+        .usingIndex('IDIndex')
         .exec(function(err, data){
             console.log("user get result:")
             console.log(data);
