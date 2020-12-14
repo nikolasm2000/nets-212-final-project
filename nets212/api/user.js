@@ -21,6 +21,7 @@ var get = function(req,res){
     db.user
         .query(req.params.id)
         .usingIndex('IDIndex')
+        .limit(1)
         .exec(function(err, data){
             console.log("user get result:")
             console.log(data);

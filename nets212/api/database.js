@@ -72,7 +72,11 @@ var Posts = dynamo.define('PB_Post', {
         text: Joi.string(),
         privacy: Joi.number(),
         pictures: dynamo.types.stringSet(), //TODO think about this
-    }
+    },
+
+    indexes: [{
+        hashKey : 'parent', name : 'ParentIndex', type : 'global'
+    }]
 });
 
 var Pictures = dynamo.define('PB_Picture',{
