@@ -191,6 +191,35 @@ var createTables = function(){
       });
 }
 
+var dataCallback = function(res){
+    callback = function(err, data){
+        console.log("callback called");
+        console.log("err:", err);
+        console.log("data:", data);
+        if(err){
+			//error from DB - return with error 
+			res.json({'err': err});
+		} else {
+            //return with data
+            if(typeof data.attrs.createdAt != undefined){
+                console.log(data.attrs.createdAt);
+                var createDate = DateTime.fromISO(data.attrs.createdAt);
+                data.attrs.createdAt = createDate.toSeconds();
+                console.log(createDate.toSeconds())
+            }
+            if(typeof data.attrs.updatedAt != undefined){
+                console.log(data.attrs.updatedAt);
+                var updateDate = DateTime.fromISO(data.attrs.updatedAt);
+                data.attrs.updatedAt = updateDate.toSeconds();
+                console.log(updateDate.toSeconds())
+            }
+
+			res.json(data);
+		}
+    }
+    return callback;
+}
+
 
 //create database object with database classes
 var database = {
@@ -202,7 +231,8 @@ var database = {
 	chats: Chats,
     chatMembers: ChatMembers,
     messages: Messages,
-    create_table: createTables
+    create_table: createTables,
+    dataCallback: dataCallback
 };
 
  module.exports = database;
