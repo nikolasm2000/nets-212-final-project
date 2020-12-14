@@ -24,14 +24,13 @@ class Post extends React.Component {
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
             request.done((result) => {
-                console.log(result);
                 this.setState({
                     //posted by
                     userID: result.author,
                     //optional, posted on whose wall
                     user2: result.wall,
                     //time posted
-                    timeStamp: result.created_on,
+                    timeStamp: result.createdAt,
                     //URL of image
                     imageURL: result.pictures ? result.pictures[0] : '',
                     //text of the post
@@ -43,6 +42,7 @@ class Post extends React.Component {
                     //list of comment IDs on the post
                     commentIDs: result.commentIDs,
                 });
+                
             });
         }
     }

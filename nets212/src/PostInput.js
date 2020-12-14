@@ -35,8 +35,9 @@ function PostInput(props) {
 
         };
         let request = $.post(Config.serverUrl + '/posts/create', post);
-        request.done(() => {
-
+        request.done((result) => {
+            //Make post show on newsfeed
+            props.addPost(result.id);
         });
     };
 

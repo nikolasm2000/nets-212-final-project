@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Post from './Post.js'
 import PostInput from './PostInput.js'
 import $ from 'jquery'
-import { findAllInRenderedTree } from 'react-dom/test-utils'
+
 var config = require('./Config.js')
 
 //newsfeed should just be passed a userID. this should query the posts/homepage
@@ -12,6 +12,13 @@ class Newsfeed extends React.Component {
     constructor(props) {
         super(props)
         this.state = { posts: []}
+    }
+
+    addPost = (post) => {
+        console.log(post);
+        this.setState({
+            posts: [post].concat(this.state.posts)
+        });
     }
 
     componentWillMount() {
@@ -42,13 +49,14 @@ class Newsfeed extends React.Component {
     //need to iteate over the set postIDs and call each post then. 
 
     render () {
+        console.log(this.state.posts);
         const posts = this.state.posts.map((post) => {
-            return <Post id={post}/>
+            return <Post key={post} id={post}/>
         });
 
         return (
             <div>
-                <PostInput/>
+                <PostInput addPost={this.addPost}/>
                 <hr class="mt-4 mb-0 p-0"/>
                 <div class="d-flex flex-column align-items-center">
                     {posts}
