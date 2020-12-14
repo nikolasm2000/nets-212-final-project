@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
 import { Button } from 'react-bootstrap'
 import $ from 'jquery'
-import moment from 'moment';
+import moment from 'moment'
+import ImageInput from './ImageInput.js'
+import ReactS3 from 'react-s3'
+import S3FileUpload from 'react-s3';
 
 var config = require('./Config.js')
 
@@ -13,7 +16,6 @@ class UserComponent extends React.Component {
         	name : "",
 			affiliation : "",
 			birthday : "",
-			image: "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
     	}
 	}
 	
@@ -24,14 +26,27 @@ class UserComponent extends React.Component {
 			this.setState({
 				name: result.first_name + ' ' + result.last_name,
 				affiliation: result.affiliation,
-				birthday: moment.unix(result.birthday).format("DD-MM-YYYY")
+				birthday: moment.unix(result.birthday).format("DD-MM-YYYY"), 
 			});
+			if (result.profile_pic == undefined) {
+				this.setState({image: "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png"})
+			} else {
+				this.setState({
+					image: result.profile_pic
+				})
+			}
         });
-
         request.fail((result) => {
 
         })
 	}
+
+	fileChange = e => {
+        this.setState({uploading:true});
+        S3FileUpload.uploadFile(e.target.files[0], config).then((data)=> { this.setState({pictures: [data.location], uploading:false })}).catch((err)=> {alert(err)})
+	}
+	
+
 	
 	render(){
 		return (
@@ -41,6 +56,10 @@ class UserComponent extends React.Component {
 							<div class="col">
 								  <div className="text-center " style={{paddingTop: 30}}>
 									<img class="card-img-top img-fluid" src= {this.state.image} class="rounded-circle"  style={{maxWidth: 300}}></img>
+									<div className="custom-file m-0">
+                        				<h3>Change your profile pictures</h3>
+                        				<input type="file" accept="image/x-png,image/gif,image/jpeg" onChange= {this.fileChange} />
+                    				</div>
 								</div>
 								</div>
 						  </div>

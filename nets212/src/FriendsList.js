@@ -1,12 +1,16 @@
 import React, {useState} from 'react'
 import Friend from './Friend.js';
 var config = require('./Config.js')
+
 class FriendsList extends React.Component {
     constructor(props) {
       super(props);
     }
     componentDidMount() {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+        
+
+
     }
 
     componentWillUnmount() {
