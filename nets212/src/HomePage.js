@@ -5,10 +5,14 @@ import FriendsList from './FriendsList.js'
 import Notifications from './Notifications.js'
 import FriendSugg from './FriendSugg.js'
 import ChatList from './ChatList.js'
+import { Redirect } from 'react-router-dom'
 import './column.css';
 
 function HomePage(props) {
-
+    //Check if user is logged in
+    if(false) {
+        return <Redirect to='/'/>
+    }
     return (
         <div class="container-fluid p-0">
             <Navbar name="Pranav Aurora" id ="123"/>

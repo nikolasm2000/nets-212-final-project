@@ -1,12 +1,16 @@
 import React from 'react'
 import Message from './Message'
-
+import {Redirect} from 'react-router-dom'
 class Messages extends React.Component {
     constructor(props){
         super(props)
         this.state={}
     }
     render() {
+        //Check if user is logged in
+        if(false) {
+            return <Redirect to='/'/>
+        }
         const message = [
             {
                 id: 123, 

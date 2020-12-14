@@ -24,7 +24,7 @@ class Friend extends React.Component {
         <div class="container p-2 friend m-0">
             <div class="row align-items-center justify-content-between">
                 <div class="col-auto pr-0 mr-3 ml-3">
-                    <Username firstName="Pranav" lastName="Aurora" userURL="/id?123" showImage="true"/>
+                    <Username id="123" firstName="Pranav" lastName="Aurora" userURL="/id?123" showImage="true"/>
                 </div>
 
                 <div class="col-auto p-0 m-0 mr-4">

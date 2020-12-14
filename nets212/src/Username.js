@@ -1,9 +1,42 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+import $ from 'jquery';
+var config = require("./Config.js");
 
 class Username extends React.Component {
     constructor(props) {
       super(props);
       this.state = {status: "Online"};
+    }
+
+    componentDidMount() {
+        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+        //Make call to backend to get username details
+        if (this.props.id) {
+            var request = $.post(config.serverUrl + '/user/:' + this.props.id + '/get');
+            request.done((result) => {
+
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.refreshID);
+    }
+
+    refresh() {
+        //Check if user is online
+
+        var isOnline = true;
+        if(isOnline) {
+            this.setState({
+                status: "Online"
+            });
+        } else {
+            this.setState({
+                status: "Offline"
+            });
+        }
+
     }
 
     render() {

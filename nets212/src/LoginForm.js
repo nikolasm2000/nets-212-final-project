@@ -1,6 +1,11 @@
 import React, {useState} from 'react'
+import $ from 'jquery'; 
+import { useHistory } from "react-router-dom";
+var config = require('./Config');
 
 function LoginForm(props) {
+    var history = useHistory();
+
     const [state , setState] = useState({
         email : "",
         password : "",
@@ -14,10 +19,49 @@ function LoginForm(props) {
         }))
     }
 
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const handleSubmit = (e) => {
-        e.preventDefault();
-        // to implement function that checks if user is authenticated.
+        if (state.password === "") {
+            setState(prevState => ({
+                ...prevState,
+                error : "Password can't be empty!"
+            }))
+        }  else if (state.email === "") {
+            setState(prevState => ({
+                ...prevState,
+                error : "Email can't be empty!"
+            }))
+        } else if (!re.test(state.email.toLowerCase())) {
+            setState(prevState => ({
+                ...prevState,
+                error : "Email of wrong format!"
+            }))
+        } else {
+            //Make call here
+            var request = $.post(config.serverUrl + "/user/create",{
+                email: state.email,
+                password: state.password
+    
+            });
+    
+            request.done((result) => {
+                history.push("/home");
+            })
+
+            request.fail((error) => {
+                //Login failed for some reason
+            });
+            setState(prevState => ({
+                ...prevState,
+                error: ""
+            }))
+            // SEND REQUEST 
+        }
+
+        
     }
+
+
     return (
         <div className="card col-12 col-lg-3 login-card mt-2 hv-center p-4">
             <h1> Log into PennBooks Here:</h1>
@@ -45,9 +89,12 @@ function LoginForm(props) {
                     Log in. 
           </button>
           Not a user? <a href = '/register'> Register Here. </a>
+
+          <p class = "text-danger">
+            {state.error}
+          </p>
         </div>
     )
-
 }
 
 export default LoginForm;
