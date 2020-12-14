@@ -16,8 +16,8 @@ class Newsfeed extends React.Component {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
         //Make call to backend to get POST details
 
-        //TWO SEPARATE CALLS
-        if (this.props.id) {
+        //for wall. 
+        if (this____) {
             var request = $.post(config.serverUrl + '/posts/wall/' + this.props.id );
             request.done((result) => {
                 this.setState = {
@@ -27,7 +27,8 @@ class Newsfeed extends React.Component {
             });
         }
 
-        if (this.props.id) {
+        //for homepage
+        if (this____) {
             var request = $.post(config.serverUrl + '/posts/homepage');
             request.done((result) => {
                 this.setState = {

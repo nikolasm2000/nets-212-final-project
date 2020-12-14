@@ -8,18 +8,19 @@ const comments = [{text:"Damn I look good in this!", user:{firstName:"Pranav", l
 {text:"Real cute fella this guy", user:{firstName:"Stan", lastName:"Smith", userURL:"id=?133", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic3.jpg"} },
 {text:"Can you do it for $5?", user:{firstName:"Terrence", lastName:"T.", userURL:"id=?19", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic4.jpg"} }];
 
+
+//should just take in a POST ID. it will then make the call to the backend.
 class Post extends React.Component {
     constructor(props) {
         super (props);
         this.state = {};
     }
 
-
     componentDidMount() {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
         //Make call to backend to get POST details
         if (this.props.id) {
-            var request = $.post(config.serverUrl + '/post/:' + this.props.id + '/get');
+            var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
             request.done((result) => {
                 this.setState = {
                     //posted by
@@ -39,7 +40,6 @@ class Post extends React.Component {
                     //list of comment IDs on the post
                     commentIDs: ____,
                 }
-
             });
         }
     }
@@ -59,7 +59,7 @@ class Post extends React.Component {
                     </div> : null}
 
                     {this.state.user2 ? <div class="col-auto m-0 p-0"> 
-                    <Username id={this.state.id} showImage="true"/> 
+                    <Username id={this.state.user2} showImage="true"/> 
                     </div>: null}
                 </div>
                 <p class="card-text m-0 p-0"><small class="text-muted">Posted 3 mins ago</small></p>
@@ -70,7 +70,7 @@ class Post extends React.Component {
                 <hr/>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col p-0 m-0">
-                        <Likes number={this.state.numLikes} liked={this.state.liked}/>
+                        <Likes number={this.state.numLikes} liked={this.state.liked} postid={this.props.id}/>
                     </div>
                 </div>
                 <div class="row p-0 m-0 d-flex align-items-center">
