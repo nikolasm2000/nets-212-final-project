@@ -1,8 +1,25 @@
 import React, {useState} from 'react'
 import Friend from './Friend.js';
+var config = require('./Config.js')
+class FriendsList extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    componentDidMount() {
+        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+    }
 
-function FriendsList(props) {
-    return (
+    componentWillUnmount() {
+        clearInterval(this.refreshID);
+    }
+
+    refresh() {
+        //Update list of online friends
+
+    }
+
+    render() {
+        return(
         <div class="card container-fluid p-0 m-0">
             <div class="container p-0 m-0">
                 <div className="card-header pb-0 pl-3" style={{paddingTop: 10}}>
@@ -27,6 +44,7 @@ function FriendsList(props) {
             </div>
         </div>
     );
+    }
 }
 
 export default FriendsList;

@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
-var config = require("./Config.js")
+import React, {useState} from 'react';
+import $ from 'jquery';
+var config = require("./Config.js");
 
 class Username extends React.Component {
     constructor(props) {
@@ -9,6 +10,13 @@ class Username extends React.Component {
 
     componentDidMount() {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+        //Make call to backend to get username details
+        if (this.props.id) {
+            var request = $.post(config.serverUrl + '/user/:' + this.props.id + '/get');
+            request.done((result) => {
+
+            });
+        }
     }
 
     componentWillUnmount() {
