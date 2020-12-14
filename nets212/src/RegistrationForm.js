@@ -40,41 +40,34 @@ function RegistrationForm(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (state.email === "") {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 error: "Email cannot be empty!"
-            }))
-        } else if (!re.test(state.email.toLowerCase())) {
-            setState(prevState => ({
-                ...prevState,
+            })
+        } else if (!re.test(state.email)) {
+            setState({
                 error : "Email of wrong format!"
-            })) 
+            })
         } else if (state.password === "" || state.confirmpassword === "") {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 error : "Passwords cannot be empty!"
-            }))
+            })
         } else if (state.password !== state.confirmpassword) {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 error : "Passwords do NOT match!!"
-            }))
+            })
         } else if (state.first === "" || state.last === "") {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 error : "Please your Name. Numbers only if Elon Musk"
-            }))
+            })
         } 
         else if (state.affiliation === "") {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 error : "Please add an Affiliation."
-            }))
+            })
         } else if (state.interests === "") {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 error : "Please add an Interest."
-            }))
+            })
         } else if (state.birthday.date === null) {
             setState({
                 error : "Come on add your birthday!"
