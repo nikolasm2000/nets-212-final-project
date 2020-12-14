@@ -1,4 +1,8 @@
 import React from 'react'
+import $ from 'jquery'
+import { Link } from 'react-router-dom'
+var config = require('./Config.js')
+
 
 class Logout extends React.Component {
     constructor(props) {
@@ -7,17 +11,21 @@ class Logout extends React.Component {
     }
 
     onClick() {
-        var request = $.post(config.serverUrl + '/logout/');
+        var request = $.post(config.serverUrl + '/logout');
             request.done((result) => {
-                localStorage.removeItem(user);
-                
+                alert("check")
+                console.log("local storage is " + localStorage.getItem('user'))
+                localStorage.removeItem('user');
+                console.log("local storage is after " + localStorage.getItem('user'))
             });
         }
 
     render() {
         return (
             <div>
-                <button type="button" class="btn btn-info" onClick={this.onClick}>Logout </button>
+                <Link to ='/' >
+                    <button type="button" class="btn btn-info mt-1 mb-1" onClick={this.onClick}>Logout </button>
+                </Link>
             </div>
         )
     }

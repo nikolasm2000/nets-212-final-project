@@ -51,6 +51,7 @@ function LoginForm(props) {
                     error: ""
                 }))
                 localStorage.setItem('user', result.id);
+                console.log("CHECK HERE" + localStorage.getItem('user'));
                 history.push("/home");
             })
 

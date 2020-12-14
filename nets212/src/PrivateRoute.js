@@ -6,7 +6,7 @@ var config = require('./Config.js')
 
 function PrivateRoute(props) {
     
-    return (localStorage.getItem('user') === undefined ? <Redirect to='/'/> : <Route path={props.path} component={props.component} exact={props.exact}/>);
+    return (localStorage.getItem('user') == undefined ? <Redirect to='/'/> : <Route path={props.path} component={props.component} exact={props.exact}/>);
 }
 
 export default PrivateRoute;

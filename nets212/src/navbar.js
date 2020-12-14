@@ -20,24 +20,6 @@ class NavigationBar extends React.Component {
         this.state = {name: "", url: "/user/" + this.props.id, value: '', suggestion: [], selectedURL: "", Redirect: null};
     } 
 
-    onChange = (event, { newValue }) => {
-        this.setState({
-            value: newValue
-        });
-    };
-
-    onSuggestionFetch = ({value}) => {
-        this.setState({
-            suggestion : getSuggestions(value)
-        });
-    };
-
-    onSuggestionsClear = () => {
-        this.setState({
-            suggestion : []
-        });
-    };
-
     onSuggestionSelected = (event, { suggestion, suggestionValue, index, method }) => {
         this.setState({ selectedURL: suggestion.userUrl})  
         console.log(this.state.selectedURL);     
@@ -64,8 +46,7 @@ class NavigationBar extends React.Component {
                  </Nav>
                 </Navbar.Collapse>
                 <Searcher/>
-                <
-
+                <Logout/>
             </Navbar>
         )
     } 
