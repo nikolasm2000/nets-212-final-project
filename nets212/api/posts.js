@@ -18,18 +18,30 @@ var dataCallback = function(res){
 
 var get = function(req,res){
     console.log("get called");
-    console.log("get really called");
     db.posts.get(req.params.id, dataCallback(res));
 }
 
 var create = function(req,res){
     console.log("create post called");
-    console.log("req obj:")
-    console.log(req);
-    console.log("req.body:")
-    console.log(req.body);
-    console.log(req.query);
+    req.body.parent = "";
     db.posts.create(req.body,dataCallback(res));
+}
+
+var createComment = function(req, res){
+    console.log("create comment called");
+    db.posts.create(req.body,dataCallback(res));
+}
+
+var createReaction = function(req, res){
+    console.log("create reaction called");
+    db.reactions.create(req.body,dataCallback(res));
+}
+
+var getReactions = function(req,res){
+    console.log("get reactions called");
+    db.reactions
+        .query(req.params.id)
+        .exec(dataCallback(res));
 }
 
 var update = function(req,res){

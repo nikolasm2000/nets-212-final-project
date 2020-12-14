@@ -39,8 +39,11 @@ router.post('/friends/requests', friends.getAll);//requests);
 router.post('/friends/suggestions', friends.getAll);//suggestions);
 router.post('/posts/:id/get', posts.get);
 router.post('/posts/create', posts.create);
+router.post('/posts/comments/create', posts.createComment);
+router.post('/posts/comments/:id/get', posts.get);
+router.post('/posts/reactions/:id', posts.getReactions);
 router.post('/posts/homepage', posts.getAllIDs);//homepage);
-router.post('/posts/wall/:id', posts.getAll);//wall);
+router.post('/posts/wall/:id', posts.getAllIDs);//wall);
 
 
 app.use('/api', router);
