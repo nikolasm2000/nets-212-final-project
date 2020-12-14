@@ -10,8 +10,8 @@ const Joi = require('joi');
 
 //console.log(dynamo);
 
-var Users = dynamo.define('Users', {
-    hashKey : 'id',
+var Users = dynamo.define('PB_User', {
+    hashKey : 'email',
 
     timestamps : true,
 
@@ -27,11 +27,11 @@ var Users = dynamo.define('Users', {
     },
 
     indexes: [{
-        hashKey : 'email', name : 'EmailIndex', type : 'global'
+        hashKey : 'id', name : 'IDIndex', type : 'global'
       }]
 });
 
-var Interests = dynamo.define('Interests', {
+var Interests = dynamo.define('PB_Interest', {
     hashKey: 'id',
     timestamps: false,
     schema:{
@@ -40,7 +40,7 @@ var Interests = dynamo.define('Interests', {
     }
 });
 
-var UserInterests = dynamo.define('UserInterests',{
+var UserInterests = dynamo.define('PB_UserInterest',{
     hashKey: 'PBuser',
     rangeKey: 'interest',
     schema:{
@@ -49,7 +49,7 @@ var UserInterests = dynamo.define('UserInterests',{
     }
 })
 
-var Friends = dynamo.define('Friends', {
+var Friends = dynamo.define('PB_Friend', {
     hashKey:'PBuser',
     rangeKey: 'friend',
     timestamps: false,
@@ -61,20 +61,21 @@ var Friends = dynamo.define('Friends', {
     }
 });
 
-var Posts = dynamo.define('Posts', {
+var Posts = dynamo.define('PB_Post', {
     hashKey: 'id',
     timestamps: true,
     schema: {
         id: dynamo.types.uuid(),
         author: Joi.number(),
         parent: Joi.number(),
+        wall: Joi.number(),
         text: Joi.string(),
         privacy: Joi.number(),
         pictures: dynamo.types.stringSet(), //TODO think about this
     }
 });
 
-var Pictures = dynamo.define('Pictures',{
+var Pictures = dynamo.define('PB_Picture',{
     hashKey: 'post',
     rangeKey: 'id',
     schema: {
@@ -84,7 +85,7 @@ var Pictures = dynamo.define('Pictures',{
     }
 });
 
-var Reactions = dynamo.define('Reactions',{
+var Reactions = dynamo.define('PB_Reaction',{
     hashKey: 'post',
     rangeKey: 'id',
     timestamps: true,
@@ -97,7 +98,7 @@ var Reactions = dynamo.define('Reactions',{
     }
 });
 
-var NewsLikes = dynamo.define('NewsLikes',{
+var NewsLikes = dynamo.define('PB_NewsLike',{
     hashKey: 'news',
     rangeKey: 'id',
     timestamps: true,
@@ -109,7 +110,7 @@ var NewsLikes = dynamo.define('NewsLikes',{
     }
 });
 
-var FinalWeights = dynamo.define('NewsLikes',{
+var FinalWeights = dynamo.define('PB_FinalWeight',{
     hashKey: 'PBuser',
     rangeKey: 'article',
 
@@ -120,7 +121,7 @@ var FinalWeights = dynamo.define('NewsLikes',{
     }
 });
 
-var Chats = dynamo.define('Chats',{
+var Chats = dynamo.define('PB_Chat',{
     hashKey: 'id',
     timestamps: true,
     updatedAt: false,
@@ -131,7 +132,7 @@ var Chats = dynamo.define('Chats',{
     }
 });
 
-var ChatMembers = dynamo.define('ChatMembers',{
+var ChatMembers = dynamo.define('PB_ChatMember',{
     hashKey: 'chat',
     rangeKey: 'PBuser',
     timestamps: false,
@@ -147,7 +148,7 @@ var ChatMembers = dynamo.define('ChatMembers',{
     }]
 });
 
-var Messages = dynamo.define('Messages',{
+var Messages = dynamo.define('PB_Message',{
     hashKey:'chat',
     rangeKey:'id',
     timestamps: true,
@@ -159,11 +160,12 @@ var Messages = dynamo.define('Messages',{
     }
 });
 
-var Search = dynamo.define('Inverted',{
+var Search = dynamo.define('PB_Inverted',{
     hashKey:'keyword',
     rangeKey:'id',
     timestamps: false,
     schema:{
+        keyword: Joi.string(),
         id: dynamo.types.uuid(),
         article: Joi.boolean(),
         PBuser: Joi.boolean(),
