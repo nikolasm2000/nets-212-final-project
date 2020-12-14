@@ -74,25 +74,27 @@ function RegistrationForm(props) {
             })
         } else {
             state.birthday = moment(state.birthday).unix();
-            setState({
-                error : ""
-            })
-            var request = $.post(config.serverUrl + "/user/create",{
+            let newUser = {
                 email: state.email,
                 password: state.password,
                 first_name: state.first,
-                last_name: state.last_name,
+                last_name: state.last,
                 birthday: state.birthday
     
-            });
+            };
+            
+            var request = $.post(config.serverUrl + "/user/create", newUser);
             request.done((result) => {
+                setState({
+                    error : ""
+                });
+                localStorage.setItem('user', result.id);
                 history.push("/home");
             }) 
             request.fail((err) => {
-                setState(prevState => ({
-                    ...prevState,
+                setState({
                     error : "Email already in use!"
-                }))
+                });
             });
         }
     }

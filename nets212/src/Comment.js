@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import { Button } from 'react-bootstrap'
 import Username from './Username.js'
-
+import $ from 'jquery'
+var config = require('./Config.js')
 //comment should just take in an ID. 
 class Comment extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Comment extends React.Component {
     this.state = {};
   }
 
+<<<<<<< HEAD
 //   componentDidMount() {
 //     //Make call to backend to get username details
 //     if (this.props.id) {
@@ -18,6 +20,18 @@ class Comment extends React.Component {
 //             userID: "",
 //             comment: "",
 //           }
+=======
+  componentDidMount() {
+    this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+    //Make call to backend to get username details
+    if (this.props.id) {
+        var request = $.post(config.serverUrl + '/comment/' + this.props.id + '/get');
+        request.done((result) => {
+          this.setState = {
+            //userID = ____,
+            //comment = ____,
+          }
+>>>>>>> 10b3df50fd846bbea0e8d3cd0b45a93e238f59d8
 
 //         });
 //     }
