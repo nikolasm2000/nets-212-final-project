@@ -8,44 +8,121 @@ const comments = [{text:"Damn I look good in this!", user:{firstName:"Pranav", l
 {text:"Real cute fella this guy", user:{firstName:"Stan", lastName:"Smith", userURL:"id=?133", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic3.jpg"} },
 {text:"Can you do it for $5?", user:{firstName:"Terrence", lastName:"T.", userURL:"id=?19", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic4.jpg"} }];
 
+class Post extends React.Component {
+    constructor(props) {
+        super (props);
+        this.state = {};
+    }
 
-function Post(props) {
-    return (
-        <div class="card mt-4 mb-2 container-fluid p-0 m-0">
+
+    componentDidMount() {
+        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+        //Make call to backend to get POST details
+        if (this.props.id) {
+            var request = $.post(config.serverUrl + '/post/:' + this.props.id + '/get');
+            request.done((result) => {
+                this.setState = {
+                    //posted by
+                    userID: ___,
+                    //optional, posted on whose wall
+                    user2: ____,
+                    //time posted
+                    timeStamp: ____,
+                    //URL of image
+                    imageURL: _____,
+                    //text of the post
+                    text: _____,
+                    //number of likes
+                    numLikes: _____,
+                    //whether userliked
+                    liked: _____,
+                    //list of comment IDs on the post
+                    commentIDs: ____,
+                }
+
+            });
+        }
+    }
+
+    render () {
+        return (
+            <div class="card mt-4 mb-2 container-fluid p-0 m-0">
             <div class="card-header d-flex flex-row pb-2 align-items-start justify-content-between">
                 <div class="card-title m-0 p-0 pb-1 row align-items-center"> 
                     <div class="col-auto m-0 p-0">
-                    <Username firstName={props.post.user.firstName} lastName={props.post.user.lastName} userURL={props.post.user.userURL} showImage="true"/>
+                    <Username id={this.state.userID} showImage="true"/>
                     </div>
-                    {props.post.user2 ? <div class="col-auto m-0 pr-3 pl-3 text-secondary"> 
+                    {this.state.user2 ? <div class="col-auto m-0 pr-3 pl-3 text-secondary"> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" fill="currentColor" class="bi bi-arrow-right-short p-0 m-0" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
                         </svg>
                     </div> : null}
 
-                    {props.post.user2 ? <div class="col-auto m-0 p-0"> 
-                    <Username firstName={props.post.user2.firstName} lastName={props.post.user2.lastName} userURL={props.post.user2.userURL} showImage="true"/> 
+                    {this.state.user2 ? <div class="col-auto m-0 p-0"> 
+                    <Username id={this.state.id} showImage="true"/> 
                     </div>: null}
                 </div>
                 <p class="card-text m-0 p-0"><small class="text-muted">Posted 3 mins ago</small></p>
             </div>
             <div class="card-body">
-                <p class="card-text">{props.post.text}</p>
-                {props.post.imageURL ? <div> <hr/> <div class="d-flex flex-column align-items-center"> <img class="img-fluid" src={props.post.imageURL}/> </div> </div>: null}
+                <p class="card-text">{this.state.text}</p>
+                {this.state.imageURL ? <div> <hr/> <div class="d-flex flex-column align-items-center"> <img class="img-fluid" src={this.state.imageURL}/> </div> </div>: null}
                 <hr/>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col p-0 m-0">
-                        <Likes/>
+                        <Likes number={this.state.numLikes} liked={this.state.liked}/>
                     </div>
                 </div>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col">
-                        <Comments className="ml-3" comments = {comments} />
+                        <Comments className="ml-3" comments = {this.state.commentIDs} />
                     </div>
                 </div>
             </div>
         </div>
-    )
+
+        )
+    }
 }
+
+
+// function Post(props) {
+//     return (
+//         <div class="card mt-4 mb-2 container-fluid p-0 m-0">
+//             <div class="card-header d-flex flex-row pb-2 align-items-start justify-content-between">
+//                 <div class="card-title m-0 p-0 pb-1 row align-items-center"> 
+//                     <div class="col-auto m-0 p-0">
+//                     <Username firstName={props.post.user.firstName} lastName={props.post.user.lastName} userURL={props.post.user.userURL} showImage="true"/>
+//                     </div>
+//                     {props.post.user2 ? <div class="col-auto m-0 pr-3 pl-3 text-secondary"> 
+//                         <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" fill="currentColor" class="bi bi-arrow-right-short p-0 m-0" viewBox="0 0 16 16">
+//                             <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+//                         </svg>
+//                     </div> : null}
+
+//                     {props.post.user2 ? <div class="col-auto m-0 p-0"> 
+//                     <Username firstName={props.post.user2.firstName} lastName={props.post.user2.lastName} userURL={props.post.user2.userURL} showImage="true"/> 
+//                     </div>: null}
+//                 </div>
+//                 <p class="card-text m-0 p-0"><small class="text-muted">Posted 3 mins ago</small></p>
+//             </div>
+//             <div class="card-body">
+//                 <p class="card-text">{props.post.text}</p>
+//                 {props.post.imageURL ? <div> <hr/> <div class="d-flex flex-column align-items-center"> <img class="img-fluid" src={props.post.imageURL}/> </div> </div>: null}
+//                 <hr/>
+//                 <div class="row p-0 m-0 d-flex align-items-center">
+//                     <div class="col p-0 m-0">
+//                         <Likes/>
+//                     </div>
+//                 </div>
+//                 <div class="row p-0 m-0 d-flex align-items-center">
+//                     <div class="col">
+//                         <Comments className="ml-3" comments = {comments} />
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
 
 export default Post;
