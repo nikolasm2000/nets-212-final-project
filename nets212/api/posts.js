@@ -14,7 +14,7 @@ var get = function(req,res){
             } else {
                 //return with data
                 if(typeof data != undefined && data != null){
-                    data.attrs = convertDates(data.attrs);
+                    data.attrs = db.convertDates(data.attrs);
                     //get comments
                     db.posts
                         .query(req.params.id)
