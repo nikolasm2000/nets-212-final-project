@@ -66,6 +66,7 @@ var Friends = dynamo.define('PB_Friend', {
 
 var Posts = dynamo.define('PB_Post', {
     hashKey: 'id',
+
     timestamps: true,
     schema: {
         id: dynamo.types.uuid(),
@@ -78,7 +79,7 @@ var Posts = dynamo.define('PB_Post', {
     },
 
     indexes: [{
-        hashKey : 'parent', name : 'ParentIndex', type : 'global'
+        hashKey : 'parent', rangeKey:'id', name : 'ParentIndex', type : 'global'
     }]
 });
 
@@ -205,19 +206,7 @@ var dataCallback = function(res){
 		} else {
             //return with data
             if(typeof data != undefined && data != null){
-                if(typeof data.attrs.createdAt != undefined){
-                    console.log(data.attrs.createdAt);
-                    var createDate = DateTime.fromISO(data.attrs.createdAt);
-                    data.attrs.createdAt = createDate.toSeconds();
-                    console.log(createDate.toSeconds())
-                }
-                if(typeof data.attrs.updatedAt != undefined){
-                    console.log(data.attrs.updatedAt);
-                    var updateDate = DateTime.fromISO(data.attrs.updatedAt);
-                    data.attrs.updatedAt = updateDate.toSeconds();
-                    console.log(updateDate.toSeconds())
-                }
-
+                data.attrs = convertDates(data.attrs);
                 res.json(data);
             } else {
                 res.status(404).json({"err":"User not found"});
@@ -225,6 +214,20 @@ var dataCallback = function(res){
 		}
     }
     return callback;
+}
+
+var convertDates = function(params){
+    if(typeof params.createdAt != undefined){
+        var createDate = DateTime.fromISO(params.createdAt);
+        params.createdAt = createDate.toSeconds();
+    }
+
+    if(typeof params.updatedAt != undefined){
+        var updateDate = DateTime.fromISO(params.updatedAt);
+        params.updatedAt = updateDate.toSeconds();
+    }
+
+    return params;
 }
 
 
