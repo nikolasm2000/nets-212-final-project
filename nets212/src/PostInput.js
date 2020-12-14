@@ -62,7 +62,6 @@ class PostInput extends React.Component {
                 privacy: 0,
                 parent: "0",
                 wall: this.props.id !== localStorage.getItem('user') ? this.props.id : undefined
-    
             };
             let request = $.post(Config.serverUrl + '/posts/create', post);
             request.done((result) => {

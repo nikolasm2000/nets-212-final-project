@@ -84,7 +84,6 @@ class Post extends React.Component {
                 </div>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col">
-                        
                     </div>
                 </div>
             </div>

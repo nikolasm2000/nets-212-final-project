@@ -3,6 +3,7 @@ import Friend from './Friend.js';
 import $ from 'jquery'
 
 var config = require('./Config.js')
+
 class FriendsList extends React.Component {
     constructor(props) {
       super(props);
@@ -10,6 +11,9 @@ class FriendsList extends React.Component {
     }
     componentDidMount() {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+        
+
+
     }
 
     componentWillUnmount() {
