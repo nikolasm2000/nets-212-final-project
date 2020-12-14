@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Post from './Post.js'
 import PostInput from './PostInput.js'
 import $ from 'jquery'
+import { findAllInRenderedTree } from 'react-dom/test-utils'
 var config = require('./Config.js')
 
 //newsfeed should just be passed a userID. this should query the posts/homepage
@@ -29,31 +30,30 @@ class Newsfeed extends React.Component {
         } else {
             var request = $.post(config.serverUrl + '/posts/homepage');
             request.done((result) => {
-                this.setState = {
-                    posts: result
-                }
+                console.log(result.Items)
+                this.setState({
+                    posts: result.Items
+                });
             });
 
         }
     }
 
-    componentDidMount() {
-        this.state.posts.map((post) => {
-            <Post id={post}/>
-        });
-
-    }
-    
 
     //need to iteate over the set postIDs and call each post then. 
 
     render () {
+        console.log(this.state.posts);
+        const posts = this.state.posts.map((post) => {
+            return <Post id={post.id}/>
+        });
+
         return (
             <div>
-                <PostInput user={this.state.author}/>
+                <PostInput/>
                 <hr class="mt-4 mb-0 p-0"/>
                 <div class="d-flex flex-column align-items-center">
-                    {this.posts}
+                    {posts}
                 </div>
                 <br/>
             </div>
