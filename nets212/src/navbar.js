@@ -7,8 +7,6 @@ import Searcher from './Searcher';
 import './autosuggest.css';
 import './friendstyle.css';
 import Logout from './Logout';
-
-
 class NavigationBar extends React.Component {
     constructor(props) {
         super(props);

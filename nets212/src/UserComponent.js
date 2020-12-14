@@ -16,6 +16,7 @@ class UserComponent extends React.Component {
         	name : "",
 			affiliation : "",
 			birthday : "",
+			id: ""
     	}
 	}
 	
@@ -24,9 +25,10 @@ class UserComponent extends React.Component {
         request.done((result) =>  {
 			console.log(result)
 			this.setState({
+				id : result.id,
 				name: result.first_name + ' ' + result.last_name,
 				affiliation: result.affiliation,
-				birthday: moment.unix(result.birthday).format("DD-MM-YYYY"), 
+				birthday: moment.unix(result.birthday).format("MMMM Do, YYYY")
 			});
 			if (result.profile_pic == undefined) {
 				this.setState({image: "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png"})
@@ -43,10 +45,14 @@ class UserComponent extends React.Component {
 
 	fileChange = e => {
         this.setState({uploading:true});
-        S3FileUpload.uploadFile(e.target.files[0], config).then((data)=> { this.setState({pictures: [data.location], uploading:false })}).catch((err)=> {alert(err)})
+		S3FileUpload.uploadFile(e.target.files[0], config).then((data)=> { this.setState({pictures: [data.location], uploading:false })}).catch((err)=> {alert(err)})
+		//need to post to the update route on the backend 
 	}
-	
 
+	changeImageButton = e => {
+		this.setState({displaychooser: "true"});
+		
+	}
 	
 	render(){
 		return (
@@ -56,10 +62,18 @@ class UserComponent extends React.Component {
 							<div class="col">
 								  <div className="text-center " style={{paddingTop: 30}}>
 									<img class="card-img-top img-fluid" src= {this.state.image} class="rounded-circle"  style={{maxWidth: 300}}></img>
-									<div className="custom-file m-0">
-                        				<h3>Change your profile pictures</h3>
-                        				<input type="file" accept="image/x-png,image/gif,image/jpeg" onChange= {this.fileChange} />
-                    				</div>
+
+
+									{this.state.id === localStorage.getItem('user') ? 
+										<div className="custom-file mt-3">
+											<button type="button mt-1 mb-1" class="btn btn-secondary" onClick={this.changeImageButton}> change profile picture </button>
+											{this.state.displaychooser === "true" ?
+												<input type="file" accept="image/x-png,image/gif,image/jpeg" onChange= {this.fileChange} />
+												: <div> </div>
+											}
+										</div> : <div> </div>
+									}
+
 								</div>
 								</div>
 						  </div>
