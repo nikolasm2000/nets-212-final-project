@@ -39,7 +39,7 @@ class UserPage extends React.Component {
 
         return (
             <div class="container-fluid p-0">
-                <Navbar name="Pranav Aurora" id ="123"/>
+                <Navbar/>
                 {usercomp}
                 <div class="container-fluid"> 
                     <div class="row">
@@ -49,7 +49,7 @@ class UserPage extends React.Component {
                             </div>
                         </div>
                         <div class="col-6 col-scroll">
-                            <Newsfeed posts={posts} user={{firstName: "Niko"}}/>
+                            <Newsfeed id={this.state.id}/>
                         </div>
                         <div class="col col-scroll">
                         </div>

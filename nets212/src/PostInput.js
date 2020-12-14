@@ -21,7 +21,27 @@ class PostInput extends React.Component {
             uploading: false,
             imageUploadText: "Choose an image to share",
             errorMessage:"",
-            clearImageField:""
+            clearImageField:"",
+            writeText: ""
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.id) {
+            if (this.props.id === localStorage.getItem('user')) {
+                this.setState({
+                    writeText: "Write something on your wall"
+                });
+            } else {
+                let request = $.post(Config.serverUrl + '/user/' + this.props.id + '/get');
+                request.done((result) =>  {
+                    this.setState({
+                        writeText: "Write something on " + result.first_name + "'s wall"
+                    });
+                });
+            }
+        } else {
+            this.setState({writeText: "What's on your mind?"});
         }
     }
 
@@ -40,7 +60,8 @@ class PostInput extends React.Component {
                 pictures: this.state.pictures,
                 author: localStorage.getItem('user'),
                 privacy: 0,
-                parent: "0"
+                parent: "0",
+                wall: this.props.id !== localStorage.getItem('user') ? this.props.id : undefined
     
             };
             let request = $.post(Config.serverUrl + '/posts/create', post);
@@ -69,7 +90,7 @@ class PostInput extends React.Component {
         return (
             <div class="container-fluid p-0 mt-3">
                 <div className="input-group mb-3 p-0">
-                    <input id="theInput" className ="form-control input-lg m-0 pb-0 pt-0" type = 'text' value={this.state.text} placeholder= {this.props.user ? "Post on " + this.props.user.firstName + "'s wall" : "What's on your mind?"} onChange={this.handleChange}/> 
+                    <input id="theInput" className ="form-control input-lg m-0 pb-0 pt-0" type = 'text' value={this.state.text} placeholder= {this.state.writeText} onChange={this.handleChange}/> 
                     <div className="input-group-append m-0">
                         <button className="btn btn-primary m-0" style={{width:79}} onClick = {this.handleClick}> Post </button>
                     </div>
