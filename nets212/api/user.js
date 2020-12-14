@@ -42,10 +42,10 @@ var create = function(req,res){
 
     if(typeof res.body.password !== 'undefined'){
         console.log("pre hash:")
-        console.log(res.body.password);
-        res.body.password = sha256(res.body.password);
+        console.log(req.body.password);
+        res.body.password = sha256(req.body.password);
         console.log("post hash:")
-        console.log(res.body.password);
+        console.log(req.body.password);
     }
 
     db.user.create(req.body,dataCallback(res));
