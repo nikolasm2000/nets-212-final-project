@@ -242,7 +242,8 @@ var database = {
     chatMembers: ChatMembers,
     messages: Messages,
     create_table: createTables,
-    dataCallback: dataCallback
+    dataCallback: dataCallback,
+    convertDates: convertDates
 };
 
  module.exports = database;
