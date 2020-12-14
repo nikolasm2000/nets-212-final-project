@@ -18,24 +18,24 @@ var dataCallback = function(res){
 
 var get = function(req,res){
     console.log("user get called");
-    db.user
-        .query(req.params.id)
-        .usingIndex('IDIndex')
-        .limit(1)
-        .exec(function(err, data){
-            console.log("user get result:")
-            console.log(data);
-            if(err){
-                //error from DB - return with error
-                res.status(400).json({'err': err});
-            } else {
-                //return with data
-                res.json(data.Items[0]);
-            }
-        })
+    // db.user
+    //     .query(req.params.id)
+    //     .usingIndex('IDIndex')
+    //     .limit(1)
+    //     .exec(function(err, data){
+    //         console.log("user get result:")
+    //         console.log(data);
+    //         if(err){
+    //             //error from DB - return with error
+    //             res.status(400).json({'err': err});
+    //         } else {
+    //             //return with data
+    //             res.json(data.Items[0]);
+    //         }
+    //     })
 
 
-    //db.user.get(req.params.id, dataCallback(res));
+    db.user.get(req.params.id, dataCallback(res));
 }
 
 var create = function(req,res){
@@ -59,22 +59,27 @@ var update = function(req,res){
 }
 
 var login = function(req,res){
-    db.user.get(req.body.email,function(err,data){
-        if(err){
-			//error from DB - return with error
-			res.json({'err': err});
-		} else {
+    db.user
+        .query(req.body.email)
+        .usingIndex('EmailIndex')
+        .limit(1)
+        .exec(function(err, data){
+            console.log("user get result:")
             console.log(data);
-            //return with data
-            if(sha256(req.body.password) == data.attrs.password){
-                req.session.user = data.id;
-                res.json(data);
+            if(err){
+                //error from DB - return with error
+                res.status(400).json({'err': err});
             } else {
-                res.status(400).json({"err":"user not found"});
+                //return with data
+                if(sha256(req.body.password) == data.attrs.password){
+                    req.session.user = data.attrs.id;
+                    res.json(data);
+                } else {
+                    res.status(400).json({"err":"Password incorrect"});
+                }
             }
-		}
-    })
-    //res.json({'success' : true});
+        });
+
 }
 
 var logout = function(req,res){

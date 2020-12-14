@@ -17,6 +17,12 @@ var dataCallback = function(res){
                 data.attrs.createdAt = createDate.toSeconds();
                 console.log(createDate.toSeconds())
             }
+            if(typeof data.attrs.updatedAt != undefined){
+                console.log(data.attrs.updatedAt);
+                var updateDate = DateTime.fromISO(data.attrs.updatedAt);
+                data.attrs.updatedAt = updateDate.toSeconds();
+                console.log(updateDate.toSeconds())
+            }
 
 			res.json(data);
 		}
