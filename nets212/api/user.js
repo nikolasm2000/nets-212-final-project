@@ -7,7 +7,9 @@ var dataCallback = function(res){
 			//error from DB - return with error
 			res.status(400).json({'err': err});
 		} else {
-			//return with data
+            //return with data
+            console.log("data returned:");
+            console.log(data);
 			res.json(data);
 		}
     }
@@ -35,10 +37,15 @@ var get = function(req,res){
 
 var create = function(req,res){
     console.log("user create called");
+    console.log("data received:");
+    console.log(req.body);
 
     if(typeof res.body.password !== 'undefined'){
+        console.log("pre hash:")
         console.log(res.body.password);
         res.body.password = sha256(res.body.password);
+        console.log("post hash:")
+        console.log(res.body.password);
     }
 
     db.user.create(req.body,dataCallback(res));
