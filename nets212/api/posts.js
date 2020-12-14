@@ -61,18 +61,6 @@ var getAll = function(req, res){
     .exec(dataCallback(res));
 }
 
-var getAll = function(req, res){
-    console.log("get all posts called")
-    db.posts
-    .scan()
-    .loadAll()
-    // .exec(function(err, data){
-    //     console.log("data:");
-    //     console.log(data);
-    // })
-    .exec(dataCallback(res));
-}
-
 var getAllIDs = function(req, res){
     console.log("get all posts ID called")
     db.posts
@@ -109,6 +97,9 @@ var posts = {
 	update: update,
     getAll: getAll,
     getAllIDs: getAllIDs,
+    createComment: createComment,
+    createReaction: createReaction,
+    getReactions: getReactions,
 };
 
 module.exports = posts;
