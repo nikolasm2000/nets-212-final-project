@@ -6,7 +6,15 @@ import ImageInput from './ImageInput.js'
 import ReactS3 from 'react-s3'
 import S3FileUpload from 'react-s3';
 
-var config = require('./Config.js')
+var Config = require('./Config.js')
+
+const config = {
+    bucketName: 'pennbook',
+    region: 'us-east-1',
+    accessKeyId: 'AKIAID2TRJMEBXW4XKHQ',
+    secretAccessKey: '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'
+}
+
 
 class UserComponent extends React.Component {
 
@@ -21,7 +29,7 @@ class UserComponent extends React.Component {
 	}
 	
 	componentWillMount() {
-		let request = $.post(config.serverUrl + '/user/' + this.props.id + '/get');
+		let request = $.post(Config.serverUrl + '/user/' + this.props.id + '/get');
         request.done((result) =>  {
 			this.setState({
 				id : result.id,
@@ -43,14 +51,40 @@ class UserComponent extends React.Component {
 	}
 
 	fileChange = e => {
-        this.setState({uploading:true});
-		S3FileUpload.uploadFile(e.target.files[0], config).then((data)=> { this.setState({pictures: [data.location], uploading:false })}).catch((err)=> {alert(err)})
+        if(!e.target.files[0]) return;
+        this.setState({uploading:true, imageUploadText: "Uploading " + e.target.files[0].name + "...", errorMessage:""});
+		S3FileUpload.uploadFile(e.target.files[0], config).then((data)=> { this.setState({image: data.location, uploading:false, imageUploadText: e.target.files[0].name }); e.target.value = null}).catch((err)=> {alert(err)})
+
+		let update = {
+			profile_pic: this.state.image
+		}
+		let request1 = $.post(Config.serverUrl + '/user/' + this.state.id + "/update", update);
+			request1.done((result) => {
+
+			});
+			request1.fail((result) => {
+				this.setState({error: "there was an error changing profile picture"})
+			})
+
+		let post = {
+			text: this.state.name + " just changed their profile picture!",
+			pictures: [this.state.image],
+			author: localStorage.getItem('user'),
+			privacy: 0,
+			parent: "0",
+		};
+		let request = $.post(Config.serverUrl + '/posts/create', post);
+            request.done((result) => {
+
+			});
+			request.fail((result) => {
+				this.setState({error: "there was an error changing profile picture"})
+			})
 		//need to post to the update route on the backend 
 	}
 
 	changeImageButton = e => {
 		this.setState({displaychooser: "true"});
-		
 	}
 	
 	render(){
@@ -60,7 +94,7 @@ class UserComponent extends React.Component {
 						  <div class="row">
 							<div class="col">
 								  <div className="text-center " style={{paddingTop: 30}}>
-									<img class="card-img-top img-fluid" src= {this.state.image} class="rounded-circle"  style={{maxWidth: 300}}></img>
+									<img class="card-img-top img-fluid" src= {this.state.image} class="rounded-circle"  style={{width: 300, height:300}}></img>
 
 
 									{this.state.id === localStorage.getItem('user') ? 
