@@ -31,7 +31,7 @@ class Post extends React.Component {
                     //time posted
                     timeStamp: result.created_on,
                     //URL of image
-                    imageURL: result.pictures[0],
+                    imageURL: result.pictures ? result.pictures[0] : '',
                     //text of the post
                     text: result.text,
                     //number of likes

@@ -13,11 +13,13 @@ class Username extends React.Component {
         //Make call to backend to get username details
         if (this.props.id) {
             this.setState({ status: "Online", userURL: '/user/' + this.props.id})
-            var request = $.post(config.serverUrl + '/user/' + this.props.id + '/get');
+            var request = $.get(config.serverUrl + '/user/' + this.props.id + '/get');
             request.done((result) => {
-                //this.state.firstName = result.first_name;
-                //this.state.lastName = result.last_name;
-                this.state.userURL = '/user/' + this.props.id;
+                console.log(result)
+                this.setState({
+                    firstName: result.first_name,
+                    lastName: result.last_name,
+                }); 
             });
         }
     }

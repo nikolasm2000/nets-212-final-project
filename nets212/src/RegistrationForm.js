@@ -76,32 +76,32 @@ function RegistrationForm(props) {
                 error : "Please add an Interest."
             }))
         } else if (state.birthday.date === null) {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 error : "Come on add your birthday!"
-            }))
+            })
         } else {
             state.birthday = moment(state.birthday).unix();
-            setState(prevState => ({
-                ...prevState,
-                error : ""
-            }))
-            var request = $.post(config.serverUrl + "/user/create",{
+            let newUser = {
                 email: state.email,
                 password: state.password,
                 first_name: state.first,
-                last_name: state.last_name,
+                last_name: state.last,
                 birthday: state.birthday
     
-            });
+            };
+            
+            var request = $.post(config.serverUrl + "/user/create", newUser);
             request.done((result) => {
+                setState({
+                    error : ""
+                });
+                localStorage.setItem('user', result.id);
                 history.push("/home");
             }) 
             request.fail((err) => {
-                setState(prevState => ({
-                    ...prevState,
+                setState({
                     error : "Email already in use!"
-                }))
+                });
             });
         }
     }
