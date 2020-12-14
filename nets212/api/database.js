@@ -219,9 +219,9 @@ var dataCallback = function(res){
                 }
 
                 res.json(data);
-            }
-
-			res.status(404).json({"err":"User not found"});
+            } else {
+                res.status(404).json({"err":"User not found"});
+            }			
 		}
     }
     return callback;
