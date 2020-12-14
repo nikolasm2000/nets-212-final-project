@@ -17,6 +17,7 @@ var dataCallback = function(res){
 }
 
 var get = function(req,res){
+    console.log("user get called");
     db.user
         .query(req.params.id)
         .usingIndex('IDIndex')
