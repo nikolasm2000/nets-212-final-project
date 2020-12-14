@@ -8,7 +8,11 @@ import './autosuggest.css';
 import './friendstyle.css';
 import Logout from './Logout';
 
-
+const renderSuggest = suggestion => (
+    <div>
+        <Username firstName = {suggestion.name} userURL = {suggestion.userUrl} showImage="true"/>
+    </div>
+);
 
 class NavigationBar extends React.Component {
     constructor(props) {
@@ -16,6 +20,29 @@ class NavigationBar extends React.Component {
         this.state = {name: "", url: "/user/" + this.props.id, value: '', suggestion: [], selectedURL: "", Redirect: null};
     } 
 
+    onChange = (event, { newValue }) => {
+        this.setState({
+            value: newValue
+        });
+    };
+
+    onSuggestionFetch = ({value}) => {
+        this.setState({
+            suggestion : getSuggestions(value)
+        });
+    };
+
+    onSuggestionsClear = () => {
+        this.setState({
+            suggestion : []
+        });
+    };
+
+    onSuggestionSelected = (event, { suggestion, suggestionValue, index, method }) => {
+        this.setState({ selectedURL: suggestion.userUrl})  
+        console.log(this.state.selectedURL);     
+    }
+    
     render () {
         const { value, suggestion } = this.state;
 
