@@ -25,14 +25,13 @@ class Post extends React.Component {
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
             request.done((result) => {
-                console.log(result)
                 this.setState({
                     //posted by
                     userID: result.author,
                     //optional, posted on whose wall
                     user2: result.wall,
                     //time posted
-                    timeStamp: "Posted " + moment.unix(result.created_on).fromNow(),
+                    timeStamp: "Posted " + moment.unix(result.createdAt).fromNow(),
                     //URL of image
                     imageURL: result.pictures ? result.pictures[0] : '',
                     //text of the post

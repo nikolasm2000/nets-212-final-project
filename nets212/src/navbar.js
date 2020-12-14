@@ -1,6 +1,5 @@
 import React from 'react'
 import { Navbar,Nav,Form, Button, NavDropdown } from 'react-bootstrap'
-import Autosuggest from 'react-autosuggest'
 import _default from 'react-bootstrap/esm/CardColumns';
 import Username from './Username';
 import Searcher from './Searcher';

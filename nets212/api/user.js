@@ -81,7 +81,7 @@ var login = function(req,res){
                 res.status(400).json({'err': err});
             } else {
                 //return with data
-                if(data.count == 0){
+                if(data.Count == 0){
                     res.status(400).json({"err":"User not found"});
                 } else if(sha256(req.body.password) == data.Items[0].password){
                     req.session.user = data.Items[0].id;

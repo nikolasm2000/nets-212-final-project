@@ -12,10 +12,35 @@ class Notifications extends React.Component{
     }
 
     componentDidMount() {
-
+        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
     }
 
+    componentWillUnmount() {
+        clearInterval(this.refreshID);
+    }
+
+    refresh() {
+        //Update list of notifications
+        let request = $.post(config.serverUrl + '/notifications');
+        request.done((result) => {
+            this.setState({
+                notifications: []
+            });
+        });
+    }
+
+
     render() {
+        const notifications = this.state.notifications.map((notification) => {
+            if(notification.type === '0') {
+                return <div class="m-0 p-0" ><Notification/><hr class="m-0 p-0"/></div>
+            } else if(notification.type === '1') {
+                return <div class="m-0 p-0" ><FriendRequest/><hr class="m-0 p-0"/></div>
+            } else if(notification.type === '2') {
+                return <div class="m-0 p-0" ><ChatRequest/><hr class="m-0 p-0"/></div>
+            }
+            
+        });
         return (
             <div class="card container-fluid p-0 m-0">
                 <div class="container p-0 m-0">
@@ -33,13 +58,7 @@ class Notifications extends React.Component{
                         </div>
                     </div>
                     <div class="card-body p-0">
-                        <Notification/>
-                        <hr class="m-0 p-0"/>
-                        <ChatRequest/>
-                        <hr class="m-0 p-0"/>
-                        <Notification/>
-                        <hr class="m-0 p-0"/>
-                        <FriendRequest/>
+                        {notifications}
                     </div>
                 </div>
             </div>

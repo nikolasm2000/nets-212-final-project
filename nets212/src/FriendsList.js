@@ -11,9 +11,6 @@ class FriendsList extends React.Component {
     }
     componentDidMount() {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
-        
-
-
     }
 
     componentWillUnmount() {
