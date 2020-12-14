@@ -43,7 +43,7 @@ var create = function(req,res){
     if(typeof req.body.password !== 'undefined'){
         console.log("pre hash:")
         console.log(req.body.password);
-        res.body.password = sha256(req.body.password);
+        req.body.password = sha256(req.body.password);
         console.log("post hash:")
         console.log(req.body.password);
     }
