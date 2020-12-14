@@ -14,9 +14,8 @@ var dataCallback = function(res){
             if(typeof data.attrs.createdAt != undefined){
                 console.log(data.attrs.createdAt);
                 var createDate = DateTime.fromISO(data.attrs.createdAt);
-                console.log(createDate);
-                data.attrs.createdAt = createDate.valueOf();
-                console.log(createDate.valueOf())
+                data.attrs.createdAt = createDate.toSeconds();
+                console.log(createDate.toSeconds())
             }
 
 			res.json(data);

@@ -90,9 +90,6 @@ var authenticate = function(req,res){
     }
 }
 
-console.log("hash:")
-console.log(sha256("test"));
-
 var user = {
 	get: get,
 	create: create,
