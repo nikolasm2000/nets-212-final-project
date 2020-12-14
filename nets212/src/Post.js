@@ -9,15 +9,22 @@ const comments = [{text:"Damn I look good in this!", user:{firstName:"Pranav", l
 {text:"Real cute fella this guy", user:{firstName:"Stan", lastName:"Smith", userURL:"id=?133", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic3.jpg"} },
 {text:"Can you do it for $5?", user:{firstName:"Terrence", lastName:"T.", userURL:"id=?19", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic4.jpg"} }];
 
+
+//should just take in a POST ID. it will then make the call to the backend.
 class Post extends React.Component {
     constructor(props) {
         super (props);
         this.state = {};
     }
 
+<<<<<<< HEAD
+    componentDidMount() {
+        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+=======
 
     componentWillMount() {
         //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+>>>>>>> ffa00851938d7dd296afe9641548342c84763fa3
         //Make call to backend to get POST details
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
@@ -39,9 +46,14 @@ class Post extends React.Component {
                     //whether userliked
                     liked: result.liked,
                     //list of comment IDs on the post
+<<<<<<< HEAD
+                    commentIDs: ____,
+                }
+=======
                     commentIDs: result.commentIDs,
                 });
 
+>>>>>>> ffa00851938d7dd296afe9641548342c84763fa3
             });
         }
     }
@@ -61,7 +73,7 @@ class Post extends React.Component {
                     </div> : null}
 
                     {this.state.user2 ? <div class="col-auto m-0 p-0"> 
-                    <Username id={this.state.id} showImage="true"/> 
+                    <Username id={this.state.user2} showImage="true"/> 
                     </div>: null}
                 </div>
                 <p class="card-text m-0 p-0"><small class="text-muted">Posted 3 mins ago</small></p>
@@ -72,7 +84,7 @@ class Post extends React.Component {
                 <hr/>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col p-0 m-0">
-                        <Likes number={this.state.numLikes} liked={this.state.liked}/>
+                        <Likes number={this.state.numLikes} liked={this.state.liked} postid={this.props.id}/>
                     </div>
                 </div>
                 <div class="row p-0 m-0 d-flex align-items-center">

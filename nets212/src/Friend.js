@@ -2,13 +2,14 @@ import React, {useState} from 'react'
 import Username from './Username.js'
 import './friendstyle.css';
 
-
+//should just take in a userID ---> props is id
 class Friend extends React.Component {
     constructor(props) {
       super(props);
       this.handleMessage = this.handleMessage.bind(this);
       this.handleRemoveFriend = this.handleRemoveFriend.bind(this);
     }
+    
 
     handleMessage() {
 
@@ -18,13 +19,15 @@ class Friend extends React.Component {
 
     }
 
+
+
     render() {
     
         return (
         <div class="container p-2 friend m-0">
             <div class="row align-items-center justify-content-between">
                 <div class="col-auto pr-0 mr-3 ml-3">
-                    <Username id="123" firstName="Pranav" lastName="Aurora" userURL="/id?123" showImage="true"/>
+                    <Username id="123" />
                 </div>
 
                 <div class="col-auto p-0 m-0 mr-4">

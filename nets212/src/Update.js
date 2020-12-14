@@ -24,23 +24,20 @@ function Update(props) {
     const handleSubmitEmail = (e) => {
         e.preventDefault();
         if (state.email === "") {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorEmail: "Email cannot be empty!",
                 successEmail : ""
-            }))
+            })
         } else if (!re.test(state.email.toLowerCase())) {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorEmail : "Email of wrong format!",
                 successEmail : ""
-            })) 
+            }) 
         } else {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorEmail : "",
                 successEmail : "successfuly changed email"
-            })) 
+            })
             ///NEED post request to the backend to change email
         }
     }
@@ -48,57 +45,50 @@ function Update(props) {
     const handleSubmitPassword = (e) => {
         e.preventDefault();
         if (state.password === "" || state.confirmpassword === "") {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorPassword: "password fields cannot be empty!",
                 successPassword : ""
-            }))
+            })
         } else if (state.password !==  state.confirmpassword) {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorPassword : "passwords DO NOT MATCH",
                 successPassword : ""
-            })) 
+            }) 
         } else {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorPassword : "",
                 successPassword : "successfuly changed password "
-            })) 
+            })
             ///NEED post request to the backend to change password
         }
     }
 
     const handleSubmitAffiliation = (e) => {
         if (state.affiliation === "") {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorAffiliation: "field cannot be empty!",
                 successAffiliation : ""
-            }))
+            })
         } else {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorAffiliation: "",
                 successAffiliation : "Successfuly Changed Affiliation"
-            }))
+            })
         }
         // need to trigger a post. 
     }
 
     const handleSubmitInterest = (e) => {
         if (state.news === "") {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorInterest: "field cannot be empty!",
                 successInterest : ""
-            }))
+            })
         } else {
-            setState(prevState => ({
-                ...prevState,
+            setState({
                 errorInterest: "",
                 successInterest : "Successfuly Changed Interest"
-            }))
+            })
         }
         // need to trigger a post. 
     }

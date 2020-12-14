@@ -9,8 +9,9 @@ function Comments(props) {
   const [open, setOpen] = useState(false);
   const [text , setText] = useState("Show comments...");
 
+  //should pass in a commentID to each comment
   const posts = props.comments.map((comment) =>
-        <Comment comment={comment}/>
+        <Comment id={comment}/>
     );
 
     function clicked() {
