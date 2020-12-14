@@ -17,6 +17,7 @@ var dataCallback = function(res){
 }
 
 var get = function(req,res){
+    console.log("user get called");
     db.user
         .query(req.params.id)
         .usingIndex('IDIndex')
@@ -28,7 +29,7 @@ var get = function(req,res){
                 res.status(400).json({'err': err});
             } else {
                 //return with data
-                res.json(data);
+                res.json(data.Items[0]);
             }
         })
 
