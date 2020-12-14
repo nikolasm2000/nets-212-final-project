@@ -24,7 +24,7 @@ class Post extends React.Component {
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
             request.done((result) => {
-                console.log(result)
+                console.log(result);
                 this.setState({
                     //posted by
                     userID: result.author,
@@ -43,18 +43,21 @@ class Post extends React.Component {
                     //list of comment IDs on the post
                     commentIDs: result.commentIDs,
                 });
-
             });
         }
     }
 
     render () {
+        var username;
+        if(this.state.userID) {
+            username = <Username id={this.state.userID} showImage="true"/>;
+        }
         return (
             <div class="card mt-4 mb-2 container-fluid p-0 m-0">
             <div class="card-header d-flex flex-row pb-2 align-items-start justify-content-between">
                 <div class="card-title m-0 p-0 pb-1 row align-items-center"> 
                     <div class="col-auto m-0 p-0">
-                    <Username id={this.state.userID} showImage="true"/>
+                    {username}
                     </div>
                     {this.state.user2 ? <div class="col-auto m-0 pr-3 pl-3 text-secondary"> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" fill="currentColor" class="bi bi-arrow-right-short p-0 m-0" viewBox="0 0 16 16">
