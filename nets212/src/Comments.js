@@ -12,10 +12,14 @@ function Comments(props) {
 
   //should pass in a commentID to each comment
   
-  const posts = props.comments.map((comment) =>
-        <Comment id={comment}/>
-    );
+  var posts;
+  if (props.comments != null) {
+      posts = props.comments.map((comment) =>
+      <Comment id={comment}/>
 
+    )} else {
+      posts = <div> No comments yet :( </div>
+    } 
     function clicked() {
       setOpen(!open);
       if(open) {

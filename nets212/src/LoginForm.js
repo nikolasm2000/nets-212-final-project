@@ -69,7 +69,7 @@ function LoginForm(props) {
 
     return (
         <div className="card col-12 col-lg-3 login-card mt-2 hv-center p-4">
-            <h1> Log into PennBooks Here:</h1>
+            <h1> Welcome to PennBooks</h1>
             Email:
             <input type="email" 
                        className="form-control mb-2" 
@@ -91,7 +91,7 @@ function LoginForm(props) {
                     className="btn btn-primary mt-4 mb-2"
                     onClick={handleSubmit}
           >
-                    Log in. 
+                    Log in
           </button>
           Not a user? <a href = '/register'> Register Here. </a>
 

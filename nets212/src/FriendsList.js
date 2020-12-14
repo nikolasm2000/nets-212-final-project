@@ -1,16 +1,16 @@
 import React, {useState} from 'react'
 import Friend from './Friend.js';
+import $ from 'jquery'
+
 var config = require('./Config.js')
 
 class FriendsList extends React.Component {
     constructor(props) {
       super(props);
+      this.state = {friends: []};
     }
     componentDidMount() {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
-        
-
-
     }
 
     componentWillUnmount() {
@@ -19,10 +19,19 @@ class FriendsList extends React.Component {
 
     refresh() {
         //Update list of online friends
-
+        let request = $.post(config.serverUrl + '/friends');
+        request.done((result) => {
+            this.setState({
+                friends: []
+            });
+        });
     }
 
     render() {
+        const friends = this.state.friends.map((friend) => {
+            return <div class="m-0 p-0" ><Friend key={friend} id={friend}/><hr class="m-0 p-0"/></div>;
+        });
+
         return(
         <div class="card container-fluid p-0 m-0">
             <div class="container p-0 m-0">
@@ -39,11 +48,7 @@ class FriendsList extends React.Component {
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <Friend/>
-                    <hr class="m-0 p-0"/>
-                    <Friend/>
-                    <hr class="m-0 p-0"/>
-                    <Friend/>
+                    {friends}
                 </div>
             </div>
         </div>

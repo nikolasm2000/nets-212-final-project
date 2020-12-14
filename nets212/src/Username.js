@@ -20,6 +20,13 @@ class Username extends React.Component {
                     lastName: result.last_name,
                 }); 
             });
+            request.fail((err) => {
+                this.setState({
+                    firstName: "User",
+                    lastName: "not found",
+                    userURL: undefined
+                });
+            });
         }
     }
 

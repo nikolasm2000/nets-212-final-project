@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Username from './Username';
 import Likes from './Likes';
 import Comments from './Comments.js';
+import moment from 'moment';
 import $ from 'jquery'
 var config = require('./Config.js')
 const comments = [{text:"Damn I look good in this!", user:{firstName:"Pranav", lastName:"Aurora", userURL:"id=?2131", profilePic: "https://scontent.ffxe1-1.fna.fbcdn.net/v/t1.0-9/55817175_1278692865621197_1432642661486952448_n.jpg?_nc_cat=109&ccb=2&_nc_sid=a4a2d7&_nc_ohc=5yGvxbSXra8AX-nMbDB&_nc_ht=scontent.ffxe1-1.fna&oh=1e14b237408342c652ac4f440691df0e&oe=5FE99984"} }, 
@@ -30,7 +31,7 @@ class Post extends React.Component {
                     //optional, posted on whose wall
                     user2: result.wall,
                     //time posted
-                    timeStamp: result.createdAt,
+                    timeStamp: "Posted " + moment.unix(result.createdAt).fromNow(),
                     //URL of image
                     imageURL: result.pictures ? result.pictures[0] : '',
                     //text of the post
@@ -69,7 +70,7 @@ class Post extends React.Component {
                     <Username id={this.state.user2} showImage="true"/> 
                     </div>: null}
                 </div>
-                <p class="card-text m-0 p-0"><small class="text-muted">Posted 3 mins ago</small></p>
+                <p class="card-text m-0 p-0"><small class="text-muted">{this.state.timeStamp}</small></p>
             </div>
             <div class="card-body">
                 <p class="card-text">{this.state.text}</p>
@@ -82,6 +83,7 @@ class Post extends React.Component {
                 </div>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col">
+                        <Comments comments = {this.state.commentIDs}/>
                     </div>
                 </div>
             </div>
