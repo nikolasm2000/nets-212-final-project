@@ -28,15 +28,40 @@ var create = function(req,res){
     console.log("data received:");
     console.log(req.body);
 
-    if(typeof req.body.password !== 'undefined'){
-        console.log("pre hash:")
-        console.log(req.body.password);
-        req.body.password = sha256(req.body.password);
-        console.log("post hash:")
-        console.log(req.body.password);
+    if(typeof req.body.email == 'undefined'){
+        res.status(400).json({"err:" : "Email needed."});
+        return;
     }
 
-    db.user.create(req.body,db.dataCallback(res));
+    if(typeof req.body.password == 'undefined'){
+        res.status(400).json({"err:" : "Password needed."});
+        return;
+    }
+
+    console.log("pre hash:")
+    console.log(req.body.password);
+    req.body.password = sha256(req.body.password);
+    console.log("post hash:")
+    console.log(req.body.password);
+
+    db.user
+        .query(req.body.email)
+        .usingIndex('EmailIndex')
+        .exec(function(err, data){
+            if(err){
+                //error from DB - return with error
+                res.status(400).json({'err': err});
+            } else {
+                //check if email already exists
+                if (data.count > 0){
+                    res.status(400).json({"err":"Email already in use"});
+                } else {
+                    db.user.create(req.body,db.dataCallback(res));
+                }
+               
+            }
+        });
+    
 }
 
 var update = function(req,res){
@@ -56,7 +81,9 @@ var login = function(req,res){
                 res.status(400).json({'err': err});
             } else {
                 //return with data
-                if(sha256(req.body.password) == data.Items[0].password){
+                if(data.count == 0){
+                    res.status(400).json({"err":"User not found"});
+                } else if(sha256(req.body.password) == data.Items[0].password){
                     req.session.user = data.Items[0].id;
                     res.json(data.Items[0]);
                 } else {
