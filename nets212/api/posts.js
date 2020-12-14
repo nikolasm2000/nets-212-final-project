@@ -32,6 +32,7 @@ var get = function(req,res){
                                 });
                                 //return with data
                                 data.attrs.comments = comments;
+                                console.log("Returning post:", data.attrs);
                                 res.json(data.attrs);
                             }
                         });
@@ -90,7 +91,6 @@ var getAll = function(req, res){
     .query("0")
     .usingIndex('ParentIndex')
     .loadAll()
-    .filter('parent').equals('0')
     // .exec(function(err, data){
     //     console.log("data:");
     //     console.log(data);
@@ -101,9 +101,9 @@ var getAll = function(req, res){
 var getAllIDs = function(req, res){
     console.log("get all posts ID called")
     db.posts
-    .scan()
+    .query("0")
+    .usingIndex('ParentIndex')
     .loadAll()
-    .filter('parent').equals('0')
     // .exec(function(err, data){
     //     console.log("data:");
     //     console.log(data);
@@ -119,7 +119,8 @@ var getAllIDs = function(req, res){
                 console.log(item);
                 result.push(item.attrs.id)
             });
-			//return with data
+            //return with data
+            console.log("result:", result);
 			res.json(result);
 		}
     });
