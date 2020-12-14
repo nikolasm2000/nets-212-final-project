@@ -11,7 +11,7 @@ const Joi = require('joi');
 //console.log(dynamo);
 
 var Users = dynamo.define('PB_User', {
-    hashKey : 'email',
+    hashKey : 'id',
 
     timestamps : true,
 
@@ -27,7 +27,7 @@ var Users = dynamo.define('PB_User', {
     },
 
     indexes: [{
-        hashKey : 'id', name : 'IDIndex', type : 'global'
+        hashKey : 'email', name : 'EmailIndex', type : 'global'
       }]
 });
 
