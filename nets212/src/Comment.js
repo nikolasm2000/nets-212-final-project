@@ -9,20 +9,19 @@ class Comment extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
-    //Make call to backend to get username details
-    if (this.props.id) {
-        var request = $.post(config.serverUrl + '/comment/' + this.props.id + '/get');
-        request.done((result) => {
-          this.setState = {
-            userID = ____,
-            comment = ____,
-          }
+//   componentDidMount() {
+//     //Make call to backend to get username details
+//     if (this.props.id) {
+//         var request = $.post(config.serverUrl + '/comment/' + this.props.id + '/get');
+//         request.done((result) => {
+//           this.setState = {
+//             userID: "",
+//             comment: "",
+//           }
 
-        });
-    }
-}
+//         });
+//     }
+// }
   render () {
     return (
       <div style={{paddingTop: 20}}>

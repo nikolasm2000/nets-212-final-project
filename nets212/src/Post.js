@@ -17,14 +17,9 @@ class Post extends React.Component {
         this.state = {};
     }
 
-<<<<<<< HEAD
-    componentDidMount() {
-        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
-=======
 
     componentWillMount() {
         //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
->>>>>>> ffa00851938d7dd296afe9641548342c84763fa3
         //Make call to backend to get POST details
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
@@ -46,14 +41,9 @@ class Post extends React.Component {
                     //whether userliked
                     liked: result.liked,
                     //list of comment IDs on the post
-<<<<<<< HEAD
-                    commentIDs: ____,
-                }
-=======
                     commentIDs: result.commentIDs,
                 });
 
->>>>>>> ffa00851938d7dd296afe9641548342c84763fa3
             });
         }
     }
