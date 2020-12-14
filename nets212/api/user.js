@@ -15,16 +15,21 @@ var dataCallback = function(res){
 }
 
 var get = function(req,res){
-    // db.user.query(req.params.id)
-    //     usingINdex('IDIndex')
-    //     .exec(function(err, data){
-    //         console.log()
-    //         console.log(data);
-            
-    //     })
+    db.user.query(req.params.id)
+        usingINdex('IDIndex')
+        .exec(function(err, data){
+            console.log(data);
+            if(err){
+                //error from DB - return with error
+                res.status(400).json({'err': err});
+            } else {
+                //return with data
+                res.json(data);
+            }
+        })
 
 
-    db.user.get(req.params.id, dataCallback(res));
+    //db.user.get(req.params.id, dataCallback(res));
 }
 
 var create = function(req,res){
