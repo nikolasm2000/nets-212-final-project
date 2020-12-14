@@ -12,6 +12,7 @@ import {
 import UserPage from './UserPage';
 import GraphVisualizer from './GraphVisualizer';
 import PrivateRoute from './PrivateRoute';
+import UnloggedRoute from './UnloggedRoute';
 
 function App() {
 
@@ -25,12 +26,8 @@ return (
     <div className="App">
         <div className="container-fluid p-0 d-flex align-items-center flex-column m-0">
           <Switch>
-            <Route path = "/" exact = {true}>
-              <LoginForm/>
-            </Route>
-            <Route path="/register" exact={true}>
-              <RegistrationForm />
-            </Route>
+            <UnloggedRoute path = "/" exact = {true} component={LoginForm}/>
+            <UnloggedRoute path="/register" exact={true} component={RegistrationForm}/>
             <PrivateRoute path="/user/:id" exact={true} component={UserPage}/>
             <PrivateRoute path = "/home" exact={true} component={HomePage}/>
             <PrivateRoute path = "/update" exact={true} component={Update}/>
