@@ -25,6 +25,7 @@ router.use(function (req, res, next) {
    console.log('Route: ', req.url)
    next()
  })
+router.post('/authenticate', user.authenticate);
 router.post('/user/:id/get', user.get);
 router.post('/user/create', user.create);
 router.post('/user/:id/update', user.update);
