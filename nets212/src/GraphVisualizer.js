@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Graph } from "react-d3-graph";
-import Navbar from './Navbar.js'
+import Navbar from './Navbar.js';
 
 class GraphVisualizer extends Component {
   constructor() {
@@ -78,7 +78,6 @@ class GraphVisualizer extends Component {
 </div>
 
 </div>
-
 
 </div> 
     );

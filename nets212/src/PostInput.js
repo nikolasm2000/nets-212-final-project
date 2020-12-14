@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import ReactS3 from 'react-s3'
+import S3FileUpload from 'react-s3';
 import $ from 'jquery'
 
 var Config = require('./Config.js')
 
 const config = {
-    bucketName: 'testfinalproject',
+    bucketName: 'pennbook',
     region: 'us-east-1',
-    accessKeyId: '',
-    secretAccessKey: ''
+    accessKeyId: 'AKIAID2TRJMEBXW4XKHQ',
+    secretAccessKey: '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'
 }
 
 function PostInput(props) {
@@ -42,14 +43,7 @@ function PostInput(props) {
     };
 
     const fileChange = e => {
-        console.log(e.target.files[0])
-        ReactS3.uploadFile(e.target.files[0], config)
-        .then( (data) => {
-            console.log(data)
-        })
-        .catch( (err)=>{
-            alert(err)
-        })
+        S3FileUpload.uploadFile(e.target.files[0], config).then((data)=> { setState({imageUrl: data.location}) }).catch((err)=> {alert(err)})
     }
 
     return (
@@ -61,8 +55,9 @@ function PostInput(props) {
                 </div>
             </div>
                 <div className="custom-file m-0">
-                    <input type="file" className="custom-file-input m-0 pb-0 pt-0" id="inputGroupFile02" accept="image/x-png,image/gif,image/jpeg" onChange= {fileChange} />
-                    <label className="custom-file-label m-0" for="inputGroupFile02">Choose an image to share</label>
+                    <h3>Choose an image:</h3>
+                    <input type="file" accept="image/x-png,image/gif,image/jpeg" onChange= {fileChange} />
+                   
                 </div>
         </div>
             
