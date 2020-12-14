@@ -204,7 +204,7 @@ var dataCallback = function(res){
 			res.json({'err': err});
 		} else {
             //return with data
-            if(typeof data != undefined || data == null){
+            if(typeof data != undefined || data != null){
                 if(typeof data.attrs.createdAt != undefined){
                     console.log(data.attrs.createdAt);
                     var createDate = DateTime.fromISO(data.attrs.createdAt);
