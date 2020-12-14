@@ -66,9 +66,9 @@ var Posts = dynamo.define('PB_Post', {
     timestamps: true,
     schema: {
         id: dynamo.types.uuid(),
-        author: Joi.number(),
-        parent: Joi.number(),
-        wall: Joi.number(),
+        author: Joi.string(),
+        parent: Joi.string(),
+        wall: Joi.string(),
         text: Joi.string(),
         privacy: Joi.number(),
         pictures: dynamo.types.stringSet(), //TODO think about this
