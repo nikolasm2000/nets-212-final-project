@@ -15,6 +15,15 @@ var dataCallback = function(res){
 }
 
 var get = function(req,res){
+    // db.user.query(req.params.id)
+    //     usingINdex('IDIndex')
+    //     .exec(function(err, data){
+    //         console.log()
+    //         console.log(data);
+            
+    //     })
+
+
     db.user.get(req.params.id, dataCallback(res));
 }
 
@@ -43,7 +52,6 @@ var login = function(req,res){
             //return with data
             if(sha256(req.body.password) == data.attrs.password){
                 req.session.user = data.id;
-                res.json({'success' : true});
                 res.json(data);
             } else {
                 res.status(400).json({"err":"user not found"});
