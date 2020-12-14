@@ -53,7 +53,7 @@ var create = function(req,res){
                 res.status(400).json({'err': err});
             } else {
                 //check if email already exists
-                if (data.count > 0){
+                if (data.Count > 0){
                     res.status(400).json({"err":"Email already in use"});
                 } else {
                     db.user.create(req.body,db.dataCallback(res));
