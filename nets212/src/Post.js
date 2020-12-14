@@ -15,7 +15,7 @@ function Post(props) {
             <div class="card-header d-flex flex-row pb-2 align-items-start justify-content-between">
                 <div class="card-title m-0 p-0 pb-1 row align-items-center"> 
                     <div class="col-auto m-0 p-0">
-                    <Username firstName={props.post.user.firstName} lastName={props.post.user.lastName} userURL={props.post.user.userURL} showImage="true"/>
+                    <Username id="123" firstName={props.post.user.firstName} lastName={props.post.user.lastName} userURL={props.post.user.userURL} showImage="true"/>
                     </div>
                     {props.post.user2 ? <div class="col-auto m-0 pr-3 pl-3 text-secondary"> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" fill="currentColor" class="bi bi-arrow-right-short p-0 m-0" viewBox="0 0 16 16">

@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import Post from './Post.js'
 import PostInput from './PostInput.js'
-
+import $ from 'jquery'
+var config = require('./Config.js')
 
 //newsfeed should just be passed a userID. this should query the posts/homepage
 
@@ -9,34 +10,37 @@ import PostInput from './PostInput.js'
 class Newsfeed extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = { posts: []}
     }
 
-    componentDidMount() {
-        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+    componentWillMount() {
+        //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
         //Make call to backend to get POST details
 
         //TWO SEPARATE CALLS
         if (this.props.id) {
-            var request = $.post(config.serverUrl + '/posts/wall/' + this.props.id );
+            var request = $.post(config.serverUrl + '/posts/wall/' +  this.props.id);
             request.done((result) => {
                 this.setState = {
                     //will just get a set of Post IDs. 
-                    postIDs: _____
+                    //postIDs: _____
                 }
             });
-        }
-
-        if (this.props.id) {
+        } else {
             var request = $.post(config.serverUrl + '/posts/homepage');
             request.done((result) => {
                 this.setState = {
-                    //will just get a set of Post IDs. 
-                    postIDs: _____
+                    posts: result
                 }
             });
-        }
 
+        }
+    }
+
+    componentDidMount() {
+        this.state.posts.map((post) => {
+            <Post id={post}/>
+        });
 
     }
     
@@ -46,10 +50,10 @@ class Newsfeed extends React.Component {
     render () {
         return (
             <div>
-                <PostInput user={props.user}/>
+                <PostInput user={this.state.author}/>
                 <hr class="mt-4 mb-0 p-0"/>
                 <div class="d-flex flex-column align-items-center">
-                    {posts}
+                    {this.posts}
                 </div>
                 <br/>
             </div>

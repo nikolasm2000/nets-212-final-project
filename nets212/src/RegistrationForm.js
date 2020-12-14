@@ -3,6 +3,7 @@ import DatePicker from 'react-date-picker'
 import $ from 'jquery'; 
 import moment from 'moment';
 import { useHistory } from "react-router-dom";
+import {Redirect} from 'react-router-dom'
 
 var config = require("./Config.js")
 
@@ -96,9 +97,19 @@ function RegistrationForm(props) {
             request.done((result) => {
                 history.push("/home");
             }) 
+            request.fail((err) => {
+                setState(prevState => ({
+                    ...prevState,
+                    error : "Email already in use!"
+                }))
+            });
         }
     }
-    
+
+    if(false) {
+        return <Redirect to='/'/>
+    }
+
     return(
     <div className="card col-12 col-lg-5 login-card mt-4 hv-center p-4">
         <h1> Register for PennBooks Here:</h1>
