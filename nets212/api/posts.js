@@ -29,7 +29,7 @@ var create = function(req,res){
     console.log("req.body:")
     console.log(req.body);
     console.log(req.query);
-    db.posts.create(req.query,dataCallback(res));
+    db.posts.create(req.body,dataCallback(res));
 }
 
 var update = function(req,res){

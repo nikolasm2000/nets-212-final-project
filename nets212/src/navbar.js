@@ -6,46 +6,7 @@ import Username from './Username';
 import Searcher from './Searcher';
 import './autosuggest.css';
 import './friendstyle.css';
-
-const people = [ 
-    {
-        name: "Pranav Aurora", 
-        userUrl: "user/123"
-    },
-    {
-        name: "Pra", 
-        userUrl: "user/126"
-    },
-    {
-        name: "Pr", 
-        userUrl: "user/127"
-    },
-    {
-        name: "Pran", 
-        userUrl: "user/128"
-    },
-    {   name: "Rafa Marquez", 
-        userUrl: "user/124"
-    },
-    {   name: "henrique Lorente",
-        userUrl: "user/125"
-    },
-        {name: "nico legend",
-        userUrl: "user/126"
-    }]
-
-
-const getSuggestions = (value) => {
-    const trimmedInput = value.trim().toLowerCase();
-    const length = trimmedInput.length;
-    let toR = [];
-    if (length !== 0) {
-         toR = people.filter(person => person.name.toLowerCase().slice(0,length) === trimmedInput);
-    } 
-    return toR;
-}
-
-const displaySuggestion = (suggestion) => suggestion.name;
+import Logout from './Logout';
 
 const renderSuggest = suggestion => (
     <div>
@@ -58,24 +19,6 @@ class NavigationBar extends React.Component {
         super(props);
         this.state = {name: "", url: "/user/" + this.props.id, value: '', suggestion: [], selectedURL: "", Redirect: null};
     } 
-
-    onChange = (event, { newValue }) => {
-        this.setState({
-            value: newValue
-        });
-    };
-
-    onSuggestionFetch = ({value}) => {
-        this.setState({
-            suggestion : getSuggestions(value)
-        });
-    };
-
-    onSuggestionsClear = () => {
-        this.setState({
-            suggestion : []
-        });
-    };
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, index, method }) => {
         this.setState({ selectedURL: suggestion.userUrl})  
@@ -103,7 +46,7 @@ class NavigationBar extends React.Component {
                  </Nav>
                 </Navbar.Collapse>
                 <Searcher/>
-
+                <Logout/>
             </Navbar>
         )
     } 

@@ -7,7 +7,9 @@ var dataCallback = function(res){
 			//error from DB - return with error
 			res.status(400).json({'err': err});
 		} else {
-			//return with data
+            //return with data
+            console.log("data returned:");
+            console.log(data);
 			res.json(data);
 		}
     }
@@ -15,24 +17,37 @@ var dataCallback = function(res){
 }
 
 var get = function(req,res){
-    // db.user.query(req.params.id)
-    //     usingINdex('IDIndex')
-    //     .exec(function(err, data){
-    //         console.log()
-    //         console.log(data);
-            
-    //     })
+    console.log("user get called");
+    db.user
+        .query(req.params.id)
+        .usingIndex('IDIndex')
+        .exec(function(err, data){
+            console.log("user get result:")
+            console.log(data);
+            if(err){
+                //error from DB - return with error
+                res.status(400).json({'err': err});
+            } else {
+                //return with data
+                res.json(data.Items[0]);
+            }
+        })
 
 
-    db.user.get(req.params.id, dataCallback(res));
+    //db.user.get(req.params.id, dataCallback(res));
 }
 
 var create = function(req,res){
     console.log("user create called");
+    console.log("data received:");
+    console.log(req.body);
 
-    if(typeof res.body.password !== 'undefined'){
-        console.log(res.body.password);
-        res.body.password = sha256(res.body.password);
+    if(typeof req.body.password !== 'undefined'){
+        console.log("pre hash:")
+        console.log(req.body.password);
+        req.body.password = sha256(req.body.password);
+        console.log("post hash:")
+        console.log(req.body.password);
     }
 
     db.user.create(req.body,dataCallback(res));

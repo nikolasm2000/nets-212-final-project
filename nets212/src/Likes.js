@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
+
+//LIKEs COMPONENT only takes in 2 parameters: 1) number of likes. 2) whether liked.
 class Likes extends React.Component {
   constructor(props) {
     super(props);
     this.handleLike = this.handleLike.bind(this);
     this.handleUnlike = this.handleUnlike.bind(this);
-	this.state = {liked: false};
-	this.state = {likes: 9};
+    this.state = {liked: this.props.likes};
+    this.state = {likes: this.props.liked};
   }
+
 
   handleLike() {
 	this.setState({liked: true});

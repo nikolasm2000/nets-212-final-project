@@ -9,6 +9,8 @@ const comments = [{text:"Damn I look good in this!", user:{firstName:"Pranav", l
 {text:"Real cute fella this guy", user:{firstName:"Stan", lastName:"Smith", userURL:"id=?133", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic3.jpg"} },
 {text:"Can you do it for $5?", user:{firstName:"Terrence", lastName:"T.", userURL:"id=?19", profilePic: "https://aws-logs-794770869316-us-east-1.s3.amazonaws.com/pic4.jpg"} }];
 
+
+//should just take in a POST ID. it will then make the call to the backend.
 class Post extends React.Component {
     constructor(props) {
         super (props);
@@ -22,7 +24,7 @@ class Post extends React.Component {
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
             request.done((result) => {
-                console.log(result)
+                console.log(result);
                 this.setState({
                     //posted by
                     userID: result.author,
@@ -31,7 +33,7 @@ class Post extends React.Component {
                     //time posted
                     timeStamp: result.created_on,
                     //URL of image
-                    imageURL: result.pictures[0],
+                    imageURL: result.pictures ? result.pictures[0] : '',
                     //text of the post
                     text: result.text,
                     //number of likes
@@ -41,18 +43,21 @@ class Post extends React.Component {
                     //list of comment IDs on the post
                     commentIDs: result.commentIDs,
                 });
-
             });
         }
     }
 
     render () {
+        var username;
+        if(this.state.userID) {
+            username = <Username id={this.state.userID} showImage="true"/>;
+        }
         return (
             <div class="card mt-4 mb-2 container-fluid p-0 m-0">
             <div class="card-header d-flex flex-row pb-2 align-items-start justify-content-between">
                 <div class="card-title m-0 p-0 pb-1 row align-items-center"> 
                     <div class="col-auto m-0 p-0">
-                    <Username id={this.state.userID} showImage="true"/>
+                    {username}
                     </div>
                     {this.state.user2 ? <div class="col-auto m-0 pr-3 pl-3 text-secondary"> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" fill="currentColor" class="bi bi-arrow-right-short p-0 m-0" viewBox="0 0 16 16">
@@ -61,7 +66,7 @@ class Post extends React.Component {
                     </div> : null}
 
                     {this.state.user2 ? <div class="col-auto m-0 p-0"> 
-                    <Username id={this.state.id} showImage="true"/> 
+                    <Username id={this.state.user2} showImage="true"/> 
                     </div>: null}
                 </div>
                 <p class="card-text m-0 p-0"><small class="text-muted">Posted 3 mins ago</small></p>
@@ -72,7 +77,7 @@ class Post extends React.Component {
                 <hr/>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col p-0 m-0">
-                        <Likes number={this.state.numLikes} liked={this.state.liked}/>
+                        <Likes number={this.state.numLikes} liked={this.state.liked} postid={this.props.id}/>
                     </div>
                 </div>
                 <div class="row p-0 m-0 d-flex align-items-center">

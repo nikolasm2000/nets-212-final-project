@@ -30,9 +30,8 @@ class Newsfeed extends React.Component {
         } else {
             var request = $.post(config.serverUrl + '/posts/homepage');
             request.done((result) => {
-                console.log(result.Items)
                 this.setState({
-                    posts: result.Items
+                    posts: result
                 });
             });
 
@@ -43,9 +42,8 @@ class Newsfeed extends React.Component {
     //need to iteate over the set postIDs and call each post then. 
 
     render () {
-        console.log(this.state.posts);
         const posts = this.state.posts.map((post) => {
-            return <Post id={post.id}/>
+            return <Post id={post}/>
         });
 
         return (
