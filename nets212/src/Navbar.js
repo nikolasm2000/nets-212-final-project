@@ -35,24 +35,6 @@ const people = [
     }]
 
 
-const getSuggestions = (value) => {
-    const trimmedInput = value.trim().toLowerCase();
-    const length = trimmedInput.length;
-    let toR = [];
-    if (length !== 0) {
-         toR = people.filter(person => person.name.toLowerCase().slice(0,length) === trimmedInput);
-    } 
-    return toR;
-}
-
-const displaySuggestion = (suggestion) => suggestion.name;
-
-const renderSuggest = suggestion => (
-    <div>
-        <Username firstName = {suggestion.name} userURL = {suggestion.userUrl} showImage="true"/>
-    </div>
-);
-
 class NavigationBar extends React.Component {
     constructor(props) {
         super(props);
@@ -83,14 +65,6 @@ class NavigationBar extends React.Component {
     }
     
     render () {
-        const { value, suggestion } = this.state;
-
-        const inputProps = {
-            placeholder: 'Search for users',
-            value, 
-            onChange: this.onChange
-        };
-
         return (
             <Navbar bg="dark" expand="lg" variant="dark" sticky="top">
                 <Navbar.Brand href="/home">PennBooks</Navbar.Brand>

@@ -5,11 +5,13 @@ import ReactDOM from 'react-dom'
 import Comment from './Comment.js'
 import CommentInput from './CommentInput.js'
 
+
 function Comments(props) {
   const [open, setOpen] = useState(false);
   const [text , setText] = useState("Show comments...");
 
   //should pass in a commentID to each comment
+  
   const posts = props.comments.map((comment) =>
         <Comment id={comment}/>
     );

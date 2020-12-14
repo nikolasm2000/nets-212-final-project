@@ -7,33 +7,13 @@ import Searcher from './Searcher';
 import './autosuggest.css';
 import './friendstyle.css';
 import Logout from './Logout';
-
-const renderSuggest = suggestion => (
-    <div>
-        <Username firstName = {suggestion.name} userURL = {suggestion.userUrl} showImage="true"/>
-    </div>
-);
-
 class NavigationBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {name: "", url: "/user/" + this.props.id, value: '', suggestion: [], selectedURL: "", Redirect: null};
+        this.state = {};
     } 
-
-    onSuggestionSelected = (event, { suggestion, suggestionValue, index, method }) => {
-        this.setState({ selectedURL: suggestion.userUrl})  
-        console.log(this.state.selectedURL);     
-    }
     
     render () {
-        const { value, suggestion } = this.state;
-
-        const inputProps = {
-            placeholder: 'Search for users',
-            value, 
-            onChange: this.onChange
-        };
-
         return (
             <Navbar bg="dark" expand="lg" variant="dark" sticky="top">
                 <Navbar.Brand href="/home">PennBooks</Navbar.Brand>
@@ -41,8 +21,7 @@ class NavigationBar extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/messages">Messages</Nav.Link>
-                    <Nav.Link href={this.state.url}> {this.props.name}</Nav.Link>
-
+                    <Username id= {localStorage.getItem('user')} showImage="true"/>
                  </Nav>
                 </Navbar.Collapse>
                 <Searcher/>
