@@ -23,7 +23,7 @@ var get = function(req,res){
 
 var create = function(req,res){
     console.log("create post called");
-    req.body.parent = "";
+    req.body.parent = "0";
     db.posts.create(req.body,dataCallback(res));
 }
 

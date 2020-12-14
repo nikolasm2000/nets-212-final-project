@@ -29,10 +29,9 @@ class Newsfeed extends React.Component {
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/wall/' +  this.props.id);
             request.done((result) => {
-                this.setState = {
-                    //will just get a set of Post IDs. 
-                    //postIDs: _____
-                }
+                this.setState ({
+                    posts: result
+                });
             });
         } else {
             var request = $.post(config.serverUrl + '/posts/homepage');
@@ -49,14 +48,13 @@ class Newsfeed extends React.Component {
     //need to iteate over the set postIDs and call each post then. 
 
     render () {
-        console.log(this.state.posts);
         const posts = this.state.posts.map((post) => {
             return <Post key={post} id={post}/>
         });
 
         return (
             <div>
-                <PostInput addPost={this.addPost}/>
+                <PostInput addPost={this.addPost} id={this.props.id}/>
                 <hr class="mt-4 mb-0 p-0"/>
                 <div class="d-flex flex-column align-items-center">
                     {posts}
