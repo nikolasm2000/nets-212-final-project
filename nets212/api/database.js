@@ -109,8 +109,8 @@ var NewsLikes = dynamo.define('PB_NewsLike',{
 
     schema: {
         id: dynamo.types.uuid(),
-        news: Joi.number(),
-        author: Joi.number(),
+        news: Joi.string(),
+        author: Joi.string(),
     }
 });
 
