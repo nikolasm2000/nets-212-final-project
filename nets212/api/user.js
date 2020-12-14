@@ -5,7 +5,7 @@ var dataCallback = function(res){
     callback = function(err, data){
         if(err){
 			//error from DB - return with error
-			res.statusCode(400).json({'err': err});
+			res.status(400).json({'err': err});
 		} else {
 			//return with data
 			res.json(data);
@@ -41,12 +41,12 @@ var login = function(req,res){
 		} else {
             console.log(data);
             //return with data
-            if(sha256(req.body.password) == data.password){
+            if(sha256(req.body.password) == data.attrs.password){
                 req.session.user = data.id;
                 res.json({'success' : true});
                 res.json(data);
             } else {
-                res.statusCode(400).json({"err":"user not found"});
+                res.status(400).json({"err":"user not found"});
             }
 		}
     })
@@ -62,9 +62,12 @@ var authenticate = function(req,res){
     if (req.session.user != undefined) {
         res.json({'id' : req.session.user});
     } else {
-        res.statusCode(400).json({"err":"user not logged in"});
+        res.status(400).json({"err":"user not logged in"});
     }
 }
+
+console.log("hash:")
+console.log(sha256("test"));
 
 var user = {
 	get: get,
