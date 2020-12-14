@@ -68,7 +68,7 @@ function RegistrationForm(props) {
             setState({
                 error : "Please add an Interest."
             })
-        } else if (state.birthday.date === null) {
+        } else if (state.birthday == undefined) {
             setState({
                 error : "Come on add your birthday!"
             })
