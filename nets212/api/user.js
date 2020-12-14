@@ -29,7 +29,7 @@ var get = function(req,res){
                 res.status(400).json({'err': err});
             } else {
                 //return with data
-                res.json(data);
+                res.json(data.Items[0]);
             }
         })
 
