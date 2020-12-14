@@ -12,7 +12,6 @@ class Username extends React.Component {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
         //Make call to backend to get username details
         if (this.props.id) {
-            console.log(this.props.id);
             this.setState({ status: "Online", userURL: '/user/' + this.props.id})
             var request = $.post(config.serverUrl + '/user/' + this.props.id + '/get');
             request.done((result) => {

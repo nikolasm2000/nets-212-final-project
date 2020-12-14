@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { Button } from 'react-bootstrap'
 import $ from 'jquery'
+import moment from 'moment';
 
 var config = require('./Config.js')
 
@@ -17,12 +18,13 @@ class UserComponent extends React.Component {
 	}
 	
 	componentWillMount() {
-        let request = $.post(config.serverUrl + '/user/' + this.state.id + '/get');
+		let request = $.post(config.serverUrl + '/user/' + this.props.id + '/get');
         request.done((result) =>  {
+			console.log(result)
 			this.setState({
 				name: result.first_name + ' ' + result.last_name,
 				affiliation: result.affiliation,
-				birthday: result.birthday
+				birthday: moment.unix(result.birthday).format("DD-MM-YYYY")
 			});
         });
 

@@ -34,7 +34,7 @@ class UserPage extends React.Component {
         {text:"Hey guys this is a post lol", user:{firstName:"Henrique", lastName:"Lorente", userURL:"id=?2131"} }];
         var usercomp;
         if(this.state.id) {
-            <UserComponent id={this.state.id}/>
+            usercomp = <UserComponent id={this.state.id}/>
         }
 
         return (
