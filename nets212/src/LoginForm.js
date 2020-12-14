@@ -91,7 +91,7 @@ function LoginForm(props) {
                     className="btn btn-primary mt-4 mb-2"
                     onClick={handleSubmit}
           >
-                    Log in. 
+                    Log in 
           </button>
           Not a user? <a href = '/register'> Register Here. </a>
 

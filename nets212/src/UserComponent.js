@@ -24,7 +24,7 @@ class UserComponent extends React.Component {
 			this.setState({
 				name: result.first_name + ' ' + result.last_name,
 				affiliation: result.affiliation,
-				birthday: moment.unix(result.birthday).format("DD-MM-YYYY")
+				birthday: moment.unix(result.birthday).format("MMMM Do, YYYY")
 			});
         });
 
