@@ -44,8 +44,8 @@ var UserInterests = dynamo.define('PB_UserInterest',{
     hashKey: 'PBuser',
     rangeKey: 'interest',
     schema:{
-        PBuser: Joi.number(),
-        interest: Joi.number(),
+        PBuser: Joi.string(),
+        interest: Joi.string(),
     }
 })
 
@@ -54,8 +54,8 @@ var Friends = dynamo.define('PB_Friend', {
     rangeKey: 'friend',
     timestamps: false,
     schema: {
-        PBuser: Joi.number(),
-        friend: Joi.number(),
+        PBuser: Joi.string(),
+        friend: Joi.string(),
         request: Joi.boolean(), //Do I need this? to be seen
         accepted: Joi.boolean()
     }
@@ -80,7 +80,7 @@ var Pictures = dynamo.define('PB_Picture',{
     rangeKey: 'id',
     schema: {
         id: dynamo.types.uuid(),
-        post: Joi.number(),
+        post: Joi.string(),
         link: Joi.string(),
     }
 });
@@ -92,8 +92,8 @@ var Reactions = dynamo.define('PB_Reaction',{
 
     schema: {
         id: dynamo.types.uuid(),
-        post: Joi.number(),
-        author: Joi.number(),
+        post: Joi.string(),
+        author: Joi.string(),
         reaction: Joi.number(),
     }
 });
@@ -115,8 +115,8 @@ var FinalWeights = dynamo.define('PB_FinalWeight',{
     rangeKey: 'article',
 
     schema: {
-        PBuser: Joi.number(),
-        article: Joi.number(),
+        PBuser: Joi.string(),
+        article: Joi.string(),
         weight: Joi.number(),
     }
 });
@@ -137,8 +137,8 @@ var ChatMembers = dynamo.define('PB_ChatMember',{
     rangeKey: 'PBuser',
     timestamps: false,
     schema:{
-        chat: Joi.number(),
-        PBuser: Joi.number(),
+        chat: Joi.string(),
+        PBuser: Joi.string(),
         date_joined: Joi.number(),
         admin: Joi.boolean(),
     },
@@ -169,7 +169,7 @@ var Search = dynamo.define('PB_Inverted',{
         id: dynamo.types.uuid(),
         article: Joi.boolean(),
         PBuser: Joi.boolean(),
-        obj_id: Joi.number(),
+        obj_id: Joi.string(),
     }
 
 });
