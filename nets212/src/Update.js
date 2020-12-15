@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import DatePicker from 'react-date-picker';
 import {Redirect} from 'react-router-dom';
+import $ from 'jquery'
+var Config = require("./Config.js");
 
 function Update(props) {
     const [state , setState] = useState({
@@ -38,7 +40,13 @@ function Update(props) {
                 errorEmail : "",
                 successEmail : "successfuly changed email"
             })
-            ///NEED post request to the backend to change email
+            let update = {
+                id: localStorage.getItem('user'),
+                email: state.email
+            }
+            let request1 = $.post(Config.serverUrl + '/user/update', update);
+            request1.done((result) => {
+            });
         }
     }
 
@@ -59,6 +67,13 @@ function Update(props) {
                 errorPassword : "",
                 successPassword : "successfuly changed password "
             })
+            let update = {
+                id: localStorage.getItem('user'),
+                password: state.password
+            }
+            let request1 = $.post(Config.serverUrl + '/user/update', update);
+            request1.done((result) => {
+            });
             ///NEED post request to the backend to change password
         }
     }
@@ -74,7 +89,8 @@ function Update(props) {
                 errorAffiliation: "",
                 successAffiliation : "Successfuly Changed Affiliation"
             })
-        }
+        } 
+        //write route to backend later
         // need to trigger a post. 
     }
 
@@ -90,6 +106,7 @@ function Update(props) {
                 successInterest : "Successfuly Changed Interest"
             })
         }
+        //write route to backend later
         // need to trigger a post. 
     }
 

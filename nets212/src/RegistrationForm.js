@@ -68,7 +68,7 @@ function RegistrationForm(props) {
             setState({
                 error : "Please add an Interest."
             })
-        } else if (state.birthday.date == undefined || state.birtday == undefined) {
+        } else if (state.birthday == undefined) {
             setState({
                 error : "Come on add your birthday!"
             })
@@ -84,6 +84,7 @@ function RegistrationForm(props) {
             };
             
             var request = $.post(config.serverUrl + "/user/create", newUser);
+            alert("hello")
             request.done((result) => {
                 setState({
                     error : ""
