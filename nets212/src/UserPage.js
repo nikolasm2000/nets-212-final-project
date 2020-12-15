@@ -12,7 +12,7 @@ class UserPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {id: this.props.match.params.id};
-        this.clicked = this.clicked.bind(this);
+        
     }
 
     componentWillMount() {

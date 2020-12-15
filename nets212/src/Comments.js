@@ -26,6 +26,7 @@ function Comments(props) {
 
   var posts;
   if (comments != null) {
+      console.log(comments)
       posts = comments.map((comment) =>
       <Comment key={comment} id={comment}/>
 
@@ -58,7 +59,7 @@ function Comments(props) {
         </div>
       </Collapse>
     </div>
-    <CommentInput addComment={addComment}/>
+    <CommentInput addComment={addComment} postid={props.postid}/>
     </div>
   );
 } 
