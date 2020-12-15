@@ -22,10 +22,12 @@ var db = require('./database.js');
 
 //router.use(() => {}); // General middleware
 router.use(function (req, res, next) {
-   console.log("\n ========================================= \n")
-   console.log('Request received on route ', req.url)
-   console.log('Logged in user: ', req.session.user)
-   next()
+   res.append('Access-Control-Allow-Credentials', true);
+   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
+   console.log("\n ========================================= \n");
+   console.log('Request received on route ', req.url);
+   console.log('Logged in user: ', req.session.user);
+   next();
  })
 router.post('/authenticate', user.authenticate);
 router.post('/user/:id/get', user.get);

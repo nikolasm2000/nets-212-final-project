@@ -17,11 +17,11 @@ import $ from 'jquery'
 
 
 function App() {  
-//   $.ajaxSetup({
-//     xhrFields: {
-//        withCredentials: true
-//     },
-// });
+  $.ajaxSetup({
+    xhrFields: {
+       withCredentials: true
+    },
+});
 return (
     <Router>
     <div className="App">

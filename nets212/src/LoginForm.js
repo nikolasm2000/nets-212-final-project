@@ -39,15 +39,21 @@ function LoginForm(props) {
                 error : "Email of wrong format!"
             }))
         } else {
+
+
             //Make call here
-            var request = $.post(config.serverUrl + "/login",{
-                email: state.email,
-                password: state.password
-    
+            var request = $.post({
+                url: config.serverUrl + "/login", 
+                data: {
+                    email: state.email,
+                    password: state.password
+                    },
+                xhrFields: {withCredentials: true}
             });
     
             //SUCCESS
             request.done((result) => {
+                alert("request returned successfully");
                 setState(prevState => ({
                     ...prevState,
                     error: ""
@@ -58,6 +64,7 @@ function LoginForm(props) {
             })
 
             request.fail((error) => {
+                alert("request returned failed");
                 setState(prevState => ({
                     ...prevState,
                     error : "Invalid email/password"
