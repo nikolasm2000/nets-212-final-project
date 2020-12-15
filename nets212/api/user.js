@@ -86,6 +86,7 @@ var login = function(req,res){
                     console.log("login correct")
                     console.log("user:",data.Items[0].attrs);
                     req.session.user = data.Items[0].attrs.id;
+                    console.log("session: ", req.session.user);
                     res.json(data.Items[0].attrs);
                 } else {
                     res.status(400).json({"err":"Password incorrect"});
