@@ -5,15 +5,14 @@ var get = function(req,res){
     console.log("get called");
     db.posts.get(req.params.id,     
         function(err, data){
-            console.log("callback called");
-            console.log("err:", err);
-            console.log("data:", data);
+            console.log("callback for ", req.url, " called");
             if(err){
-                //error from DB - return with error 
+                //error from DB - return with error
+                console.log("err:", err);
                 res.json({'err': err});
             } else {
-                //return with data
                 if(typeof data != undefined && data != null){
+                    //got data
                     data.attrs = db.convertDates(data.attrs);
                     //get comments
                     db.posts
@@ -22,7 +21,8 @@ var get = function(req,res){
                         .loadAll()
                         .exec(function(err, data2){
                             if(err){
-                                //error from DB - return with error 
+                                //error from DB - return with error
+                                console.log("err:", err);
                                 res.statusCode(400).json({'err': err});
                             } else {
                                 var comments = [];
@@ -110,17 +110,16 @@ var getAllIDs = function(req, res){
     // })
     .exec(function(err, data){
         if(err){
-			//error from DB - return with error 
+            //error from DB - return with error
+            console.log("err:", err);
 			res.statusCode(400).json({'err': err});
 		} else {
             var result = [];
-            console.log(data.Items);
             data.Items.forEach(function(item){
-                console.log(item);
                 result.push(item.attrs.id)
             });
             //return with data
-            console.log("result:", result);
+            console.log("data:", result);
 			res.json(result);
 		}
     });

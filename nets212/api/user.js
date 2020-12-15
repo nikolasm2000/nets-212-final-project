@@ -38,11 +38,7 @@ var create = function(req,res){
         return;
     }
 
-    console.log("pre hash:")
-    console.log(req.body.password);
     req.body.password = sha256(req.body.password);
-    console.log("post hash:")
-    console.log(req.body.password);
 
     db.user
         .query(req.body.email)

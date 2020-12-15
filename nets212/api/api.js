@@ -20,9 +20,9 @@ var posts = require('./posts.js');
 
 //router.use(() => {}); // General middleware
 router.use(function (req, res, next) {
-   console.log('Request received.')
-   console.log('Time:', Date.now())
-   console.log('Route: ', req.url)
+   console.log("\n ========================================= \n")
+   console.log('Request received on route ', req.url)
+   console.log('Logged in user: ', req.session.user)
    next()
  })
 router.post('/authenticate', user.authenticate);

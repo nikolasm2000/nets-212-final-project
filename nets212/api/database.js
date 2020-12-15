@@ -197,18 +197,19 @@ var createTables = function(){
 
 var dataCallback = function(res){
     callback = function(err, data){
-        console.log("callback called");
-        console.log("err:", err);
-        console.log("data:", data);
+        console.log("callback for ", res.req.url, " called");
         if(err){
+            console.log("err:", err);
 			//error from DB - return with error 
 			res.json({'err': err});
 		} else {
             //return with data
             if(typeof data != undefined && data != null){
                 data.attrs = convertDates(data.attrs);
+                console.log("data:", data.attrs);
                 res.json(data);
             } else {
+                console.log("err: Not found")
                 res.status(404).json({"err":"User not found"});
             }			
 		}
