@@ -62,6 +62,7 @@ var create = function(req,res){
 
 var update = function(req,res){
     req.body.id = req.session.user;
+    console.log("data received:", data.body);
     db.user.update(req.body,db.dataCallback(res));
 }
 
