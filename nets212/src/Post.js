@@ -41,7 +41,7 @@ class Post extends React.Component {
                     //whether userliked
                     liked: result.liked,
                     //list of comment IDs on the post
-                    commentIDs: result.commentIDs,
+                    commentIDs: result.comments,
                 });
                 
             });
@@ -83,7 +83,7 @@ class Post extends React.Component {
                 </div>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col">
-                        <Comments comments = {this.state.commentIDs}/>
+                        <Comments comments = {this.state.commentIDs} postid={this.props.id}/>
                     </div>
                 </div>
             </div>

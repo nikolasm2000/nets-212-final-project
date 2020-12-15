@@ -2,20 +2,24 @@ import React, {useState} from 'react'
 import { Button } from 'react-bootstrap'
 import Username from './Username.js'
 import $ from 'jquery'
+import moment from 'moment'
+
 var config = require('./Config.js')
+
 
 //comment should just take in an ID. 
 class Comment extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {};
+    this.state = {userID: "", text: ""};
   }
 
   componentWillMount() {
     //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
     //Make call to backend to get POST details
     if (this.props.id) {
-        var request = $.post(config.serverUrl + 'posts/comment/' + this.props.id + '/get');
+      console.log("CoMMENT cHecker" + this.props.id)
+        var request = $.post(config.serverUrl + '/posts/comments/' + this.props.id + '/get');
         request.done((result) => {
             console.log(result);
             this.setState({
@@ -23,28 +27,30 @@ class Comment extends React.Component {
                 userID: result.author,
                 //optional, posted on whose wall
                 text: result.text,
+                timeStamp: "Posted " + moment.unix(result.createdAt).fromNow(),
             });
         });
     }
 }
+
   render () {
+    var username;
+    if(this.state.userID) {
+        username = <Username id={this.state.userID} showImage="true"/>;
+    }
     return (
       <div style={{paddingTop: 20}}>
       <div className="card">
-        <div class="card-header">
-          <Username id = {this.state.userID}/>
+        <div class="card-header m-1 p-1 row align-items-center">
+          {username}
+          <p class="card-text"><small class="text-muted">{this.state.timeStamp}</small></p>
         </div>
         <div className="card-body">
           <p className="card-text">{this.state.text}</p>
         </div>
       </div>
     </div>
-
-      
     )
   }
-
-
 }
-
 export default Comment;
