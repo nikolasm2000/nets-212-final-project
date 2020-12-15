@@ -18,6 +18,24 @@ var dismiss = function(req, res){
     db.friends.update(params,db.dataCallback(res));
 }
 
+var read = function(req, res){
+    var params = {
+        "PBuser": req.session.user,
+        "id": req.params.id,
+        "read" : true,
+    }
+    db.friends.update(params,db.dataCallback(res));
+}
+
+var unread = function(req, res){
+    var params = {
+        "PBuser": req.session.user,
+        "id": req.params.id,
+        "read" : false,
+    }
+    db.friends.update(params,db.dataCallback(res));
+}
+
 var createSampleNotifications = function(req, res){
     var params = {
         "PBuser": req.session.user,
@@ -52,7 +70,9 @@ var createSampleNotifications = function(req, res){
 var notifications = {
     getActiveNotifications: getActiveNotifications,
     createSampleNotifications: createSampleNotifications,
-    dismiss: dismiss
+    dismiss: dismiss,
+    read: read,
+    unread: unread,
 };
 
 module.exports = notifications;
