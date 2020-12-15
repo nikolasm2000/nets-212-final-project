@@ -27,7 +27,8 @@ class UserComponent extends React.Component {
 			id: "",
 			isProfile: localStorage.getItem('user') === this.props.id,
 			friendStatus: 0,
-			friendText: ""
+			friendText: "",
+			friendColor: "btn-primary"
 		}
 		
 		this.friendButtonClicked = this.friendButtonClicked.bind(this);
@@ -56,17 +57,22 @@ class UserComponent extends React.Component {
 			request2.done((result) => {
 				console.log(result)
 				var friendText = "";
+				var friendColor = "";
 				switch(result.result) {
 					case 0: friendText = "Add friend"
+							friendColor = "btn-primary"
 						break;
 					case 1: friendText = "Remove friend"
+							friendColor = "btn-danger"
 						break;
 					case 2: friendText = "Requested"
+							friendColor = "btn-warning"
 						break;
 					case 3: friendText = "Accept friend request"
+							friendColor = "btn-success"
 						break;
 				}
-				this.setState({friendStatus: result.result, friendText:friendText});
+				this.setState({friendStatus: result.result, friendText:friendText, friendColor: friendColor});
 			});
 		}
 	}
@@ -126,17 +132,22 @@ class UserComponent extends React.Component {
 		}
 		request.done((result) => {
 			var friendText = "";
-				switch(result.result) {
-					case 0: friendText = "Add friend"
-						break;
-					case 1: friendText = "Remove friend"
-						break;
-					case 2: friendText = "Requested"
-						break;
-					case 3: friendText = "Accept friend request"
-						break;
-				}
-				this.setState({friendStatus: result.result, friendText:friendText});
+			var friendColor = "";
+			switch(result.result) {
+				case 0: friendText = "Add friend"
+						friendColor = "btn-primary"
+					break;
+				case 1: friendText = "Remove friend"
+						friendColor = "btn-danger"
+					break;
+				case 2: friendText = "Requested"
+						friendColor = "btn-warning"
+					break;
+				case 3: friendText = "Accept friend request"
+						friendColor = "btn-success"
+					break;
+			}
+			this.setState({friendStatus: result.result, friendText:friendText, friendColor: friendColor});
 		});
 	}
 
@@ -148,7 +159,7 @@ class UserComponent extends React.Component {
 							</div>
 		} else {
 			friend = <div class="col-auto">
-				<Button onClick={this.friendButtonClicked}> {this.state.friendText} </Button>
+				<Button className={this.state.friendColor} onClick={this.friendButtonClicked}> {this.state.friendText} </Button>
 			</div>
 		}
 
@@ -186,7 +197,7 @@ class UserComponent extends React.Component {
 								  <h3 class="text-right lead" style={{paddingTop: 30}}>Birthday: {this.state.birthday} </h3>
 							</div>
 						  </div>
-						<div class="row align-items-center justify-content-center">
+						<div class="row align-items-center justify-content-center mb-2">
 							{friend}
 						</div>
 						
