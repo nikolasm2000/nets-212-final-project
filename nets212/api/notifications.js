@@ -15,6 +15,7 @@ var dismiss = function(req, res){
         "id": req.params.id,
         "dismissed" : 1,
     }
+    console.log("received data:", params)
     db.friends.update(params,db.dataCallback(res));
 }
 
