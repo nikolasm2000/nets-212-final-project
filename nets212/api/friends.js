@@ -10,14 +10,14 @@ var isFriend = function(req,res){
         .exec(db.callbackSkeleton(res,function(data){
             if(data.Count > 0){
                 if (data.Items[0].attrs.accepted){
-                    res.send(1)
-                } if (data.Items[0].attrs.request){
-                    res.send(2)
+                    res.json({result: 1});
+                } else if (data.Items[0].attrs.request){
+                    res.json({result: 2});
                 } else {
-                    res.send(3)
+                    res.json({result: 3});
                 }
             } else {
-                res.send(0);
+                res.json({result: 0});
             }
         }));
     //0 = Not a friend,
