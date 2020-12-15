@@ -10,13 +10,17 @@ var isFriend = function(req,res){
         .exec(db.callbackSkeleton(res,function(data){
             if(data.Count > 0){
                 if (data.Items[0].attrs.accepted){
+                    console.log("returning 1");
                     res.json({result: 1});
                 } else if (data.Items[0].attrs.request){
+                    console.log("returning 2");
                     res.json({result: 2});
                 } else {
+                    console.log("returning 3");
                     res.json({result: 3});
                 }
             } else {
+                console.log("returning 0");
                 res.json({result: 0});
             }
         }));
@@ -41,7 +45,7 @@ var request = function(req,res){
     }
     db.friends.create(params,db.callbackSkeleton(res,function(data){
         db.friends.create(params2, db.callbackSkeleton(res,function(data){
-            res.json({success: true});
+            res.json({success: true, result: 2});
         }));
     }));
 }
@@ -59,7 +63,7 @@ var accept = function(req,res){
     }
     db.friends.update(params,db.callbackSkeleton(res,function(data){
         db.friends.update(params2, db.callbackSkeleton(res,function(data){
-            res.json({success: true});
+            res.json({success: true, result: 1});
         }));
     }));
 }
