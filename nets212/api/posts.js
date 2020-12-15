@@ -46,7 +46,6 @@ var get = function(req,res){
 var create = function(req,res){
     console.log("create post called");
     req.body.parent = "0";
-    req.body.creation = Date.now();
     db.posts.create(req.body, db.dataCallback(res));
 }
 

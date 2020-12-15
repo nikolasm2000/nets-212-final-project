@@ -11,6 +11,7 @@ app.use(session({ secret: 'pennbook', cookie: { maxAge: 864000000 }}))
 var user = require('./user.js');
 var friends = require('./friends.js');
 var posts = require('./posts.js');
+var notifications = require('./notifications.js');
 var db = require('./database.js');
 
 /* Below we install the routes. The first argument is the URL that we
@@ -49,6 +50,7 @@ router.post('/posts/:id/comments', posts.getComments)
 router.post('/posts/reactions/:id', posts.getReactions);
 router.post('/posts/homepage', posts.getAllIDs);//homepage);
 router.post('/posts/wall/:id', posts.getAllIDs);//wall);
+router.post('/notifications', notifications.getActiveNotifications);//wall);
 
 router.post('/loginhack/:id', function(req, res){
    req.session.user = req.params.id;

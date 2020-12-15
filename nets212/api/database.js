@@ -81,7 +81,6 @@ var Posts = dynamo.define('PB_Post', {
         wall: Joi.string(),
         text: Joi.string(),
         privacy: Joi.number(),
-        creation: Joi.date(),
         pictures: dynamo.types.stringSet(), //TODO think about this
     },
 
@@ -99,6 +98,28 @@ var Pictures = dynamo.define('PB_Picture',{
         link: Joi.string(),
     }
 });
+
+var Notifications = dynamo.define('PB_Notification',{
+    hashKey: 'PBUser',
+    rangeKey: 'id',
+
+    timestamps: true,
+
+    schema: {
+        id: dynamo.types.uuid(),
+        PBUser: Joi.string(),
+        type: Joi.number(), //0 = notification, 1 = friend request, 2 = chat request
+        text: Joi.string(),
+        relevant_id: Joi.string(),
+        read: Joi.boolean(),
+        dismissed: Joi.number(),
+    },
+
+    indexes: [{
+        hashKey : 'PBUser', rangeKey:'createdAt', name : 'TimestampIndex', type : 'local'
+    }]
+
+})
 
 var Reactions = dynamo.define('PB_Reaction',{
     hashKey: 'post',
@@ -306,7 +327,8 @@ var convertDates = function(params){
 var database = {
 	user: Users,
 	friends: Friends,
-	posts: Posts,
+    posts: Posts,
+    notifications: Notifications,
 	pictures: Pictures,
 	reactions: Reactions,
 	chats: Chats,
