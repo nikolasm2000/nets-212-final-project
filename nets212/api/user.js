@@ -67,6 +67,7 @@ var update = function(req,res){
 }
 
 var login = function(req,res){
+    console.log('login called')
     db.user
         .query(req.body.email)
         .usingIndex('EmailIndex')
@@ -82,7 +83,8 @@ var login = function(req,res){
                 if(data.Count == 0){
                     res.status(400).json({"err":"User not found"});
                 } else if(sha256(req.body.password) == data.Items[0].attrs.password){
-                    console.log(data.Items[0]);
+                    console.log("login correct")
+                    console.log("user:",data.Items[0].attrs);
                     req.session.user = data.Items[0].attrs.id;
                     res.json(data.Items[0].attrs);
                 } else {
