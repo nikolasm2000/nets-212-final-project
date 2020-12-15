@@ -105,9 +105,12 @@ var logout = function(req,res){
 }
 
 var authenticate = function(req,res){
+    console.log('authenticating...')
     if (req.session.user != undefined) {
+        console.log('authentication successful')
         res.json({'id' : req.session.user});
     } else {
+        console.log('authentication unsuccessful')
         res.status(400).json({"err":"user not logged in"});
     }
 }

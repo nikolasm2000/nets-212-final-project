@@ -21,6 +21,8 @@ function App() {
     xhrFields: {
        withCredentials: true
     },
+    //type: "POST",
+    timeout: 10000,
 });
 return (
     <Router>

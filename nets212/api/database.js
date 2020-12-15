@@ -60,13 +60,13 @@ var Friends = dynamo.define('PB_Friend', {
     schema: {
         PBuser: Joi.string(),
         friend: Joi.string(),
-        // request: Joi.boolean(), //Do I need this? to be seen
-        //accepted: Joi.boolean()
+        request: Joi.boolean(), //Do I need this? to be seen
+        accepted: Joi.boolean()
     },
 
-    // indexes: [{
-    //     //hashKey : 'PBuser', rangeKey:'accepted', name : 'AcceptedIndex', type : 'local'
-    // }]
+    indexes: [{
+        hashKey : 'PBuser', rangeKey:'accepted', name : 'AcceptedIndex', type : 'local'
+    }]
 
 });
 
@@ -305,7 +305,7 @@ var convertDates = function(params){
 //create database object with database classes
 var database = {
 	user: Users,
-	// friends: Friends,
+	friends: Friends,
 	posts: Posts,
 	pictures: Pictures,
 	reactions: Reactions,
