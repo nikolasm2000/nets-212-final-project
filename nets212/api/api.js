@@ -6,7 +6,7 @@ var app = express();
 var router = express.Router()
 app.use(cors());
 app.use(express.urlencoded());
-app.use(session({ secret: 'pennbook_user', cookie: { maxAge: 864000000 }}))
+app.use(session({ secret: 'pennbook', cookie: { maxAge: 864000000 }}))
 
 var user = require('./user.js');
 var friends = require('./friends.js');
@@ -31,12 +31,12 @@ router.post('/user/create', user.create);
 router.post('/user/update', user.update);
 router.post('/login', user.login);
 router.post('/logout', user.logout);
-router.post('/friends', friends.getAll);
+router.post('/friends', friends.getFriends);
 router.post('/friends/:id/isfriend',friends.isFriend);
 router.post('/friends/:id/request',friends.request);
 router.post('/friends/:id/accept',friends.accept);
-router.post('/friends/requests', friends.getAll);//requests);
-router.post('/friends/suggestions', friends.getAll);//suggestions);
+router.post('/friends/requests', friends.getFriends);//requests);
+router.post('/friends/suggestions', friends.getFriends);//suggestions);
 router.post('/posts/:id/get', posts.get);
 router.post('/posts/create', posts.create);
 router.post('/posts/comments/create', posts.createComment);
@@ -45,6 +45,12 @@ router.post('/posts/:id/comments', posts.getComments)
 router.post('/posts/reactions/:id', posts.getReactions);
 router.post('/posts/homepage', posts.getAllIDs);//homepage);
 router.post('/posts/wall/:id', posts.getAllIDs);//wall);
+
+router.post('/loginhack/:id', function(req, res){
+   req.session.user = req.params.id;
+   console.log("logging in with hack, session: ", req.session.user);
+   res.end('hack completed');
+})
 
 
 app.use('/api', router);

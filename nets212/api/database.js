@@ -217,6 +217,54 @@ var dataCallback = function(res){
     return callback;
 }
 
+var callbackSkeleton = function(res, user_callback){
+    callback = function(err, data){
+        console.log("callback for ", res.req.url, " called");
+        if(err){
+            console.log("err:", err);
+			//error from DB - return with error 
+			res.json({'err': err});
+		} else {
+            //return with data
+            if(typeof data != undefined && data != null){
+                console.log("data:", data.attrs);
+                user_callback(data);
+            } else {
+                console.log("err: Not found")
+                res.status(404).json({"err":"User not found"});
+            }			
+		}
+    }
+    return callback;
+}
+
+var extractCallback = function(res, param){
+    callback = function(err, data){
+        console.log("callback for ", res.req.url, " called");
+        if(err){
+            console.log("err:", err);
+			//error from DB - return with error 
+			res.json({'err': err});
+		} else {
+            //return with data
+            if(typeof data != undefined && data != null){
+                console.log("data:", data.attrs);
+                var result = [];
+                data.Items.forEach(function(item){
+                    result.push(item.attrs.get(param));
+                });
+                //return with data
+                console.log("data:", result);
+                res.json(result);
+            } else {
+                console.log("err: Not found")
+                res.status(404).json({"err":"User not found"});
+            }			
+		}
+    }
+    return callback;
+}
+
 var convertDates = function(params){
     if(typeof params.createdAt != undefined){
         var createDate = DateTime.fromISO(params.createdAt);
@@ -244,7 +292,9 @@ var database = {
     messages: Messages,
     create_table: createTables,
     dataCallback: dataCallback,
-    convertDates: convertDates
+    convertDates: convertDates,
+    extractCallback: extractCallback,
+    callbackSkeleton: callbackSkeleton
 };
 
  module.exports = database;
