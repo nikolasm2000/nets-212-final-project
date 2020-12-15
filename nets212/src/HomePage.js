@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Navbar from './Navbar.js'
+import Navbar from './NavbarComponent.js'
 import Newsfeed from './Newsfeed.js'
 import FriendsList from './FriendsList.js'
 import Notifications from './Notifications.js'

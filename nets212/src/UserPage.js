@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Navbar from './Navbar.js'
+import Navbar from './NavbarComponent.js'
 import Newsfeed from './Newsfeed.js'
 import UserComponent from './UserComponent.js'
 import Notifications from './Notifications.js'
@@ -12,7 +12,7 @@ class UserPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {id: this.props.match.params.id};
-        
+
     }
 
     componentWillMount() {
