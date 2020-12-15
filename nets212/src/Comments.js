@@ -26,7 +26,6 @@ function Comments(props) {
 
   var posts;
   if (comments != null) {
-      console.log(comments)
       posts = comments.map((comment) =>
       <Comment key={comment} id={comment}/>
 

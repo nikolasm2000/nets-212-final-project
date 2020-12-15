@@ -18,6 +18,7 @@ class Username extends React.Component {
                 this.setState({
                     firstName: result.first_name,
                     lastName: result.last_name,
+                    profile_pic: result.profile_pic
                 }); 
             });
             request.fail((err) => {
@@ -53,7 +54,7 @@ class Username extends React.Component {
     render() {
         return (
             <div class="container p-0 m-0 d-flex flex-row align-items-center">
-                {this.props.showImage === "true" ? <img className="rounded-circle p-0 m-0" src="https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png" style={{maxWidth:40}} /> : null}
+                {this.props.showImage === "true" ? <img className="rounded-circle p-0 m-0" src={this.state.profile_pic ? this.state.profile_pic : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png"} style={{maxWidth:40}} /> : null}
                 <div class="d-flex flex-column align-items-start pl-2 justify-content-center">
                     <a class="p-0 m-0" href={this.state.userURL}>{this.state.firstName} {this.state.lastName}</a>
                     <small class={(this.state.status === "Online") ? "text-success m-0 p-0" : "text-muted m-0 p-0"}>{this.state.status}</small>

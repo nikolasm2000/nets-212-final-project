@@ -25,9 +25,12 @@ class UserComponent extends React.Component {
 			affiliation : "",
 			birthday : "",
 			id: "",
-			isProfile: true,
-			isFriend: true
-    	}
+			isProfile: localStorage.getItem('user') === this.props.id,
+			friendStatus: 0,
+			friendText: ""
+		}
+		
+		this.friendButtonClicked = this.friendButtonClicked.bind(this);
 	}
 	
 	componentWillMount() {
@@ -47,9 +50,25 @@ class UserComponent extends React.Component {
 				})
 			}
         });
-        request.fail((result) => {
-
-        })
+		
+		if (!this.state.isProfile) {
+			let request2 = $.post(Config.serverUrl + '/friends/' + this.props.id + '/isfriend');
+			request2.done((result) => {
+				console.log(result)
+				var friendText = "";
+				switch(result.result) {
+					case 0: friendText = "Add friend"
+						break;
+					case 1: friendText = "Remove friend"
+						break;
+					case 2: friendText = "Requested"
+						break;
+					case 3: friendText = "Accept friend request"
+						break;
+				}
+				this.setState({friendStatus: result.result, friendText:friendText});
+			});
+		}
 	}
 
 	fileChange = e => {
@@ -93,18 +112,44 @@ class UserComponent extends React.Component {
 		this.setState({displaychooser: "true"});
 	}
 	
-	
+	friendButtonClicked() {
+		var request;
+		switch(this.state.friendStatus) {
+			case 0: request = $.post(Config.serverUrl + '/friends/' + this.props.id + '/request');
+				break;
+			case 1: request = $.post(Config.serverUrl + '/friends/' + this.props.id + '/remove');
+				break;
+			case 2: request = $.post(Config.serverUrl + '/friends/' + this.props.id + '/unrequest');
+				break;
+			case 3: request = $.post(Config.serverUrl + '/friends/' + this.props.id + '/accept');
+				break;
+		}
+		request.done((result) => {
+			var friendText = "";
+				switch(result.result) {
+					case 0: friendText = "Add friend"
+						break;
+					case 1: friendText = "Remove friend"
+						break;
+					case 2: friendText = "Requested"
+						break;
+					case 3: friendText = "Accept friend request"
+						break;
+				}
+				this.setState({friendStatus: result.result, friendText:friendText});
+		});
+	}
+
 	render(){
 		let friend; 
 		if(this.state.isProfile){
 			friend = <div class="col-auto">
 								Information not accurate?<Button variant="link" href="/update"> Update your account here </Button>
 							</div>
-		} else if (this.state.isFriend){
-			friend = <div style={{paddingBottom: 30}}><button type="button" class="btn btn-primary">Add Friend</button></div>
-
-		} else{
-			friend = <div style={{paddingBottom: 30}}><button type="button" class="btn btn-dark">Remove Friend</button></div> 
+		} else {
+			friend = <div class="col-auto">
+				<Button onClick={this.friendButtonClicked}> {this.state.friendText} </Button>
+			</div>
 		}
 
 

@@ -18,7 +18,7 @@ class MessageTyper extends React.Component {
             user: localStorage.getItem('user'),
             chat: this.state.id,
             message: this.state.text,
-            timestamp: moment(Date.now()).unix()
+            createdAt: moment(Date.now()).unix()
 
         })
     }

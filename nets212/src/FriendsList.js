@@ -8,9 +8,16 @@ class FriendsList extends React.Component {
     constructor(props) {
       super(props);
       this.state = {friends: []};
+      this.refresh = this.refresh.bind(this);
     }
     componentDidMount() {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+        let request = $.post(config.serverUrl + '/friends');
+        request.done((result) => {
+            this.setState({
+                friends: result
+            });
+        });
     }
 
     componentWillUnmount() {
@@ -22,14 +29,14 @@ class FriendsList extends React.Component {
         let request = $.post(config.serverUrl + '/friends');
         request.done((result) => {
             this.setState({
-                friends: []
+                friends: result
             });
         });
     }
 
     render() {
         const friends = this.state.friends.map((friend) => {
-            return <div class="m-0 p-0" ><Friend key={friend} id={friend}/><hr class="m-0 p-0"/></div>;
+            return <div class="m-0 p-0" ><Friend key={friend} id={friend} refresh={this.refresh}/><hr class="m-0 p-0"/></div>;
         });
 
         return(

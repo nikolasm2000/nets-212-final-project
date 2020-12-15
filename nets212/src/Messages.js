@@ -10,7 +10,7 @@ class Messages extends React.Component {
     componentDidMount() {
         this.state.socket.on("chat message", data => {
             var newMessages = this.state.messages.concat([data]);
-
+            newMessages = newMessages.sort((a,b) => {return (a.createdAt > b.createdAt) ? 1 : -1});
             this.setState({messages: newMessages});
             this.state.ref.current.scrollIntoView()
         })
