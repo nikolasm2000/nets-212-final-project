@@ -110,17 +110,16 @@ var getAllIDs = function(req, res){
     // })
     .exec(function(err, data){
         if(err){
-			//error from DB - return with error 
+            //error from DB - return with error
+            console.log("err:", err);
 			res.statusCode(400).json({'err': err});
 		} else {
             var result = [];
-            console.log(data.Items);
             data.Items.forEach(function(item){
-                console.log(item);
                 result.push(item.attrs.id)
             });
             //return with data
-            console.log("result:", result);
+            console.log("data:", result);
 			res.json(result);
 		}
     });
