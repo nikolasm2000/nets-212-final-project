@@ -9,12 +9,21 @@ var isFriend = function(req,res){
         .limit(1)
         .exec(db.callbackSkeleton(res,function(data){
             if(data.Count > 0){
-                res.json({return: data.Items[0].attrs.accepted})
+                if (data.Items[0].attrs.accepted){
+                    res.send(1)
+                } if (data.Items[0].attrs.request){
+                    res.send(2)
+                } else {
+                    res.send(3)
+                }
             } else {
-                res.json({return: false});
+                res.send(0);
             }
         }));
-    //res.json({return: true});
+    //0 = Not a friend,
+    //1 = Friend,
+    //2 = Requested,
+    //3 = Request received
 }
 
 var request = function(req,res){
@@ -22,13 +31,13 @@ var request = function(req,res){
         "PBuser": req.session.user,
         "friend": req.params.id,
         "request": true,
-        "accepted": false,
+        "accepted": 0,
     }
     var params2 = {
         "PBuser": req.params.id,
         "friend": req.session.user,
         "request": false,
-        "accepted": false,
+        "accepted": 0,
     }
     db.friends.create(params,db.callbackSkeleton(res,function(data){
         db.friends.create(params2, db.callbackSkeleton(res,function(data){
@@ -41,12 +50,12 @@ var accept = function(req,res){
     var params = {
         "PBuser": req.session.user,
         "friend": req.params.id,
-        "accepted": true,
+        "accepted": 1,
     }
     var params2 = {
         "PBuser": req.params.id,
         "friend": req.session.user,
-        "accepted": true,
+        "accepted": 1,
     }
     db.friends.update(params,db.callbackSkeleton(res,function(data){
         db.friends.update(params2, db.callbackSkeleton(res,function(data){
@@ -58,8 +67,8 @@ var accept = function(req,res){
 var getFriends = function(req, res){
     db.friends
         .query(req.session.user)
-        .where("accepted").equals(true)
         .usingIndex("AcceptedIndex")
+        .where("accepted").equals(1)
         .exec(db.extractCallback(res,"friend"));
 }
 

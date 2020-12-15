@@ -61,7 +61,7 @@ var Friends = dynamo.define('PB_Friend', {
         PBuser: Joi.string(),
         friend: Joi.string(),
         request: Joi.boolean(), //Do I need this? to be seen
-        accepted: Joi.boolean()
+        accepted: Joi.number()
     },
 
     indexes: [{
