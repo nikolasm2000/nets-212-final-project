@@ -13,6 +13,13 @@ class Notifications extends React.Component{
 
     componentDidMount() {
         this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+        //Update list of notifications
+        let request = $.post(config.serverUrl + '/notifications');
+        request.done((result) => {
+            this.setState({
+                notifications: result
+            });
+        });
     }
 
     componentWillUnmount() {
@@ -24,7 +31,7 @@ class Notifications extends React.Component{
         let request = $.post(config.serverUrl + '/notifications');
         request.done((result) => {
             this.setState({
-                notifications: []
+                notifications: result
             });
         });
     }
@@ -32,11 +39,11 @@ class Notifications extends React.Component{
 
     render() {
         const notifications = this.state.notifications.map((notification) => {
-            if(notification.type === '0') {
+            if(notification.type === 0) {
                 return <div class="m-0 p-0" ><Notification/><hr class="m-0 p-0"/></div>
-            } else if(notification.type === '1') {
-                return <div class="m-0 p-0" ><FriendRequest/><hr class="m-0 p-0"/></div>
-            } else if(notification.type === '2') {
+            } else if(notification.type === 1) {
+                return <div class="m-0 p-0" ><FriendRequest notification={notification}/><hr class="m-0 p-0"/></div>
+            } else if(notification.type === 2) {
                 return <div class="m-0 p-0" ><ChatRequest/><hr class="m-0 p-0"/></div>
             }
             

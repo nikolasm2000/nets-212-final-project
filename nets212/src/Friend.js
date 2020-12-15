@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Username from './Username.js'
 import './friendstyle.css';
+import $ from 'jquery'
+var config = require('./Config.js')
 
 //should just take in a userID ---> props is id
 class Friend extends React.Component {
@@ -16,10 +18,11 @@ class Friend extends React.Component {
     }
 
     handleRemoveFriend() {
-
+        let request = $.post(config.serverUrl + '/friends/' + this.props.id + '/remove');
+        request.done((result) => {
+            this.props.refresh();
+        })
     }
-
-
 
     render() {
     
@@ -27,7 +30,7 @@ class Friend extends React.Component {
         <div class="container p-2 friend m-0">
             <div class="row align-items-center justify-content-between">
                 <div class="col-auto pr-0 mr-3 ml-3">
-                    <Username  showImage="true"/>
+                    <Username id={this.props.id} showImage="true"/>
                 </div>
 
                 <div class="col-auto p-0 m-0 mr-4">

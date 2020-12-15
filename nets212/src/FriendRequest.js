@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import './friendstyle.css';
 import Username from './Username.js'
-
+import $ from 'jquery'
+var config = require ('./Config.js')
 class FriendRequest extends React.Component {
     constructor(props) {
       super(props);
@@ -9,12 +10,22 @@ class FriendRequest extends React.Component {
       this.handleReject = this.handleReject.bind(this);
     }
 
-    handleAccept() {
+    componentDidMount() {
 
     }
 
-    handleReject() {
+    handleAccept() {
+        let request = $.post(config.serverUrl + '/friends/' + this.props.notification.relevant_id + '/accept');
+        request.done((result) => {
+            $.post(config.serverUrl + '/notifations/' + this.props.notification.id + '/dismiss');
+        })
+    }
 
+    handleReject() {
+        let request = $.post(config.serverUrl + '/friends/' + this.props.notification.relevant_id + '/reject');
+        request.done((result) => {
+            $.post(config.serverUrl + '/notifations/' + this.props.notification.id + '/dismiss');
+        })
     }
 
     render() {
@@ -24,7 +35,7 @@ class FriendRequest extends React.Component {
             <div class="row align-items-center justify-content-between m-0 p-0">
                 <div class="col-auto pr-0 mr-0 m-0 p-0 ml-2">
                     <div class="row align-items-center p-0 m-0">
-                        <Username firstName="Pranav" lastName="Aurora" userURL="/id?123" showImage="true"/>
+                        <Username id={this.props.notification.relevant_id} showImage="true"/>
                     </div>
                     <div classs="row align-items-center p-0 m-0">
                         <p class="card-text m-0 p-0"><small class="text-muted">Added you as a friend</small></p>
