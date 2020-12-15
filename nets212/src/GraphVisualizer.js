@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Graph } from "react-d3-graph";
 import Navbar from './Navbar.js';
+import NewsArticle from './NewsArticle.js';
 
 class GraphVisualizer extends Component {
   constructor() {
