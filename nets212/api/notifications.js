@@ -12,11 +12,11 @@ var getActiveNotifications = function(req, res){
 var dismiss = function(req, res){
     var params = {
         "PBuser": req.session.user,
-        "id": req.params.id,
+        //"id": req.params.id,
         "dismissed" : 1,
     }
-    console.log("received data:", params)
-    db.friends.update(params,db.dataCallback(res));
+    console.log("received data:", params);
+    db.notifications.update(params,db.dataCallback(res));
 }
 
 var read = function(req, res){
@@ -25,7 +25,8 @@ var read = function(req, res){
         "id": req.params.id,
         "read" : true,
     }
-    db.friends.update(params,db.dataCallback(res));
+    console.log("received data:", params);
+    db.notifications.update(params,db.dataCallback(res));
 }
 
 var unread = function(req, res){
@@ -34,7 +35,8 @@ var unread = function(req, res){
         "id": req.params.id,
         "read" : false,
     }
-    db.friends.update(params,db.dataCallback(res));
+    console.log("received data:", params);
+    db.notifications.update(params,db.dataCallback(res));
 }
 
 var createSampleNotifications = function(req, res){
@@ -68,12 +70,20 @@ var createSampleNotifications = function(req, res){
     }));
 }
 
+var getTable = function(req, res){
+    db.friends
+        .scan()
+        .loadAll()
+        .exec(db.dataCallback(res));
+}
+
 var notifications = {
     getActiveNotifications: getActiveNotifications,
     createSampleNotifications: createSampleNotifications,
     dismiss: dismiss,
     read: read,
     unread: unread,
+    getTable: getTable,
 };
 
 module.exports = notifications;
