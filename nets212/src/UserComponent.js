@@ -24,7 +24,9 @@ class UserComponent extends React.Component {
         	name : "",
 			affiliation : "",
 			birthday : "",
-			id: ""
+			id: "",
+			isProfile: true,
+			isFriend: true
     	}
 	}
 	
@@ -91,7 +93,21 @@ class UserComponent extends React.Component {
 		this.setState({displaychooser: "true"});
 	}
 	
+	
 	render(){
+		let friend; 
+		if(this.state.isProfile){
+			friend = <div class="col-auto">
+								Information not accurate?<Button variant="link" href="/update"> Update your account here </Button>
+							</div>
+		} else if (this.state.isFriend){
+			friend = <div style={{paddingBottom: 30}}><button type="button" class="btn btn-primary">Add Friend</button></div>
+
+		} else{
+			friend = <div style={{paddingBottom: 30}}><button type="button" class="btn btn-dark">Remove Friend</button></div> 
+		}
+
+
 		return (
 			<div class="m-0 mt-0 mb-2 bg-light">
 					<div class="container">
@@ -126,9 +142,7 @@ class UserComponent extends React.Component {
 							</div>
 						  </div>
 						<div class="row align-items-center justify-content-center">
-							<div class="col-auto">
-								Information not accurate?<Button variant="link" href="/update"> Update your account here </Button>
-							</div>
+							{friend}
 						</div>
 						
 					</div>
