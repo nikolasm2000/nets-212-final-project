@@ -53,7 +53,6 @@ function LoginForm(props) {
     
             //SUCCESS
             request.done((result) => {
-                alert("request returned successfully");
                 setState(prevState => ({
                     ...prevState,
                     error: ""
@@ -64,7 +63,6 @@ function LoginForm(props) {
             })
 
             request.fail((error) => {
-                alert("request returned failed");
                 setState(prevState => ({
                     ...prevState,
                     error : "Invalid email/password"
