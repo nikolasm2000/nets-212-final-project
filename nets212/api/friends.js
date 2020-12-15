@@ -8,7 +8,11 @@ var isFriend = function(req,res){
         .where('friend').equals(req.params.id)
         .limit(1)
         .exec(db.callbackSkeleton(res,function(data){
-            res.json({return: data.Items[0].attrs.accepted})
+            if(data.Count > 0){
+                res.json({return: data.Items[0].attrs.accepted})
+            } else {
+                res.json({return: false});
+            }
         }));
     //res.json({return: true});
 }
