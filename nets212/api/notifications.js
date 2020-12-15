@@ -9,6 +9,15 @@ var getActiveNotifications = function(req, res){
         .exec(db.dataCallback(res));
 }
 
+var dismiss = function(req, res){
+    var params = {
+        "PBuser": req.session.user,
+        "id": req.params.id,
+        "dismissed" : 1,
+    }
+    db.friends.update(params,db.dataCallback(res));
+}
+
 var createSampleNotifications = function(req, res){
     var params = {
         "PBuser": req.session.user,
@@ -20,7 +29,7 @@ var createSampleNotifications = function(req, res){
     var params2 = {
         "PBuser": req.session.user,
         "type": 1,
-        "relevant_id": "6160e421-ad7b-4d81-9877-032cfa292be6",
+        "relevant_id": "cee95d7b-8d40-4008-8167-52deadac20fe",
         "dismissed" : 0,
         "read" : false
     }
@@ -43,6 +52,7 @@ var createSampleNotifications = function(req, res){
 var notifications = {
     getActiveNotifications: getActiveNotifications,
     createSampleNotifications: createSampleNotifications,
+    dismiss: dismiss
 };
 
 module.exports = notifications;
