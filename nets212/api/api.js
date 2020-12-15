@@ -11,6 +11,8 @@ app.use(session({ secret: 'pennbook_user', cookie: { maxAge: 864000000 }}))
 var user = require('./user.js');
 var friends = require('./friends.js');
 var posts = require('./posts.js');
+var db = require('./database.js');
+
 /* Below we install the routes. The first argument is the URL that we
    are routing, and the second argument is the handler function that
    should be invoked when someone opens that URL. Note the difference
@@ -53,3 +55,32 @@ app.use('/api', router);
 
 app.listen(8080);
 console.log('API Server running on port 8080. Now open http://localhost:8080/ in your browser!');
+
+var http = require('http').createServer(app);
+var socketIo = require("socket.io")(http, {
+   cors: {
+      origin: '*',
+    }
+});
+http.listen(8081, () => {
+   console.log("Socket io listening on 8081");
+});
+
+socketIo.on('connection', (socket) => {
+   console.log('user connected');
+   socket.on('chat message', (msg) => {
+      //Check that msg.user is equal to user currently logged in
+      //Use socket.emit() to send the message to everyone in the group chat (msg.chat)
+      //Add the user's name to the msg object please (msg.name = ____)
+      db.user.get(msg.user, (err, data) => {
+         if (err){
+            //handle error
+            console.log(err);
+         } else {
+            msg.name = data.attrs.first_name + ' ' + data.attrs.last_name;
+            socketIo.emit('chat message', msg);
+         }
+      } )
+   })
+
+})

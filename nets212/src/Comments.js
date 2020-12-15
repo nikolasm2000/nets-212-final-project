@@ -27,7 +27,7 @@ function Comments(props) {
   var posts;
   if (comments != null) {
       posts = comments.map((comment) =>
-      <Comment id={comment}/>
+      <Comment key={comment} id={comment}/>
 
     )} else {
       posts = <div> No comments yet :( </div>
@@ -63,4 +63,3 @@ function Comments(props) {
   );
 } 
 export default Comments;
-

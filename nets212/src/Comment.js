@@ -41,9 +41,13 @@ class Comment extends React.Component {
     return (
       <div style={{paddingTop: 20}}>
       <div className="card">
-        <div class="card-header m-1 p-1 row align-items-center">
-          {username}
-          <p class="card-text"><small class="text-muted">{this.state.timeStamp}</small></p>
+        <div class="card-header m-0 p-1 pl-2 row align-items-start justify-content-between">
+          <div class="col-auto m-0 p-0 mt-1">
+            {username}
+          </div>
+          <div class="col-auto m-0 p-0 mr-2 mt-1">
+            <p class="card-text"><small class="text-muted">{this.state.timeStamp}</small></p>
+          </div>
         </div>
         <div className="card-body">
           <p className="card-text">{this.state.text}</p>

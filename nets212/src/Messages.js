@@ -1,72 +1,29 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Message from './Message'
-import {Redirect} from 'react-router-dom'
+
 class Messages extends React.Component {
     constructor(props){
         super(props)
-        this.state={}
+        this.state={messages: [], socket: props.socket, ref: React.createRef()}
     }
+    
+    componentDidMount() {
+        this.state.socket.on("chat message", data => {
+            var newMessages = this.state.messages.concat([data]);
+
+            this.setState({messages: newMessages});
+            this.state.ref.current.scrollIntoView()
+        })
+    }
+
     render() {
-        //Check if user is logged in
-        if(false) {
-            return <Redirect to='/'/>
-        }
-        const message = [
-            {
-                id: 123, 
-                sent: "true"
-            }, 
-            {
-                id: 124,
-            },
-            {
-                id: 125,
-                sent: "true"
-            },
-            {
-                id: 125,
-            },
-            {
-                id: 125,
-                sent: "true"
-            },
-            {
-                id: 125,
-            },
-            {
-                id: 125,
-                sent: "true"
-            },
-            {
-                id: 125,
-            },
-            {
-                id: 125,
-                sent: "true"
-            },
-            {
-                id: 125,
-            },
-            {
-                id: 125,
-                sent: "true"
-            },
-            {
-                id: 125,
-            },
-            {
-                id: 125,
-            },
-            {
-                id: 125,
-            }
-        ];
-        const messages = message.map((item) =>
-        <Message sent={item.sent} />
+        const messages = this.state.messages.map((item) =>
+        <Message key={item.timeStamp} msg={item}/>
         );
         return (
             <div className="container mt-2 mb-2" style={{maxHeight:"75%"}}>
-                {messages}
+                {messages}         
+                <div ref={this.state.ref}></div>
             </div>
         )
     }
