@@ -46,6 +46,7 @@ var get = function(req,res){
 var create = function(req,res){
     console.log("create post called");
     req.body.parent = "0";
+    req.body.creation = Date.now();
     db.posts.create(req.body, db.dataCallback(res));
 }
 
@@ -89,6 +90,7 @@ var getAll = function(req, res){
     db.posts
     .query("0")
     .usingIndex('ParentIndex')
+    .descending()
     .loadAll()
     // .exec(function(err, data){
     //     console.log("data:");
@@ -102,6 +104,7 @@ var getAllIDs = function(req, res){
     db.posts
     .query("0")
     .usingIndex('ParentIndex')
+    .descending()
     .loadAll()
     // .exec(function(err, data){
     //     console.log("data:");
@@ -124,6 +127,12 @@ var getAllIDs = function(req, res){
     });
 }
 
+var getTable = function(req, res){
+    db.posts
+        .scan()
+        .loadAll()
+        .exec(db.dataCallback(res));
+}
 
 var posts = {
 	get: get,
@@ -135,6 +144,7 @@ var posts = {
     createReaction: createReaction,
     getReactions: getReactions,
     getComments: getComments,
+    getTable: getTable
 };
 
 module.exports = posts;

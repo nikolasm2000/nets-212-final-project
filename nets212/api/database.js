@@ -5,6 +5,7 @@
 
 var dynamo = require('dynamodb');
 dynamo.AWS.config.loadFromPath('config.json');
+dynamo.AWS.config.update({region:'us-east-1'});
 
 const Joi = require('joi');
 
@@ -80,11 +81,12 @@ var Posts = dynamo.define('PB_Post', {
         wall: Joi.string(),
         text: Joi.string(),
         privacy: Joi.number(),
+        creation: Joi.date(),
         pictures: dynamo.types.stringSet(), //TODO think about this
     },
 
     indexes: [{
-        hashKey : 'parent', rangeKey:'id', name : 'ParentIndex', type : 'global'
+        hashKey : 'parent', rangeKey:'createdAt', name : 'ParentIndex', type : 'global'
     }]
 });
 
