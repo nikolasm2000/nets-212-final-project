@@ -68,6 +68,40 @@ var accept = function(req,res){
     }));
 }
 
+var reject = function(req,res){
+    var params = {
+        "PBuser": req.session.user,
+        "friend": req.params.id,
+        "accepted": 1,
+    }
+    var params2 = {
+        "PBuser": req.params.id,
+        "friend": req.session.user,
+        "accepted": 1,
+    }
+    db.friends.update(params,db.callbackSkeleton(res,function(data){
+        db.friends.update(params2, db.callbackSkeleton(res,function(data){
+            res.json({success: true, result: 1});
+        }));
+    }));
+}
+
+var remove = function(req,res){
+    var params = {
+        "PBuser": req.session.user,
+        "friend": req.params.id,
+    }
+    var params2 = {
+        "PBuser": req.params.id,
+        "friend": req.session.user,
+    }
+    db.friends.destroy(params,db.callbackSkeletonNull(res,function(data){
+        db.friends.destroy(params2, db.callbackSkeletonNull(res,function(data){
+            res.json({success: true});
+        }));
+    }));
+}
+
 var getFriends = function(req, res){
     db.friends
         .query(req.session.user)
@@ -87,6 +121,7 @@ var friends = {
     isFriend: isFriend,
     request: request,
     accept: accept,
+    remove: remove,
     getFriends: getFriends,
     getTable: getTable
 };

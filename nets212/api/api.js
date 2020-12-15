@@ -40,6 +40,9 @@ router.post('/friends', friends.getFriends);
 router.post('/friends/:id/isfriend',friends.isFriend);
 router.post('/friends/:id/request',friends.request);
 router.post('/friends/:id/accept',friends.accept);
+router.post('/friends/:id/reject',friends.remove); //reject);
+router.post('/friends/:id/remove',friends.remove);
+router.post('/friends/:id/unrequest',friends.remove);//unrequest);
 router.post('/friends/requests', friends.getFriends);//requests);
 router.post('/friends/suggestions', friends.getFriends);//suggestions);
 router.post('/posts/:id/get', posts.get);
@@ -54,7 +57,7 @@ router.post('/notifications', notifications.getActiveNotifications);
 router.post('/notifications/:id/dismiss', notifications.dismiss);
 router.post('/notifications/:id/read', notifications.read);
 router.post('/notifications/:id/unread', notifications.unread);
-router.post('/notifications/createsample', notifications.createSampleNotifications);
+router.post('/notifications/createsample/:num', notifications.createSampleNotifications);
 
 router.post('/loginhack/:id', function(req, res){
    req.session.user = req.params.id;

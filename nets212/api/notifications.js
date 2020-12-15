@@ -47,26 +47,26 @@ var createSampleNotifications = function(req, res){
         "dismissed" : false,
         "read" : false
     }
-    var params2 = {
-        "PBuser": req.session.user,
-        "type": 1,
-        "relevant_id": "cee95d7b-8d40-4008-8167-52deadac20fe",
-        "dismissed" : false,
-        "read" : false
-    }
-    var params3 = {
-        "PBuser": req.session.user,
-        "type": 2,
-        "relevant_id": "5423750293174-3fakeid343242352340",
-        "dismissed" : false,
-        "read" : false
-    }
+    // var params2 = {
+    //     "PBuser": req.session.user,
+    //     "type": 1,
+    //     "relevant_id": "cee95d7b-8d40-4008-8167-52deadac20fe",
+    //     "dismissed" : false,
+    //     "read" : false
+    // }
+    // var params3 = {
+    //     "PBuser": req.session.user,
+    //     "type": 2,
+    //     "relevant_id": "5423750293174-3fakeid343242352340",
+    //     "dismissed" : false,
+    //     "read" : false
+    // }
     db.notifications.create(params,db.callbackSkeleton(res,function(data){
-        db.notifications.create(params2, db.callbackSkeleton(res,function(data){
-            db.notifications.create(params3, db.callbackSkeleton(res,function(data){
+        // db.notifications.create(params2, db.callbackSkeleton(res,function(data){
+        //     db.notifications.create(params3, db.callbackSkeleton(res,function(data){
                 res.json({success: true});
-            }));
-        }));
+        //     }));
+        // }));
     }));
 }
 

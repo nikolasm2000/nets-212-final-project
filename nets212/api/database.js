@@ -280,6 +280,21 @@ var callbackSkeleton = function(res, user_callback){
     return callback;
 }
 
+var callbackSkeletonNull = function(res, user_callback){
+    callback = function(err, data){
+        console.log("callback for ", res.req.url, " called");
+        if(err){
+            console.log("err:", err);
+			//error from DB - return with error 
+			res.json({'err': err});
+		} else {
+            //return with data
+            user_callback(data);
+		}
+    }
+    return callback;
+}
+
 var extractCallback = function(res, param){
     callback = function(err, data){
         console.log("callback for ", res.req.url, " called");
@@ -338,7 +353,8 @@ var database = {
     dataCallback: dataCallback,
     convertDates: convertDates,
     extractCallback: extractCallback,
-    callbackSkeleton: callbackSkeleton
+    callbackSkeleton: callbackSkeleton,
+    callbackSkeletonNull: callbackSkeletonNull
 };
 
  module.exports = database;
