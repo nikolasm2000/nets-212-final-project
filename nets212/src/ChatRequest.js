@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import './friendstyle.css';
 import Username from './Username.js'
 
-class FriendRequest extends React.Component {
+class ChatRequest extends React.Component {
     constructor(props) {
       super(props);
       this.handleAcceptChat = this.handleAcceptChat.bind(this);
@@ -24,7 +24,7 @@ class FriendRequest extends React.Component {
             <div class="row align-items-center justify-content-between m-0 p-0">
                 <div class="col-auto pr-0 mr-0 m-0 p-0 ml-2">
                     <div class="row align-items-center p-0 m-0">
-                        <Username firstName="Pranav" lastName="Aurora" userURL="/id?123" showImage="true"/>
+                        <Username id={this.props.notification.revelant_id} showImage="true"/>
                     </div>
                     <div classs="row align-items-center p-0 m-0">
                         <p class="card-text m-0 p-0"><small class="text-muted">Invited you to to chat</small></p>
@@ -57,5 +57,5 @@ class FriendRequest extends React.Component {
       }
 }
 
-export default FriendRequest;
+export default ChatRequest;
 

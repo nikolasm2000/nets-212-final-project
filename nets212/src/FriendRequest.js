@@ -17,14 +17,14 @@ class FriendRequest extends React.Component {
     handleAccept() {
         let request = $.post(config.serverUrl + '/friends/' + this.props.notification.relevant_id + '/accept');
         request.done((result) => {
-            $.post(config.serverUrl + '/notifations/' + this.props.notification.id + '/dismiss');
+            $.post(config.serverUrl + '/notifications/' + this.props.notification.id + '/dismiss', () => {this.props.refresh()});
         })
     }
 
     handleReject() {
         let request = $.post(config.serverUrl + '/friends/' + this.props.notification.relevant_id + '/reject');
         request.done((result) => {
-            $.post(config.serverUrl + '/notifations/' + this.props.notification.id + '/dismiss');
+            $.post(config.serverUrl + '/notifications/' + this.props.notification.id + '/dismiss', () => {this.props.refresh()});
         })
     }
 

@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import './friendstyle.css';
+import moment from 'moment';
+import $ from 'jquery'
 
-
+var config = require('./Config.js')
 class Notification extends React.Component {
     constructor(props) {
       super(props);
@@ -9,7 +11,7 @@ class Notification extends React.Component {
     }
 
     handleDismiss() {
-
+        $.post(config.serverUrl + '/notifications/' + this.props.notification.id + '/dismiss', () => {this.props.refresh()});
     }
 
     render() {
@@ -19,10 +21,10 @@ class Notification extends React.Component {
             <div class="row align-items-center justify-content-between m-0 p-0">
                 <div class="col m-0 ml-2 p-0 pr-0 mr-0">
                     <div class="row p-0 m-0">
-                        <p class="p-0 m-0">This is some notification text. Shiver me timbers </p>
+                        <p class="p-0 m-0">{this.props.notification.text} </p>
                     </div>
                     <div class="row p-0 m-0">
-                        <p class="card-text m-0 p-0"><small class="text-muted">3 mins ago</small></p>
+                    <p class="card-text m-0 p-0"><small class="text-muted">{moment(this.props.notification.createdAt).fromNow()}</small></p>
                     </div>
                 </div>
 
