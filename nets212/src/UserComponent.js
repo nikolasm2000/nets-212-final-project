@@ -53,33 +53,37 @@ class UserComponent extends React.Component {
 	fileChange = e => {
         if(!e.target.files[0]) return;
         this.setState({uploading:true, imageUploadText: "Uploading " + e.target.files[0].name + "...", errorMessage:""});
-		S3FileUpload.uploadFile(e.target.files[0], config).then((data)=> { this.setState({image: data.location, uploading:false, imageUploadText: e.target.files[0].name }); e.target.value = null}).catch((err)=> {alert(err)})
-
-		let update = {
-			profile_pic: this.state.image
-		}
-		let request1 = $.post(Config.serverUrl + '/user/' + this.state.id + "/update", update);
-			request1.done((result) => {
-
-			});
-			request1.fail((result) => {
-				this.setState({error: "there was an error changing profile picture"})
+		S3FileUpload.uploadFile(e.target.files[0], config).then((data) => { 
+			this.setState({image: data.location, uploading:false, imageUploadText: e.target.files[0].name }); e.target.value = null
+				let update = {
+					id: this.props.id,
+					profile_pic: this.state.image
+				}
+				let request1 = $.post(Config.serverUrl + '/user/update', update);
+				request1.done((result) => {
+					alert("Successfully changed profile picture!")
+				});
+				request1.fail((result) => {
+					this.setState({error: "there was an error changing profile picture"})
+				})
+				let post = {
+					text: this.state.name + " just changed their profile picture!",
+					pictures: [this.state.image],
+					author: localStorage.getItem('user'),
+					privacy: 0,
+					parent: "0",
+				};
+				let request = $.post(Config.serverUrl + '/posts/create', post);
+					request.done((result) => {
+		
+					});
+					request.fail((result) => {
+						this.setState({error: "there was an error changing profile picture"})
+					})	
 			})
+		.catch((err)=> {alert(err)})
 
-		let post = {
-			text: this.state.name + " just changed their profile picture!",
-			pictures: [this.state.image],
-			author: localStorage.getItem('user'),
-			privacy: 0,
-			parent: "0",
-		};
-		let request = $.post(Config.serverUrl + '/posts/create', post);
-            request.done((result) => {
-
-			});
-			request.fail((result) => {
-				this.setState({error: "there was an error changing profile picture"})
-			})
+		
 		//need to post to the update route on the backend 
 	}
 

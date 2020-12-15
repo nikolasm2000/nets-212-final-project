@@ -61,10 +61,16 @@ var create = function(req,res){
 }
 
 var update = function(req,res){
+    //req.body.id = req.session.user;
+    if(typeof req.body.password != 'undefined'){
+        req.body.password = sha256(req.body.password);
+    }
+    console.log("data received:", req.body);
     db.user.update(req.body,db.dataCallback(res));
 }
 
 var login = function(req,res){
+    console.log('login called')
     db.user
         .query(req.body.email)
         .usingIndex('EmailIndex')
@@ -80,7 +86,10 @@ var login = function(req,res){
                 if(data.Count == 0){
                     res.status(400).json({"err":"User not found"});
                 } else if(sha256(req.body.password) == data.Items[0].attrs.password){
+                    console.log("login correct")
+                    console.log("user:",data.Items[0].attrs);
                     req.session.user = data.Items[0].attrs.id;
+                    console.log("session: ", req.session.user);
                     res.json(data.Items[0].attrs);
                 } else {
                     res.status(400).json({"err":"Password incorrect"});
@@ -103,13 +112,29 @@ var authenticate = function(req,res){
     }
 }
 
+var allUserIds = function(req, res){
+    db.user
+        .scan()
+        .loadAll()
+        .exec(db.extractCallback(res,"id"));
+}
+
+var getTable = function(req, res){
+    db.user
+        .scan()
+        .loadAll()
+        .exec(db.dataCallback(res));
+}
+
 var user = {
 	get: get,
 	create: create,
 	update: update,
 	login: login,
     logout: logout,
-    authenticate: authenticate
+    authenticate: authenticate,
+    allUserIds: allUserIds,
+    getTable: getTable
 };
 
 module.exports = user;

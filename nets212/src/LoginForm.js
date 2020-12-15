@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import $ from 'jquery'; 
 import { useHistory } from "react-router-dom";
+
 var config = require('./Config');
+
 
 function LoginForm(props) {
     var history = useHistory();
@@ -94,7 +96,6 @@ function LoginForm(props) {
                     Log in
           </button>
           Not a user? <a href = '/register'> Register Here. </a>
-
           <p class = "text-danger">
             {state.error}
           </p>

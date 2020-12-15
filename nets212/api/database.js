@@ -59,9 +59,14 @@ var Friends = dynamo.define('PB_Friend', {
     schema: {
         PBuser: Joi.string(),
         friend: Joi.string(),
-        request: Joi.boolean(), //Do I need this? to be seen
-        accepted: Joi.boolean()
-    }
+        // request: Joi.boolean(), //Do I need this? to be seen
+        //accepted: Joi.boolean()
+    },
+
+    // indexes: [{
+    //     //hashKey : 'PBuser', rangeKey:'accepted', name : 'AcceptedIndex', type : 'local'
+    // }]
+
 });
 
 var Posts = dynamo.define('PB_Post', {
@@ -162,11 +167,25 @@ var Messages = dynamo.define('PB_Message',{
     timestamps: true,
     schema:{
         id: dynamo.types.uuid(),
-        chat: Joi.number(),
-        user: Joi.number(),
+        chat: Joi.string(),
+        PBuser: Joi.string(),
         text: Joi.string(),
     }
 });
+
+var Articles = dynamo.define('PB_Article',{
+    hashKey:'articleID',
+
+    schema: {
+        articleID: Joi.string(),
+        category: Joi.string(),
+        authors: Joi.string(),
+        headline: Joi.string(),
+        link: Joi.string(),
+        short_description: Joi.string(),
+        articleDate: Joi.string()
+    }
+})
 
 var Search = dynamo.define('PB_Inverted',{
     hashKey:'keyword',
@@ -217,17 +236,66 @@ var dataCallback = function(res){
     return callback;
 }
 
+var callbackSkeleton = function(res, user_callback){
+    callback = function(err, data){
+        console.log("callback for ", res.req.url, " called");
+        if(err){
+            console.log("err:", err);
+			//error from DB - return with error 
+			res.json({'err': err});
+		} else {
+            //return with data
+            if(typeof data != undefined && data != null){
+                console.log("data:", data.attrs);
+                user_callback(data);
+            } else {
+                console.log("err: Not found")
+                res.status(404).json({"err":"User not found"});
+            }			
+		}
+    }
+    return callback;
+}
+
+var extractCallback = function(res, param){
+    callback = function(err, data){
+        console.log("callback for ", res.req.url, " called");
+        if(err){
+            console.log("err:", err);
+			//error from DB - return with error 
+			res.json({'err': err});
+		} else {
+            //return with data
+            if(typeof data != undefined && data != null){
+                var result = [];
+                data.Items.forEach(function(item){
+                    result.push(item.get(param));
+                });
+                //return with data
+                console.log("data:", result);
+                res.json(result);
+            } else {
+                console.log("err: Not found")
+                res.status(404).json({"err":"User not found"});
+            }			
+		}
+    }
+    return callback;
+}
+
 var convertDates = function(params){
-    if(typeof params.createdAt != undefined){
-        var createDate = DateTime.fromISO(params.createdAt);
-        params.createdAt = createDate.toSeconds();
-    }
+    if(params != undefined){
+        console.log(params);
+        if(typeof params.createdAt != undefined){
+            var createDate = DateTime.fromISO(params.createdAt);
+            params.createdAt = createDate.toSeconds();
+        }
 
-    if(typeof params.updatedAt != undefined){
-        var updateDate = DateTime.fromISO(params.updatedAt);
-        params.updatedAt = updateDate.toSeconds();
+        if(typeof params.updatedAt != undefined){
+            var updateDate = DateTime.fromISO(params.updatedAt);
+            params.updatedAt = updateDate.toSeconds();
+        }
     }
-
     return params;
 }
 
@@ -235,7 +303,7 @@ var convertDates = function(params){
 //create database object with database classes
 var database = {
 	user: Users,
-	friends: Friends,
+	// friends: Friends,
 	posts: Posts,
 	pictures: Pictures,
 	reactions: Reactions,
@@ -244,7 +312,9 @@ var database = {
     messages: Messages,
     create_table: createTables,
     dataCallback: dataCallback,
-    convertDates: convertDates
+    convertDates: convertDates,
+    extractCallback: extractCallback,
+    callbackSkeleton: callbackSkeleton
 };
 
  module.exports = database;

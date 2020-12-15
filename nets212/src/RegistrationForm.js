@@ -84,6 +84,7 @@ function RegistrationForm(props) {
             };
             
             var request = $.post(config.serverUrl + "/user/create", newUser);
+            alert("hello")
             request.done((result) => {
                 setState({
                     error : ""

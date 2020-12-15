@@ -20,7 +20,7 @@ class NavigationBar extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/messages">Messages</Nav.Link>
-                    <Username id= {localStorage.getItem('user')} showImage="true"/>
+                    <Username id= {localStorage.getItem('user')}/>
                  </Nav>
                 </Navbar.Collapse>
                 <Searcher/>

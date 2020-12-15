@@ -27,7 +27,6 @@ var get = function(req,res){
                             } else {
                                 var comments = [];
                                 data2.Items.forEach(function(item){
-                                    console.log(item);
                                     comments.push(item.attrs.id)
                                 });
                                 //return with data
