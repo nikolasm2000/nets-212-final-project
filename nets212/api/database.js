@@ -112,12 +112,12 @@ var Notifications = dynamo.define('PB_Notification',{
         text: Joi.string(),
         relevant_id: Joi.string(),
         read: Joi.boolean(),
-        dismissed: Joi.number(),
+        dismissed: Joi.boolean(),
     },
 
-    //indexes: [{
-        //hashKey : 'PBuser', rangeKey:'createdAt', name : 'TimestampIndex', type : 'local'
-    //}]
+    indexes: [{
+        hashKey : 'PBuser', rangeKey:'createdAt', name : 'TimestampIndex', type : 'local'
+    }]
 
 })
 
