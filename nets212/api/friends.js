@@ -97,7 +97,7 @@ var remove = function(req,res){
     }
     db.friends.destroy(params,db.callbackSkeletonNull(res,function(data){
         db.friends.destroy(params2, db.callbackSkeletonNull(res,function(data){
-            res.json({success: true});
+            res.json({success: true, result:0});
         }));
     }));
 }
