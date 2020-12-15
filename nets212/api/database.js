@@ -59,13 +59,13 @@ var Friends = dynamo.define('PB_Friend', {
     schema: {
         PBuser: Joi.string(),
         friend: Joi.string(),
-        request: Joi.boolean(), //Do I need this? to be seen
-        accepted: Joi.boolean()
+        // request: Joi.boolean(), //Do I need this? to be seen
+        //accepted: Joi.boolean()
     },
 
-    indexes: [{
-        hashKey : 'PBuser', rangeKey:'accepted', name : 'AcceptedIndex', type : 'local'
-    }]
+    // indexes: [{
+    //     //hashKey : 'PBuser', rangeKey:'accepted', name : 'AcceptedIndex', type : 'local'
+    // }]
 
 });
 
@@ -167,11 +167,25 @@ var Messages = dynamo.define('PB_Message',{
     timestamps: true,
     schema:{
         id: dynamo.types.uuid(),
-        chat: Joi.number(),
-        user: Joi.number(),
+        chat: Joi.string(),
+        PBuser: Joi.string(),
         text: Joi.string(),
     }
 });
+
+var Articles = dynamo.define('PB_Article',{
+    hashKey:'articleID',
+
+    schema: {
+        articleID: Joi.string(),
+        category: Joi.string(),
+        authors: Joi.string(),
+        headline: Joi.string(),
+        link: Joi.string(),
+        short_description: Joi.string(),
+        articleDate: Joi.string()
+    }
+})
 
 var Search = dynamo.define('PB_Inverted',{
     hashKey:'keyword',
@@ -289,7 +303,7 @@ var convertDates = function(params){
 //create database object with database classes
 var database = {
 	user: Users,
-	friends: Friends,
+	// friends: Friends,
 	posts: Posts,
 	pictures: Pictures,
 	reactions: Reactions,

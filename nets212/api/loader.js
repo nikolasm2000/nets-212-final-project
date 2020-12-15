@@ -26,9 +26,16 @@ if(process.argv[2] == undefined){
                 }
               });
             break;
+        case "friends":
+            db.friends.deleteTable(function(err) {
+                if (err) {
+                  console.log('Error deleting table: ', err);
+                } else {
+                  console.log('Table Friends has been deleted');
+                }
+              });
+            break;
     }
 
     
 }
-
-
