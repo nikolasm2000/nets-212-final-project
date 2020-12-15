@@ -35,6 +35,15 @@ if(process.argv[2] == undefined){
                 }
               });
             break;
+        case "notifications":
+            db.notifications.deleteTable(function(err) {
+                if (err) {
+                  console.log('Error deleting table: ', err);
+                } else {
+                  console.log('Table Notifications has been deleted');
+                }
+              });
+            break;
     }
 
     

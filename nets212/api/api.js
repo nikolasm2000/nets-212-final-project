@@ -51,6 +51,7 @@ router.post('/posts/reactions/:id', posts.getReactions);
 router.post('/posts/homepage', posts.getAllIDs);//homepage);
 router.post('/posts/wall/:id', posts.getAllIDs);//wall);
 router.post('/notifications', notifications.getActiveNotifications);//wall);
+router.post('/notifications/createsample', notifications.createSampleNotifications);
 
 router.post('/loginhack/:id', function(req, res){
    req.session.user = req.params.id;

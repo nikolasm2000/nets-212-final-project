@@ -100,14 +100,14 @@ var Pictures = dynamo.define('PB_Picture',{
 });
 
 var Notifications = dynamo.define('PB_Notification',{
-    hashKey: 'PBUser',
+    hashKey: 'PBuser',
     rangeKey: 'id',
 
     timestamps: true,
 
     schema: {
         id: dynamo.types.uuid(),
-        PBUser: Joi.string(),
+        PBuser: Joi.string(),
         type: Joi.number(), //0 = notification, 1 = friend request, 2 = chat request
         text: Joi.string(),
         relevant_id: Joi.string(),
@@ -116,7 +116,7 @@ var Notifications = dynamo.define('PB_Notification',{
     },
 
     indexes: [{
-        hashKey : 'PBUser', rangeKey:'createdAt', name : 'TimestampIndex', type : 'local'
+        hashKey : 'PBuser', rangeKey:'createdAt', name : 'TimestampIndex', type : 'local'
     }]
 
 })
