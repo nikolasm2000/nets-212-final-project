@@ -61,7 +61,10 @@ var create = function(req,res){
 }
 
 var update = function(req,res){
-    req.body.id = req.session.user;
+    //req.body.id = req.session.user;
+    if(typeof req.body.password == 'undefined'){
+        req.body.password = sha256(req.body.password);
+    }
     console.log("data received:", req.body);
     db.user.update(req.body,db.dataCallback(res));
 }
