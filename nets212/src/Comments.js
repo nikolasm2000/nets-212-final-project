@@ -10,16 +10,29 @@ function Comments(props) {
   const [open, setOpen] = useState(false);
   const [text , setText] = useState("Show comments...");
 
+
   //should pass in a commentID to each comment
-  
+  var comments = props.comments;
+
+  function addComment(comment) {
+    comments.push(comment);
+    if (open) {
+      setOpen(!open)
+      setOpen(open)
+    } else {
+      clicked()
+    }
+  }
+
   var posts;
-  if (props.comments != null) {
-      posts = props.comments.map((comment) =>
+  if (comments != null) {
+      posts = comments.map((comment) =>
       <Comment id={comment}/>
 
     )} else {
       posts = <div> No comments yet :( </div>
     } 
+
     function clicked() {
       setOpen(!open);
       if(open) {
@@ -45,11 +58,9 @@ function Comments(props) {
         </div>
       </Collapse>
     </div>
-    <CommentInput/>
+    <CommentInput addComment={addComment}/>
     </div>
   );
-} export default Comments;
-
-
-
+} 
+export default Comments;
 
