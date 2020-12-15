@@ -51,6 +51,9 @@ router.post('/loginhack/:id', function(req, res){
    console.log("logging in with hack, session: ", req.session.user);
    res.end('hack completed');
 })
+router.post('/allusers', user.allUserIds)
+router.post('/table/user', user.getTable)
+router.post('/table/friend', friends.getTable)
 
 
 app.use('/api', router);

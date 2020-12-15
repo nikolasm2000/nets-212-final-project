@@ -61,7 +61,12 @@ var Friends = dynamo.define('PB_Friend', {
         friend: Joi.string(),
         request: Joi.boolean(), //Do I need this? to be seen
         accepted: Joi.boolean()
-    }
+    },
+
+    indexes: [{
+        hashKey : 'PBuser', rangeKey:'accepted', name : 'AcceptedIndex', type : 'local'
+    }]
+
 });
 
 var Posts = dynamo.define('PB_Post', {
@@ -248,10 +253,9 @@ var extractCallback = function(res, param){
 		} else {
             //return with data
             if(typeof data != undefined && data != null){
-                console.log("data:", data.attrs);
                 var result = [];
                 data.Items.forEach(function(item){
-                    result.push(item.attrs.get(param));
+                    result.push(item.get(param));
                 });
                 //return with data
                 console.log("data:", result);
@@ -266,16 +270,18 @@ var extractCallback = function(res, param){
 }
 
 var convertDates = function(params){
-    if(typeof params.createdAt != undefined){
-        var createDate = DateTime.fromISO(params.createdAt);
-        params.createdAt = createDate.toSeconds();
-    }
+    if(params != undefined){
+        console.log(params);
+        if(typeof params.createdAt != undefined){
+            var createDate = DateTime.fromISO(params.createdAt);
+            params.createdAt = createDate.toSeconds();
+        }
 
-    if(typeof params.updatedAt != undefined){
-        var updateDate = DateTime.fromISO(params.updatedAt);
-        params.updatedAt = updateDate.toSeconds();
+        if(typeof params.updatedAt != undefined){
+            var updateDate = DateTime.fromISO(params.updatedAt);
+            params.updatedAt = updateDate.toSeconds();
+        }
     }
-
     return params;
 }
 

@@ -61,8 +61,8 @@ var create = function(req,res){
 }
 
 var update = function(req,res){
-    //req.body.id = req.session.user;
-    console.log("data received:", data.body);
+    req.body.id = req.session.user;
+    console.log("data received:", req.body);
     db.user.update(req.body,db.dataCallback(res));
 }
 
@@ -109,13 +109,29 @@ var authenticate = function(req,res){
     }
 }
 
+var allUserIds = function(req, res){
+    db.user
+        .scan()
+        .loadAll()
+        .exec(db.extractCallback(res,"id"));
+}
+
+var getTable = function(req, res){
+    db.user
+        .scan()
+        .loadAll()
+        .exec(db.dataCallback(res));
+}
+
 var user = {
 	get: get,
 	create: create,
 	update: update,
 	login: login,
     logout: logout,
-    authenticate: authenticate
+    authenticate: authenticate,
+    allUserIds: allUserIds,
+    getTable: getTable
 };
 
 module.exports = user;

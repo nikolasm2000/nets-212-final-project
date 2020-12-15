@@ -10,7 +10,7 @@ var isFriend = function(req,res){
         .exec(db.callbackSkeleton(res,function(data){
             res.json({return: data.Items[0].attrs.accepted})
         }));
-    res.json({return: true});
+    //res.json({return: true});
 }
 
 var request = function(req,res){
@@ -54,14 +54,24 @@ var accept = function(req,res){
 var getFriends = function(req, res){
     db.friends
         .query(req.session.user)
+        .where("accepted").equals(true)
+        .usingIndex("AcceptedIndex")
         .exec(db.extractCallback(res,"friend"));
+}
+
+var getTable = function(req, res){
+    db.friends
+        .scan()
+        .loadAll()
+        .exec(db.dataCallback(res));
 }
 
 var friends = {
     isFriend: isFriend,
     request: request,
     accept: accept,
-    getFriends: getFriends
+    getFriends: getFriends,
+    getTable: getTable
 };
 
 module.exports = friends;
