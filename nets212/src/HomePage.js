@@ -27,7 +27,7 @@ class HomePage extends React.Component{
                 <Navbar name="Pranav Aurora" id ={this.state.userID}/>
                 <div class="container-fluid"> 
                     <div class="row">
-                        <div class="col">
+                        <div class="col col-scroll">
                             <div class="mt-3">
                                 <Notifications/>
                                 <div style={{paddingTop: 20}}>

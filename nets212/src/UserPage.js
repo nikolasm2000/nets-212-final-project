@@ -44,7 +44,7 @@ class UserPage extends React.Component {
                 {usercomp}
                 <div class="container-fluid"> 
                     <div class="row">
-                        <div class="col">
+                        <div class="col col-scroll">
                             <div class="mt-3">
                                 <Notifications/>
                             </div>
