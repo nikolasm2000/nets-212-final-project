@@ -65,6 +65,7 @@ router.post('/interests/getAll', intaff.getAllInterests);
 router.post('/affiliations/search', intaff.affSearch);
 router.post('/affiliations/getAll', intaff.getAllAffiliations);
 router.post('/affiliations/getaffiliates', intaff.getAffiliates);
+router.post('/affiliations/getaffiliates/:id', intaff.getAffiliates);
 router.post('/search', user.search);
 
 router.post('/loginhack/:id', function(req, res){

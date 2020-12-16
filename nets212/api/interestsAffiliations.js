@@ -86,8 +86,12 @@ var intSearch = function(req, res){
 }
 
 var getAffiliates = function(req, res){
+    var userid = req.session.user;
+    if(req.params.id != undefined){
+        userid = req.params.id;
+    }
     db.userAffiliations
-        .query(req.session.id)
+        .query(userid)
         .exec(db.callbackSkeleton(res, function(data){
             if (data.Count > 0) {
                 console.log(data);

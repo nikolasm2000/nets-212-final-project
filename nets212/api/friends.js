@@ -102,11 +102,9 @@ var remove = function(req,res){
 
 var getFriends = function(req, res){
     var userid = req.session.user;
-    console.log('user id: ', userid);
     if(req.params.id != undefined){
         userid = req.params.id;
     }
-    console.log('user id: ', userid);
     db.friends
         .query(userid)
         .usingIndex("AcceptedIndex")
