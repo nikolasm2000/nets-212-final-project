@@ -95,10 +95,10 @@ var getAffiliates = function(req, res){
         .exec(db.callbackSkeleton(res, function(data){
             if (data.Count > 0) {
                 console.log(data);
-                db.userAffiliation
-                    .query(data.Items[0].item_id)
+                db.userAffiliations
+                    .query(data.Items[0].attrs.item_id)
                     .usingIndex("AffiliationIndex")
-                    .exec(db.extractCallback(res,"PB_User"));
+                    .exec(db.extractCallback(res,"PBuser"));
             } else {
                 res.json({'err': "No affiliation found."})
             }
