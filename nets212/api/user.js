@@ -41,9 +41,9 @@ var create = function(req,res){
                     res.status(400).json({"err":"Email already in use"});
                 } else {
                     var interest = req.body.interest;
-                    req.body.interest = undefined;
+                    delete req.body.interest;
                     var affiliation = req.body.affiliation;
-                    req.body.affiliation = undefined;
+                    delete req.body.affiliation;
                     db.user.create(req.body,db.callbackSkeleton(res, function(data1){
                         intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
                             intaff.assocAffiliation(interest, data1.attrs.id, callbackSkeleton(res, function(data3){
