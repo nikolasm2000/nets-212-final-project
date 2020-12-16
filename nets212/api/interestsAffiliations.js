@@ -51,34 +51,6 @@ var associateWithUser = function(table, usertable, searchtable, name, userid, ca
         });
 }
 
-var associateWithUser = function(table, usertable, searchtable, name, userid, callback){
-    table.query(name)
-        .limit(1)
-        .usingIndex("NameIndex")
-        .exec(function(err, data){
-            if(err){
-                //error from DB - return with error
-                callback(err, null);
-            } else {
-                //check if item already exists
-                if (data.Count == 0){
-                    //create if not
-                    add(table, searchtable, name, function(err, data){
-                        if (err){
-                            callback(err, null);
-                        } else {
-                            //then associate
-                            usertable.create({'PBuser':userid, 'itemid': data.attrs.id}, callback);
-                        }
-                    })
-                } else {
-                    //associate item
-                    usertable.create({'PBuser':userid, 'itemid': data.Items[0].attrs.id}, callback);
-                }
-               
-            }
-        });
-}
 
 var addInterest = function (name, callback) {
     add(db.interests, db.interestSearch, name, callback);
