@@ -39,12 +39,12 @@ var associateWithUser = function(table, usertable, searchtable, name, userid, ca
                             callback(err, null);
                         } else {
                             //then associate
-                            usertable.create({'PBuser':userid, 'itemid': data.attrs.id}, callback);
+                            usertable.create({'PBuser':userid, 'item_id': data.attrs.id}, callback);
                         }
                     })
                 } else {
                     //associate item
-                    usertable.create({'PBuser':userid, 'itemid': data.Items[0].attrs.id}, callback);
+                    usertable.create({'PBuser':userid, 'item_id': data.Items[0].attrs.id}, callback);
                 }
                
             }
