@@ -41,17 +41,85 @@ var Interests = dynamo.define('PB_Interest', {
     schema:{
         id: dynamo.types.uuid(),
         name: Joi.string(),
-    }
+    },
+
+    indexes: [{
+        hashKey : 'name', name : 'NameIndex', type : 'global'
+    }]
+});
+
+var InterestSearch = dynamo.define('PB_InterestSearch',{
+    hashKey: 'keyword',
+    rangeKey: 'id',
+    timestamps: false,
+    schema:{
+        keyword: Joi.string(),
+        id: dynamo.types.uuid(),
+        name: Joi.string(),
+        weight: Joi.number(),
+    },
+
+    indexes: [{
+        {hashKey : 'id', name : 'idIndex', type : 'global'},
+        {haskKey : 'keyword', rangeKey: 'weight', name:'weightIndex', type : local }
+    ]
 });
 
 var UserInterests = dynamo.define('PB_UserInterest',{
     hashKey: 'PBuser',
-    rangeKey: 'interest',
+    rangeKey: 'item_id',
     schema:{
         PBuser: Joi.string(),
-        interest: Joi.string(),
-    }
+        item_id: Joi.string(),
+    },
+
+    indexes: [{
+        hashKey : 'item_id', rangeKey:'PBuser', name : 'InterestIndex', type : 'global'
+    }]
+});
+
+var Affiliations = dynamo.define('PB_Affiliation', {
+    hashKey: 'id',
+    timestamps: false,
+    schema:{
+        id: dynamo.types.uuid(),
+        name: Joi.string(),
+    },
+
+    indexes: [{
+        hashKey : 'name', name : 'NameIndex', type : 'global'
+    }]
+});
+
+var UserAffiliations = dynamo.define('PB_UserAffiliation',{
+    hashKey: 'PBuser',
+    rangeKey: 'item_id',
+    schema:{
+        PBuser: Joi.string(),
+        item_id: Joi.string(),
+    },
+
+    indexes: [{
+        hashKey : 'item_id', rangeKey:'PBuser', name : 'AffiliationIndex', type : 'global'
+    }]
 })
+
+var AffiliationSearch = dynamo.define('PB_AffiliationSearch',{
+    hashKey: 'keyword',
+    rangeKey: 'id',
+    timestamps: false,
+    schema:{
+        keyword: Joi.string(),
+        id: dynamo.types.uuid(),
+        name: Joi.string(),
+        weight: Joi.number(),
+    },
+
+    indexes: [{
+        {hashKey : 'id', name : 'idIndex', type : 'global'},
+        {haskKey : 'keyword', rangeKey: 'weight', name:'weightIndex', type : 'local' }
+    ]
+});
 
 var Friends = dynamo.define('PB_Friend', {
     hashKey:'PBuser',
@@ -337,10 +405,27 @@ var convertDates = function(params){
     return params;
 }
 
+var keywordCreator = function (table, keyword, object, callback){
+    var items = [];
+    for (var i = 1; i <= keyword.length; i++){
+        var item = object;
+        item.keyword = keyword.slice(0,i);
+        items.push(item);
+    }
+    
+    table.create(items, callback);
+}
+
 
 //create database object with database classes
 var database = {
-	user: Users,
+    user: Users,
+    interests: Interests,
+    interestSearch: InterestSearch,
+    userInterests: UserInterests,
+    affiliations: Affiliations,
+    affiliationSearch: AffiliationSearch,
+    userAffiliations: UserAffiliations,
 	friends: Friends,
     posts: Posts,
     notifications: Notifications,
@@ -354,7 +439,8 @@ var database = {
     convertDates: convertDates,
     extractCallback: extractCallback,
     callbackSkeleton: callbackSkeleton,
-    callbackSkeletonNull: callbackSkeletonNull
+    callbackSkeletonNull: callbackSkeletonNull,
+    keywordCreator: keywordCreator
 };
 
  module.exports = database;

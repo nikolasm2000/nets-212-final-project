@@ -1,5 +1,8 @@
 var db = require('./database.js');
 var sha256 = require('js-sha256');
+var intaff = require('./interestsAffiliations.js')
+const { assocInterest, assocAffiliation } = require('./interestsAffiliations.js');
+const { callbackSkeleton } = require('./database.js');
 
 var get = function(req,res){
     console.log("user get called");
@@ -52,9 +55,20 @@ var create = function(req,res){
                 if (data.Count > 0){
                     res.status(400).json({"err":"Email already in use"});
                 } else {
-                    db.user.create(req.body,db.dataCallback(res));
+                    var interest = req.body.interest;
+                    req.body.interest = null;
+                    var affiliation = req.body.affiliation;
+                    req.body.affiliation = null;
+                    db.user.create(req.body,db.callbackSkeleton(res, function(err, data1){
+                        intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(err, data2){
+                            intaff.assocAffiliation(interest, data1.attrs.id, callbackSkeleton(res, function(err, data3){
+                                data1.attrs.interest = interest;
+                                data1.attrs.affiliation = affiliation;
+                                res.json({data1});
+                            }));
+                        }));
+                    }));
                 }
-               
             }
         });
     

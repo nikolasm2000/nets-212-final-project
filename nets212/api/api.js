@@ -57,7 +57,8 @@ router.post('/notifications', notifications.getActiveNotifications);
 router.post('/notifications/:id/dismiss', notifications.dismiss);
 router.post('/notifications/:id/read', notifications.read);
 router.post('/notifications/:id/unread', notifications.unread);
-router.post('/notifications/createsample/:num', notifications.createSampleNotifications);
+router.post('/interests/search', intAff.intsearch);
+router.post('/affiliations/search', intAff.affsearch);
 
 router.post('/loginhack/:id', function(req, res){
    req.session.user = req.params.id;
@@ -68,6 +69,7 @@ router.post('/allusers', user.allUserIds)
 router.post('/table/user', user.getTable)
 router.post('/table/friend', friends.getTable)
 router.post('/table/posts', posts.getTable)
+router.post('/notifications/createsample/:num', notifications.createSampleNotifications);
 
 
 app.use('/api', router);
