@@ -34,7 +34,7 @@ class CommentInput extends React.Component {
         let request = $.post(Config.serverUrl + '/posts/comments/create', post);
             request.done((result) => {
                 this.setState({text:""})
-                this.props.addComment(result.id);
+                //this.props.addComment(result.id);
             })
 
     }

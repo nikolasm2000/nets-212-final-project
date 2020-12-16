@@ -52,7 +52,7 @@ const renderSuggest = suggestion => (
 class Searcher extends React.Component{
     constructor (props) {
         super(props);
-        this.state = {suggestion: [], value: "", chat: this.props.chat}
+        this.state = {suggestion: [], value: "", placeholder: this.props.placeholder}
     };
 
     onChange = (event, { newValue }) => {
@@ -82,13 +82,9 @@ class Searcher extends React.Component{
         console.log(this.state.selectedURL);     
     };
     render () {
-        const { value, suggestion, chat } = this.state; 
-        var displayText = "";
-        if (chat === "true") {
-            displayText = 'Add users to the chat';
-        } else {
-            displayText = 'Search for Users';
-        }
+        const { value, suggestion } = this.state; 
+        var displayText = 'Search for ' + this.state.placeholder
+
         const inputProps = {
             placeholder: displayText,
             value: this.state.value, 

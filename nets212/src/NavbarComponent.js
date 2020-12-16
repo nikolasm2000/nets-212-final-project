@@ -23,7 +23,7 @@ class NavigationBar extends React.Component {
                     <Username id= {localStorage.getItem('user')}/>
                  </Nav>
                 </Navbar.Collapse>
-                <Searcher/>
+                <Searcher placeholder="users"/>
                 <Logout/>
             </Navbar>
         )

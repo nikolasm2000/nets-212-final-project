@@ -16,7 +16,7 @@ class Chatheader extends React.Component {
                     <div class = "border-0 col-md-3 mt-2 mb-2"> 
                     </div>
                     <div class = "border-0 col-md-3 mt-3" > 
-                        <Searcher chat="true"/>
+                        <Searcher placeholder="users to chat"/>
                     </div>
                     <div class = "border-0 col-md-3 mt-3 mb-3 float-right"> 
                         <button type="button" class="btn btn-sm btn-outline-danger pr-3 pl-3" onClick={this.handleReject}>

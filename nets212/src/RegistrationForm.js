@@ -4,11 +4,21 @@ import $ from 'jquery';
 import moment from 'moment';
 import { useHistory } from "react-router-dom";
 import {Redirect} from 'react-router-dom'
+import Select from 'react-select';
+
+import './searcherstyle.css';
 
 var config = require("./Config.js")
 
 function RegistrationForm(props) {
     const history = useHistory();
+
+    const options = [
+        {label: 'Chocolate' },
+        {label: 'Strawberry' },
+        {label: 'Vanilla' },
+      ];
+    
 
     const [state , setState] = useState({
         email : "",
@@ -16,8 +26,8 @@ function RegistrationForm(props) {
         confirmpassword : "",
         first : "",
         last : "",
-        affiliation: "",
-        interests: "",
+        affiliation: undefined,
+        interests: undefined,
         birthday: ""
     })
     const handleChange = (e) => {
@@ -28,17 +38,38 @@ function RegistrationForm(props) {
         }))
     }
     const handleChange2 = (date) => {
-        console.log(date);
         setState(prevState => ({
             ...prevState,
             birthday: date
         }))
     }
+    
+    const handleAffiliation = (e) => {
+        //alert("hello is this working")
+        console.log("WORKING ANOTH" + e.label)
+        setState(prevState => ({
+            ...prevState,
+            affiliation: e
+        }))
+        console.log("HELLO" + state.affiliation)
+        //will make the call to the backend here. 
+        //then update 
+    }
 
+    const handleInterest = (e) => {
+        console.log("WORKING ANOTH" + e.label)
+        setState(prevState => ({
+            ...prevState,
+            interests: e
+        }))
+        console.log("HELLO" + state.interests)
+        //then update 
+    }
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(state.affiliation.label + "BOOOK YAHHHH")
         if (state.email === "") {
             setState({
                 error: "Email cannot be empty!"
@@ -60,11 +91,11 @@ function RegistrationForm(props) {
                 error : "Please your Name. Numbers only if Elon Musk"
             })
         } 
-        else if (state.affiliation === "") {
+        else if (state.affiliation == undefined) {
             setState({
                 error : "Please add an Affiliation."
             })
-        } else if (state.interests === "") {
+        } else if (state.interests == undefined) {
             setState({
                 error : "Please add an Interest."
             })
@@ -79,8 +110,9 @@ function RegistrationForm(props) {
                 password: state.password,
                 first_name: state.first,
                 last_name: state.last,
-                birthday: state.birthday
-    
+                birthday: state.birthday,
+                affiliation: state.affiliation.label,
+                interest: state.interests.label,
             };
             
             var request = $.post(config.serverUrl + "/user/create", newUser);
@@ -149,22 +181,21 @@ function RegistrationForm(props) {
                         onChange={handleChange} 
                     />
     Affiliation:
-      <input type="affiliation" 
-                        className="form-control" 
-                        id="affiliation" 
-                        placeholder="Affiliation to PennBooks. 1 for the time being :) "
-                        value={state.affiliation}
-                        onChange={handleChange} 
-                    />
+    <Select
+        value={state.affiliation}
+        onChange={handleAffiliation}
+        options={options}
+        placeholder="Add your affiliation to Pennbooks"
+      />
 
     Interest:
-      <input type="interests" 
-                        className="form-control" 
-                        id="interests" 
-                        placeholder="What are you interested in? 1 for the time being :)"
-                        value={state.interests}
-                        onChange={handleChange} 
-                    />
+    <Select
+        value={state.interests}
+        onChange={handleInterest}
+        options={options}
+        placeholder="Add your affiliation to Pennbooks"
+
+      />
 
       Birthday: 
       <DatePicker 
