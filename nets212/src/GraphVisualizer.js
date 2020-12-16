@@ -1,20 +1,66 @@
 import React, { Component } from "react";
 import { Graph } from "react-d3-graph";
 import Navbar from './NavbarComponent.js';
+import ProfPic from './ProfPic.js';
+import $ from 'jquery'
+var config = require('./Config.js')
 
 class GraphVisualizer extends Component {
   constructor() {
     super();
     let data = {
-      nodes: [{ id: "Niko" }, { id: "Pranav" }, { id: "Sacha" }],
-      links: [
-        { source: "Niko", target: "Pranav", color: "Blue" },
-        { source: "Niko", target: "Sacha", color: "Red" }
-      ]
+      nodes: [{id: 'k', color: "White", size: 1 }],
+      links: []
     };
+
+   
+    var request = $.post(config.serverUrl + '/user/' + localStorage.getItem('user') + '/get');
+    request.done((result) => {
+      const reactRef = this;
+      let modData = { ...reactRef.state.data };
+      let selectNode = modData.nodes.push({ id: localStorage.getItem('user'), name: result.first_name});
+      reactRef.setState({ data: modData });
+      });
+    
     this.state = {
       data: data
     };
+  }
+
+  
+  componentWillMount() {
+    var request = $.post(config.serverUrl + '/friends');
+    request.done((result) => {
+      result.forEach((user) => {
+        var request2 = $.post(config.serverUrl + '/user/' + user + '/get');
+        request2.done((result2) => {
+        const reactRef = this;
+        let modData = { ...reactRef.state.data };
+        let selectNode = modData.nodes.push({ id: user, name: result2.first_name});
+        selectNode = modData.links.push({ source: user, target: localStorage.getItem('user'), color: "Blue" });
+        reactRef.setState({ data: modData });
+      });
+
+    });
+
+    });
+
+    var request = $.post(config.serverUrl + '/affiliations/getaffiliates');
+    request.done((result) => {
+      result.forEach((user) => {
+        var request2 = $.post(config.serverUrl + '/user/' + user + '/get');
+        request2.done((result2) => {
+        const reactRef = this;
+        let modData = { ...reactRef.state.data };
+        let selectNode = modData.nodes.push({ id: user, name: result2.first_name});
+        selectNode = modData.links.push({ source: user, target: localStorage.getItem('user'), color: "Red" });
+        reactRef.setState({ data: modData });
+      });
+
+    });
+
+    });
+
   }
 
   render() {
@@ -30,6 +76,7 @@ class GraphVisualizer extends Component {
         highlightStrokeColor: "blue",
         fontSize: 14,
         highlightFontSize: 17,
+        labelProperty: n => (n.name)
       },
       link: {
         highlightColor: "lightblue"
@@ -38,14 +85,52 @@ class GraphVisualizer extends Component {
         linkLength: 150
       }
     };
+
     const reactRef = this;
     const onDoubleClickNode = function(nodeId) {
-      let modData = { ...reactRef.state.data };
-      let selectNode = modData.nodes.push({ id: "Henrique" });
-      selectNode = modData.nodes.push({ id: "Henrique Still" });
-      selectNode = modData.links.push({ source: nodeId, target: "Henrique", color: "Red" });
-      selectNode = modData.links.push({ source: nodeId, target: "Henrique Still", color: "Blue" });
-      reactRef.setState({ data: modData });
+      
+      var request = $.post(config.serverUrl + '/friends/' + nodeId + '/getfriends');
+        request.done((result) => {
+          result.forEach((user) => {
+            var request2 = $.post(config.serverUrl + '/user/' + user + '/get');
+            request2.done((result2) => {
+              
+              let modData = { ...reactRef.state.data };
+              let selectNode = modData.nodes.push({ id: user, name: result2.first_name});
+              if(modData.links.includes({source: user, target: nodeId, color: "Red" })){
+                selectNode = modData.links.push({source: user, target: nodeId, color: "Green" });
+              } else {
+                selectNode = modData.links.push({source: user, target: nodeId, color: "Blue" });
+              }
+              
+              reactRef.setState({ data: modData });
+      });
+
+    });
+
+    });
+
+    var request = $.post(config.serverUrl + '/affiliations/getaffiliates/' + nodeId);
+        request.done((result) => {
+          result.forEach((user) => {
+            var request2 = $.post(config.serverUrl + '/user/' + user + '/get');
+            request2.done((result2) => {
+              
+              let modData = { ...reactRef.state.data };
+              let selectNode = modData.nodes.push({ id: user, name: result2.first_name});
+              if(modData.links.includes({source: user, target: nodeId, color: "Blue" })){
+                selectNode = modData.links.push({source: user, target: nodeId, color: "Green" });
+              } else {
+                selectNode = modData.links.push({source: user, target: nodeId, color: "Red" });
+              }
+              
+              reactRef.setState({ data: modData });
+      });
+
+    });
+
+    });
+
     };
 
     return (
