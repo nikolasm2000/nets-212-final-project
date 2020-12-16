@@ -39,6 +39,7 @@ router.post('/user/update', user.update);
 router.post('/login', user.login);
 router.post('/logout', user.logout);
 router.post('/friends', friends.getFriends);
+router.post('/friends/:id/getfriends', friends.getFriends);
 router.post('/friends/:id/isfriend',friends.isFriend);
 router.post('/friends/:id/request',friends.request);
 router.post('/friends/:id/accept',friends.accept);
@@ -64,6 +65,7 @@ router.post('/interests/getAll', intaff.getAllInterests);
 router.post('/affiliations/search', intaff.affSearch);
 router.post('/affiliations/getAll', intaff.getAllAffiliations);
 router.post('/affiliations/getaffiliates', intaff.getAffiliates);
+router.post('/search', user.search);
 
 router.post('/loginhack/:id', function(req, res){
    req.session.user = req.params.id;

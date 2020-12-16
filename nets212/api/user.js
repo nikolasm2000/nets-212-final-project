@@ -116,6 +116,15 @@ var authenticate = function(req,res){
     }
 }
 
+var search = function(req, res){
+    db.search
+        .query(req.body.keyword)
+        //.usingIndex("weightIndex")
+        .descending
+        .limit(5)
+        .exec(extractCallback(res, "obj_id"));
+}
+
 var allUserIds = function(req, res){
     db.user
         .scan()
@@ -138,7 +147,8 @@ var user = {
     logout: logout,
     authenticate: authenticate,
     allUserIds: allUserIds,
-    getTable: getTable
+    getTable: getTable,
+    search: search
 };
 
 module.exports = user;

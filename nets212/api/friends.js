@@ -101,8 +101,12 @@ var remove = function(req,res){
 }
 
 var getFriends = function(req, res){
+    var userid = req.session.user;
+    if(typeof req.params.id != undefined){
+        userid = req.params.id;
+    }
     db.friends
-        .query(req.session.user)
+        .query(userid)
         .usingIndex("AcceptedIndex")
         .where("accepted").equals(1)
         .exec(db.extractCallback(res,"friend"));

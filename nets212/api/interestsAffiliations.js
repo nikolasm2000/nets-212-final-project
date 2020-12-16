@@ -86,13 +86,18 @@ var intSearch = function(req, res){
 }
 
 var getAffiliates = function(req, res){
-    db.userAffiliation
+    db.userAffiliations
         .query(req.session.id)
         .exec(db.callbackSkeleton(res, function(data){
-        db.userAffiliation
-            .query(data.item_id)
-            .usingIndex("AffiliationIndex")
-            .exec(db.extractCallback(res,"PB_User"));
+            if (data.Count > 0) {
+                console.log(data);
+                db.userAffiliation
+                    .query(data.Items[0].item_id)
+                    .usingIndex("AffiliationIndex")
+                    .exec(db.extractCallback(res,"PB_User"));
+            } else {
+                res.json({'err': "No affiliation found."})
+            }
     }));
 }
 
