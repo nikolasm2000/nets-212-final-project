@@ -59,9 +59,9 @@ var InterestSearch = dynamo.define('PB_InterestSearch',{
         weight: Joi.number(),
     },
 
-    indexes: [{
+    indexes: [
         {hashKey : 'id', name : 'idIndex', type : 'global'},
-        {haskKey : 'keyword', rangeKey: 'weight', name:'weightIndex', type : local }
+        {hashKey : 'keyword', rangeKey: 'weight', name:'weightIndex', type : 'local' }
     ]
 });
 
@@ -115,9 +115,9 @@ var AffiliationSearch = dynamo.define('PB_AffiliationSearch',{
         weight: Joi.number(),
     },
 
-    indexes: [{
+    indexes: [
         {hashKey : 'id', name : 'idIndex', type : 'global'},
-        {haskKey : 'keyword', rangeKey: 'weight', name:'weightIndex', type : 'local' }
+        {hashKey : 'keyword', rangeKey: 'weight', name:'weightIndex', type : 'local' }
     ]
 });
 

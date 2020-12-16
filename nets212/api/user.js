@@ -1,6 +1,7 @@
 var db = require('./database.js');
 var sha256 = require('js-sha256');
 var intaff = require('./interestsAffiliations.js')
+
 const { assocInterest, assocAffiliation } = require('./interestsAffiliations.js');
 const { callbackSkeleton } = require('./database.js');
 

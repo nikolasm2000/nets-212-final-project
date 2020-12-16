@@ -12,6 +12,8 @@ var user = require('./user.js');
 var friends = require('./friends.js');
 var posts = require('./posts.js');
 var notifications = require('./notifications.js');
+var intaff = require('./interestsAffiliations.js')
+
 var db = require('./database.js');
 
 /* Below we install the routes. The first argument is the URL that we
@@ -57,8 +59,8 @@ router.post('/notifications', notifications.getActiveNotifications);
 router.post('/notifications/:id/dismiss', notifications.dismiss);
 router.post('/notifications/:id/read', notifications.read);
 router.post('/notifications/:id/unread', notifications.unread);
-router.post('/interests/search', intAff.intsearch);
-router.post('/affiliations/search', intAff.affsearch);
+router.post('/interests/search', intaff.intSearch);
+router.post('/affiliations/search', intaff.affSearch);
 
 router.post('/loginhack/:id', function(req, res){
    req.session.user = req.params.id;
