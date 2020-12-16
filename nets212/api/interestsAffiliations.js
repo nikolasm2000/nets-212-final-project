@@ -122,7 +122,18 @@ var getAffiliates = function(req, res){
             .usingIndex("AffiliationIndex")
             .exec(db.extractCallback(res,"PB_User"));
     }));
-    
+}
+
+var getAllAffiliations = function(req, res){
+    db.affiliations
+        .scan()
+        .exec(extractCallback(res, "name"));
+}
+
+var getAllInterests = function(req, res){
+    db.interests
+        .scan()
+        .exec(extractCallback(res, "name"));
 }
 
 var intAff = {
@@ -132,7 +143,9 @@ var intAff = {
     intSearch: intSearch,
     assocInterest: assocInterest,
     assocAffiliation: assocAffiliation,
-    getAffiliates: getAffiliates
+    getAffiliates: getAffiliates,
+    getAllInterests: getAllInterests,
+    getAllAffiliations: getAllAffiliations
 }
 
 module.exports = intAff;

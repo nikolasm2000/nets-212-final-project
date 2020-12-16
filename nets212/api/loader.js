@@ -44,6 +44,15 @@ if(process.argv[2] == undefined){
                 }
               });
             break;
+        case "userinterests":
+            db.userInterests.deleteTable(function(err) {
+                if (err) {
+                  console.log('Error deleting table: ', err);
+                } else {
+                  console.log('Table UserInterests has been deleted');
+                }
+              });
+            break;
     }
 
     
