@@ -81,19 +81,19 @@ var associateWithUser = function(table, usertable, searchtable, name, userid, ca
 }
 
 var addInterest = function (name, callback) {
-    add(db.interest, db.interestSearch, name, callback);
+    add(db.interests, db.interestSearch, name, callback);
 }
 
 var addAffiliation = function (name, callback) {
-    add(db.affiliation, db.affiliationSearch, name, callback);
+    add(db.affiliations, db.affiliationSearch, name, callback);
 }
 
 var assocAffiliation = function(name, userid, callback){
-    associateWithUser(db.affiliation, db.userAffiliations, db.affiliationSearch, name, userid, callback)
+    associateWithUser(db.affiliations, db.userAffiliations, db.affiliationSearch, name, userid, callback)
 }
 
 var assocInterest = function(name, userid, callback){
-    associateWithUser(db.interest, db.userInterests, db.interestSearch, name, userid, callback)
+    associateWithUser(db.interests, db.userInterests, db.interestSearch, name, userid, callback)
 }
 
 var search = function(searchtable, req, res){
