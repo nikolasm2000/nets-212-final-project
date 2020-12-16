@@ -7,22 +7,6 @@ const { callbackSkeleton } = require('./database.js');
 
 var get = function(req,res){
     console.log("user get called");
-    // db.user
-    //     .query(req.params.id)
-    //     .usingIndex('IDIndex')
-    //     .limit(1)
-    //     .exec(function(err, data){
-    //         console.log("user get result:")
-    //         console.log(data);
-    //         if(err){
-    //             //error from DB - return with error
-    //             res.status(400).json({'err': err});
-    //         } else {
-    //             //return with data
-    //             res.json(data.Items[0]);
-    //         }
-    //     })
-
 
     db.user.get(req.params.id, db.dataCallback(res));
 }
@@ -60,11 +44,14 @@ var create = function(req,res){
                     req.body.interest = null;
                     var affiliation = req.body.affiliation;
                     req.body.affiliation = null;
-                    db.user.create(req.body,db.callbackSkeleton(res, function(err, data1){
-                        intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(err, data2){
-                            intaff.assocAffiliation(interest, data1.attrs.id, callbackSkeleton(res, function(err, data3){
+                    db.user.create(req.body,db.callbackSkeleton(res, function(data1){
+                        intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
+                            intaff.assocAffiliation(interest, data1.attrs.id, callbackSkeleton(res, function(data3){
+                                //adding back interest and affiliation
                                 data1.attrs.interest = interest;
                                 data1.attrs.affiliation = affiliation;
+                                //logging user in
+                                req.session.user = data1.attrs.id;
                                 res.json({data1});
                             }));
                         }));
@@ -72,7 +59,6 @@ var create = function(req,res){
                 }
             }
         });
-    
 }
 
 var update = function(req,res){

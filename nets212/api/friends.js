@@ -43,10 +43,8 @@ var request = function(req,res){
         "request": false,
         "accepted": 0,
     }
-    db.friends.create(params,db.callbackSkeleton(res,function(data){
-        db.friends.create(params2, db.callbackSkeleton(res,function(data){
-            res.json({success: true, result: 2});
-        }));
+    db.friends.create([params, params2],db.callbackSkeleton(res,function(data){
+        res.json({success: true, result: 2});
     }));
 }
 

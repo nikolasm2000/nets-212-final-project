@@ -61,6 +61,7 @@ router.post('/notifications/:id/read', notifications.read);
 router.post('/notifications/:id/unread', notifications.unread);
 router.post('/interests/search', intaff.intSearch);
 router.post('/affiliations/search', intaff.affSearch);
+router.post('/affiliations/getaffiliates', intaff.getAffiliates);
 
 router.post('/loginhack/:id', function(req, res){
    req.session.user = req.params.id;
