@@ -100,7 +100,7 @@ var getAffiliates = function(req, res){
                     .usingIndex("AffiliationIndex")
                     .exec(db.extractCallback(res,"PBuser"));
             } else {
-                res.json({'err': "No affiliation found."})
+                res.status(400).json({'err': "No affiliation found."})
             }
     }));
 }
