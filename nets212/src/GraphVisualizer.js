@@ -36,7 +36,11 @@ class GraphVisualizer extends Component {
         request2.done((result2) => {
         const reactRef = this;
         let modData = { ...reactRef.state.data };
-        let selectNode = modData.nodes.push({ id: user, name: result2.first_name});
+        let pic = result2.profile_pic;
+        function generatePersonNode() {
+          return <ProfPic picture = {pic} />;
+        }
+        let selectNode = modData.nodes.push({ id: user, name: result2.first_name,  viewGenerator: generatePersonNode });
         selectNode = modData.links.push({ source: user, target: localStorage.getItem('user'), color: "Blue" });
         reactRef.setState({ data: modData });
       });
@@ -52,7 +56,11 @@ class GraphVisualizer extends Component {
         request2.done((result2) => {
         const reactRef = this;
         let modData = { ...reactRef.state.data };
-        let selectNode = modData.nodes.push({ id: user, name: result2.first_name});
+        let pic = result2.profile_pic;
+        function generatePersonNode() {
+          return <ProfPic picture = {pic} />;
+        }
+        let selectNode = modData.nodes.push({ id: user, name: result2.first_name,  viewGenerator: generatePersonNode });
         selectNode = modData.links.push({ source: user, target: localStorage.getItem('user'), color: "Red" });
         reactRef.setState({ data: modData });
       });
@@ -96,12 +104,12 @@ class GraphVisualizer extends Component {
             request2.done((result2) => {
               
               let modData = { ...reactRef.state.data };
-              let selectNode = modData.nodes.push({ id: user, name: result2.first_name});
-              if(modData.links.includes({source: user, target: nodeId, color: "Red" })){
-                selectNode = modData.links.push({source: user, target: nodeId, color: "Green" });
-              } else {
-                selectNode = modData.links.push({source: user, target: nodeId, color: "Blue" });
-              }
+              let pic = result2.profile_pic;
+        function generatePersonNode() {
+          return <ProfPic picture = {pic} />;
+        }
+              let selectNode = modData.nodes.push({ id: user, name: result2.first_name,  viewGenerator: generatePersonNode });
+              selectNode = modData.links.push({source: user, target: nodeId, color: "Blue" });
               
               reactRef.setState({ data: modData });
       });
@@ -117,12 +125,13 @@ class GraphVisualizer extends Component {
             request2.done((result2) => {
               
               let modData = { ...reactRef.state.data };
-              let selectNode = modData.nodes.push({ id: user, name: result2.first_name});
-              if(modData.links.includes({source: user, target: nodeId, color: "Blue" })){
-                selectNode = modData.links.push({source: user, target: nodeId, color: "Green" });
-              } else {
-                selectNode = modData.links.push({source: user, target: nodeId, color: "Red" });
-              }
+              let pic = result2.profile_pic;
+        function generatePersonNode() {
+          return <ProfPic picture = {pic} />;
+        }
+              let selectNode = modData.nodes.push({ id: user, name: result2.first_name,  viewGenerator: generatePersonNode });
+              selectNode = modData.links.push({source: user, target: nodeId, color: "Red" });
+              
               
               reactRef.setState({ data: modData });
       });
