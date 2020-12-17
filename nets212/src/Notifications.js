@@ -45,11 +45,11 @@ class Notifications extends React.Component{
     render() {
         const notifications = this.state.notifications.map((notification) => {
             if(notification.type === 0) {
-                return <div class="m-0 p-0" ><Notification notification={notification} refresh={this.refresh}/><hr class="m-0 p-0"/></div>
+                return <div class="m-0 p-0" key={notification.createdAt}><Notification notification={notification} refresh={this.refresh}/><hr class="m-0 p-0"/></div>
             } else if(notification.type === 1) {
-                return <div class="m-0 p-0" ><FriendRequest notification={notification} refresh={this.refresh}/><hr class="m-0 p-0"/></div>
+                return <div class="m-0 p-0" key={notification.createdAt}><FriendRequest notification={notification} refresh={this.refresh}/><hr class="m-0 p-0"/></div>
             } else if(notification.type === 2) {
-                return <div class="m-0 p-0" ><ChatRequest notification={notification} refresh={this.refresh}/><hr class="m-0 p-0"/></div>
+                return <div class="m-0 p-0" key={notification.createdAt}><ChatRequest notification={notification} refresh={this.refresh}/><hr class="m-0 p-0"/></div>
             }
             
         });
