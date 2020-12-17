@@ -18,10 +18,8 @@ class Comment extends React.Component {
     //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
     //Make call to backend to get POST details
     if (this.props.id) {
-      console.log("CoMMENT cHecker" + this.props.id)
         var request = $.post(config.serverUrl + '/posts/comments/' + this.props.id + '/get');
         request.done((result) => {
-            console.log(result);
             this.setState({
                 //posted by
                 userID: result.author,

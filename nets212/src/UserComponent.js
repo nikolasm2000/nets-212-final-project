@@ -49,10 +49,9 @@ class UserComponent extends React.Component {
 		});
 		let request2 = $.post(Config.serverUrl + '/user/' + this.props.id + '/getfull');
 		request2.done((result) => {
-			alert("hello!")
 			console.log(result)
 			this.setState({
-				affiliation: result.affiliation,
+				affiliation: result.affiliations[0],
 				birthday: moment.unix(result.birthday).format("MMMM Do, YYYY")
 			})
 		})

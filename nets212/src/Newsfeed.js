@@ -12,6 +12,7 @@ class Newsfeed extends React.Component {
     constructor(props) {
         super(props)
         this.state = { posts: []}
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     addPost = (post) => {
@@ -21,10 +22,10 @@ class Newsfeed extends React.Component {
         });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
         //Make call to backend to get POST details
-
+        window.addEventListener("scroll", this.handleScroll);
         //TWO SEPARATE CALLS
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/wall/' +  this.props.id);
@@ -36,14 +37,32 @@ class Newsfeed extends React.Component {
         } else {
             var request = $.post(config.serverUrl + '/posts/homepage');
             request.done((result) => {
-                this.setState({
+                this.setState({ 
                     posts: result
                 });
             });
 
         }
     }
+    
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.handleScroll);
+    }
 
+    handleScroll() {
+        const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+        const body = document.body;
+        const html = document.documentElement;
+        const docHeight = html.scrollHeight;
+        const windowBottom = windowHeight + window.pageYOffset;
+        if (windowBottom >= docHeight) {
+            alert("bottom reached")
+        } else {
+            this.setState({
+                message: 'not at bottom'
+            });
+        }
+    }
     //need to iteate over the set postIDs and call each post then. 
 
     render () {

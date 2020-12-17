@@ -23,6 +23,7 @@ class Post extends React.Component {
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
             request.done((result) => {
+
                 this.setState({
                     //posted by
                     userID: result.author,
@@ -37,7 +38,7 @@ class Post extends React.Component {
                     //number of likes
                     numLikes: result.likes,
                     //whether userliked
-                    liked: result.liked,
+                    liked: result.has_liked,
                     //list of comment IDs on the post
                     commentIDs: result.comments,
                 });
