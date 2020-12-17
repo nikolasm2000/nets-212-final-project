@@ -81,6 +81,7 @@ router.post('/affiliations/getaffiliates', intaff.getAffiliates);
 router.post('/affiliations/getaffiliates/:id', intaff.getAffiliates);
 router.post('/search', user.search);
 router.post('/articles/:id/get', articles.get);
+router.post('/articles', articles.show)
 
 router.post('/loginhack/:id', function(req, res){
    req.session.user = req.params.id;

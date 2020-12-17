@@ -241,7 +241,11 @@ var FinalWeights = dynamo.define('PB_FinalWeight',{
         PBuser: Joi.string(),
         article: Joi.string(),
         weight: Joi.number(),
-    }
+    },
+
+    indexes: [{
+        hashKey : 'PBuser', rangeKey:'weight', name : 'WeightIndex', type : 'local'
+    }]
 });
 
 var Chats = dynamo.define('PB_Chat',{
@@ -492,6 +496,7 @@ var database = {
     userAffiliations: UserAffiliations,
 	friends: Friends,
     posts: Posts,
+    finalWeights: FinalWeights,
     homepage: Homepage,
     notifications: Notifications,
 	pictures: Pictures,
