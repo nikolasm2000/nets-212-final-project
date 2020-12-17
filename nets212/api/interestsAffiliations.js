@@ -117,6 +117,20 @@ var getAllInterests = function(req, res){
         .exec(extractCallback(res, "name"));
 }
 
+var getIntUserTable = function(req, res){
+    db.userInterests
+        .scan()
+        .loadAll()
+        .exec(db.dataCallback(res));
+}
+
+var getAffUserTable = function(req, res){
+    db.userAffiliations
+        .scan()
+        .loadAll()
+        .exec(db.dataCallback(res));
+}
+
 var intAff = {
     addInterest: addInterest,
     addAffiliation: addAffiliation,
@@ -126,7 +140,9 @@ var intAff = {
     assocAffiliation: assocAffiliation,
     getAffiliates: getAffiliates,
     getAllInterests: getAllInterests,
-    getAllAffiliations: getAllAffiliations
+    getAllAffiliations: getAllAffiliations,
+    getIntUserTable: getIntUserTable,
+    getAffUserTable: getAffUserTable
 }
 
 module.exports = intAff;

@@ -44,7 +44,16 @@ var request = function(req,res){
         "accepted": 0,
     }
     db.friends.create([params, params2],db.callbackSkeleton(res,function(data){
-        res.json({success: true, result: 2});
+        var notif_params = {
+                "PBuser": req.params.id,
+                "type": 1,
+                "relevant_id": req.session.user,
+                "dismissed" : false,
+                "read" : false
+            }
+        db.notifications.create(notif_params, db.callbackSkeleton(res, function(data){
+            res.json({success: true, result: 2});
+        }))
     }));
 }
 
@@ -61,7 +70,17 @@ var accept = function(req,res){
     }
     db.friends.update(params,db.callbackSkeleton(res,function(data){
         db.friends.update(params2, db.callbackSkeleton(res,function(data){
-            res.json({success: true, result: 1});
+            var notif_params = {
+                "PBuser": req.params.id,
+                "type": 3,
+                "relevant_id": req.session.user,
+                "text": "Accepted your friend request!",
+                "dismissed" : false,
+                "read" : false
+            }
+            db.notifications.create(notif_params, db.callbackSkeleton(res, function(data){
+                res.json({success: true, result: 1});
+            }));
         }));
     }));
 }
