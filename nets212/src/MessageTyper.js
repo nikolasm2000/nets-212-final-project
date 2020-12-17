@@ -17,8 +17,7 @@ class MessageTyper extends React.Component {
         this.state.socket.emit("chat message", {
             user: localStorage.getItem('user'),
             chat: this.state.id,
-            message: this.state.text,
-            createdAt: moment(Date.now()).unix()
+            message: this.state.text
 
         })
     }

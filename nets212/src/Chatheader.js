@@ -25,10 +25,10 @@ class Chatheader extends React.Component {
   componentDidMount() {
     this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
     //Update list of users
-    let request = $.post(config.serverUrl + '/chats/');
+    let request = $.post(config.serverUrl + '/chats/' + this.props.id + '/getusers');
     request.done((result) => {
         this.setState({
-            users:[]
+            users: result
         });
     });
 }

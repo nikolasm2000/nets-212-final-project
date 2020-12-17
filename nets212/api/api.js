@@ -17,7 +17,7 @@ var chats = require('./chats.js');
 var articles = require('./articles.js');
 
 var db = require('./database.js');
-
+const { DateTime } = require("luxon");
 /* Below we install the routes. The first argument is the URL that we
    are routing, and the second argument is the handler function that
    should be invoked when someone opens that URL. Note the difference
@@ -130,13 +130,25 @@ socketIo.on('connection', (socket) => {
    socket.on('chat message', (msg) => {
       //Get the id of the chat group msg.chat
       //Look up the ids of all users in that group
-      chats.getChatUsers(msg.chat, (err, data) => {
-         data.forEach(element => {
-            db.sockets.get({user_id: element}, (err, data) => {
-               socketIo.to(data.attrs.socket_id).emit('chat message', msg);
+      db.user.get(msg.user, (err, data) => {
+         if (err) {
+            console.log(err);
+         } else {
+            msg.name = data.attrs.first_name + ' ' + data.attrs.last_name;
+            msg.createdAt = DateTime.local().setZone("utc").toSeconds();
+            chats.saveMessage(msg.user, msg.chat, msg.message, (err,data) => {
+
             });
-         });
+            chats.getChatUsers(msg.chat, (err, data) => {
+               data.forEach(element => {
+                  db.sockets.get({user_id: element}, (err, data) => {
+                     socketIo.to(data.attrs.socket_id).emit('chat message', msg);
+                  });
+               });
+            })
+         }
       })
+      
       //Emit msg to all users in that group using sockets db
      
    })

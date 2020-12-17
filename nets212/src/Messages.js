@@ -11,9 +11,12 @@ class Messages extends React.Component {
     
     componentDidMount() {
         //Get messages from chat
-        let request = $.post(config.serverUrl + '/chats/' + this.props.id);
+        let request = $.post(config.serverUrl + '/chats/' + this.props.id + '/messages');
         request.done((result) => {
-            var newMessages = this.state.messages.concat([result]);
+            result.items.forEach(element => {
+                element.user = element.PBuser;
+            })
+            var newMessages = this.state.messages.concat([result.items]);
             newMessages = newMessages.sort((a,b) => {return (a.createdAt > b.createdAt) ? 1 : -1});
             this.setState({messages: newMessages});
             this.state.ref.current.scrollIntoView()

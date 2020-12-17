@@ -10,7 +10,7 @@ class Username extends React.Component {
     }
 
     componentDidMount() {
-        this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
+        this.refreshID = setInterval(() => this.refresh(), config.refreshTime * 2);
         //Make call to backend to get username details
         if (this.props.id) {
             this.setState({ status: "Online", userURL: '/user/' + this.props.id})
@@ -38,7 +38,15 @@ class Username extends React.Component {
     }
 
     refresh() {
-
+        var request = $.post(config.serverUrl + '/user/' + this.props.id + '/get');
+            request.done((result) => {
+                this.setState({
+                    firstName: result.first_name,
+                    lastName: result.last_name,
+                    profile_pic: result.profile_pic,
+                    status: result.online ? "Online" : "Offline"
+                }); 
+            });
 
     }
 

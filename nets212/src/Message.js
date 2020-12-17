@@ -6,7 +6,7 @@ import moment from 'moment'
     class Message extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {id: this.props.msg.id, message: this.props.msg.message, user: this.props.msg.user, name: this.props.msg.name, timestamp: moment(this.props.msg.createdAt).fromNow()}
+        this.state = {id: this.props.msg.id, message: this.props.msg.message, user: this.props.msg.user, name: this.props.msg.name, timestamp: moment.unix(this.props.msg.createdAt).fromNow()}
     }
     render(){
         let card;
@@ -32,7 +32,7 @@ import moment from 'moment'
                 </div>
                 <div className="card text-right ml-auto border-0" style={{borderRadius:"15px", maxWidth:"200px"}}>
                     <div class="card-body p-0" style={{fontSize:"0.6em"}}>
-                    Sent by {this.state.name} on {this.state.createdAt}. 
+                    Sent by {this.state.name} on {this.state.timestamp}. 
                     </div>
                 </div>
         </div>
