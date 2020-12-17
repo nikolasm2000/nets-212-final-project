@@ -19,7 +19,8 @@ class Username extends React.Component {
                 this.setState({
                     firstName: result.first_name,
                     lastName: result.last_name,
-                    profile_pic: result.profile_pic
+                    profile_pic: result.profile_pic,
+                    status: result.online ? "Online" : "Offline"
                 }); 
             });
             request.fail((err) => {
@@ -37,18 +38,7 @@ class Username extends React.Component {
     }
 
     refresh() {
-        //Check if user is online
 
-        var isOnline = true;
-        if(isOnline) {
-            this.setState({
-                status: "Online"
-            });
-        } else {
-            this.setState({
-                status: "Offline"
-            });
-        }
 
     }
 
