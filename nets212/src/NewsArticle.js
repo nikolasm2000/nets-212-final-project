@@ -9,7 +9,7 @@ var config = require('./Config.js')
 
 //should just take in a POST ID. it will then make the call to the backend.
 class NewsArticle extends React.Component {
-    /*constructor(props) {
+    constructor(props) {
         super (props);
         this.state = {};
     }
@@ -19,30 +19,26 @@ class NewsArticle extends React.Component {
         //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
         //Make call to backend to get POST details
         if (this.props.id) {
-            var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
+            var request = $.post(config.serverUrl + '/articles/' + this.props.id + '/get');
             request.done((result) => {
                 this.setState({
                     //posted by
-                    userID: result.author,
+                    articleID: result.articleID,
                     //optional, posted on whose wall
-                    user2: result.wall,
+                    headline: result.headline,
                     //time posted
-                    timeStamp: "Posted " + moment.unix(result.createdAt).fromNow(),
+                    articledate: "Posted " + moment.unix(result.articleDate).fromNow(),
                     //URL of image
-                    imageURL: result.pictures ? result.pictures[0] : '',
+                    link: result.link,
                     //text of the post
-                    text: result.text,
-                    //number of likes
-                    numLikes: result.likes,
-                    //whether userliked
-                    liked: result.liked,
+                    authors: result.authors,
                     //list of comment IDs on the post
-                    commentIDs: result.comments,
+                    short_description: result.short_description,
                 });
                 
             });
         }
-    } */
+    } 
 
     render () {
         return (
@@ -53,8 +49,8 @@ class NewsArticle extends React.Component {
                     
                     <div class="container p-0 m-0 d-flex flex-row align-items-center">
                 <div class="d-flex flex-column align-items-start pl-2 justify-content-center">
-                    <a class="p-0 m-0" href= "https://www.google.com/">This is the article title.</a>
-                    <small class= "text-muted m-0 p-0">Written by: your mom</small>
+                    <a class="p-0 m-0" href= "https://www.google.com/">{this.state.headline}.</a>
+                    <small class= "text-muted m-0 p-0">Written by: {this.state.authors}</small>
                 </div>
             </div>
 
@@ -62,12 +58,10 @@ class NewsArticle extends React.Component {
                     
 
                 </div>
-                <p class="card-text m-0 p-0"><small class="text-muted">Date publicshed: 2012</small></p>
+                <p class="card-text m-0 p-0"><small class="text-muted">{this.state.articledate}</small></p>
             </div>
             <div class="card-body">
-                <p class="card-text">This is a description of the article. This is a description of the article. This is a description of the article. This is a description of the article.
-                This is a description of the article. This is a description of the article. This is a description of the article. 
-                click the link for more</p>
+                <p class="card-text">{this.state.short_description}</p>
                 <hr/>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col p-0 m-0">

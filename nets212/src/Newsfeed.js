@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Post from './Post.js'
 import PostInput from './PostInput.js'
+import NewsArticle from './NewsArticle.js'
 import $ from 'jquery'
 
 var config = require('./Config.js')
@@ -11,7 +12,7 @@ var config = require('./Config.js')
 class Newsfeed extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { posts: [], oldestTimestamp:undefined}
+        this.state = { posts: [], oldestTimestamp:undefined, article: []}
         this.handleScroll = this.handleScroll.bind(this);
     }
 
@@ -49,9 +50,13 @@ class Newsfeed extends React.Component {
                 posts: result
             }); 
         });
-        
 
-        
+        var request2 = $.post(config.serverUrl + '/articles');
+        request2.done((result) => {
+            this.setState ({
+                article: result
+            }); 
+        });        
     }
     
     componentWillUnmount() {
@@ -93,11 +98,16 @@ class Newsfeed extends React.Component {
             return <Post key={post} id={post} setOldest={this.setOldest}/>
         });
 
+        const articles = this.state.articles.map((article) => {
+            return <NewsArticle key={article} id={article}/>
+        })
+
         return (
             <div>
                 <PostInput addPost={this.addPost} id={this.props.id}/>
                 <hr class="mt-4 mb-0 p-0"/>
                 <div class="d-flex flex-column align-items-center">
+                    {articles}
                     {posts}
                 </div>
                 <br/>
