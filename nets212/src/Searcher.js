@@ -2,6 +2,7 @@ import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import { Navbar,Nav,Form, Button, NavDropdown } from 'react-bootstrap'
 import Username from './Username';
+import articleName from './articleName';
 import './autosuggest.css';
 import $ from 'jquery';
 
@@ -16,14 +17,19 @@ const getSuggestions = (value) => {
     request.done((result) => {
         console.log(result);
         toDisplay = result
+
     })
     return toDisplay;
 }
 
-//need to take a look at what this does
+//need to take a look at what this does. DON't NEED. 
 const displaySuggestion = (suggestion) => suggestion.name;
 
 const renderSuggest = suggestion => (
+    suggestion.article != undefined ? 
+    <div> 
+        <articleName id = {suggestion.id} />
+    </div> :
     <div>
         <Username id = {suggestion.id} showImage="true"/>
     </div>
