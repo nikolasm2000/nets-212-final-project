@@ -59,6 +59,8 @@ var create = function(req,res){
                     delete req.body.interest;
                     var affiliation = req.body.affiliation;
                     delete req.body.affiliation;
+                    
+                    console.log("item being sent", req.body);
                     db.user.create(req.body,db.callbackSkeleton(res, function(data1){
                         intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
                             intaff.assocAffiliation(affiliation, data1.attrs.id, callbackSkeleton(res, function(data3){
@@ -155,7 +157,18 @@ var search = function(req, res){
         //.descending
         .limit(5)
         .exec(db.callbackSkeleton(res, function(data){
-            
+            if(typeof data != undefined && data != null){
+                var result = [];
+                data.Items.forEach(function(item){
+                    result.push({'id': item.obj_id, 'article': item.attrs.article, 'user': item.attrs.user});
+                });
+                //return with data
+                console.log("data:", result);
+                callback(result);
+            } else {
+                console.log("err: Not found")
+                res.status(404).json({"err":"Not found"});
+            }	
         }));
 }
 
