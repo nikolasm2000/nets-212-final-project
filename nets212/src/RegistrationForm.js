@@ -206,7 +206,7 @@ class RegistrationForm extends React.Component {
                 placeholder="Add your affiliation to Pennbooks"
               />
         
-            Interest:
+            Interest (2):
             <Select
                 className="basic-multi-select"
                 classNamePrefix="select"

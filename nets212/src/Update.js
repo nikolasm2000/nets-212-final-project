@@ -169,7 +169,7 @@ class Update extends React.Component {
 
         console.log(x + "X is veri sexc")
         let post = {
-            text:  "I just changed added " + x + " to my interests.",
+            text:  "I just  added " + x + " to my interests.",
             pictures: [this.state.image],
             author: localStorage.getItem('user'),
             privacy: 0,
