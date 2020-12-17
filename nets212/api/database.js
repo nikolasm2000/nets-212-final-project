@@ -48,6 +48,20 @@ var Interests = dynamo.define('PB_Interest', {
     }]
 });
 
+var Homepage = dynamo.define('PB_Homepage',{
+    hashKey: 'PBuser',
+    rangeKey: 'post',
+    timestamps: true,
+    schema:{
+        PBuser: Joi.string(),
+        post: Joi.string(),
+    },
+
+    indexes: [{
+        hashKey : 'PBuser', rangeKey:'createdAt', name : 'TimestampIndex', type : 'local'
+    }]
+});
+
 var InterestSearch = dynamo.define('PB_InterestSearch',{
     hashKey: 'keyword',
     rangeKey: 'id',
@@ -152,9 +166,10 @@ var Posts = dynamo.define('PB_Post', {
         pictures: dynamo.types.stringSet(), //TODO think about this
     },
 
-    indexes: [{
-        hashKey : 'parent', rangeKey:'createdAt', name : 'ParentIndex', type : 'global'
-    }]
+    indexes: [
+        {hashKey : 'parent', rangeKey:'createdAt', name : 'ParentIndex', type : 'global'},
+        {hashKey: 'wall', rangeKey: 'createdAt', name: 'WallIndex', type:'global'}
+    ]
 });
 
 var Pictures = dynamo.define('PB_Picture',{
@@ -477,6 +492,7 @@ var database = {
     userAffiliations: UserAffiliations,
 	friends: Friends,
     posts: Posts,
+    homepage: Homepage,
     notifications: Notifications,
 	pictures: Pictures,
 	reactions: Reactions,

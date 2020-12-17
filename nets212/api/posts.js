@@ -1,5 +1,6 @@
 db = require('./database.js');
 const { DateTime } = require("luxon");
+const { callbackSkeleton } = require('./database.js');
 
 var get = function(req,res){
     console.log("get called");
@@ -60,7 +61,11 @@ var get = function(req,res){
 var create = function(req,res){
     console.log("create post called");
     req.body.parent = "0";
-    db.posts.create(req.body, db.dataCallback(res));
+    db.posts.create(req.body, db.callbackSkeleton(res, function(postdata){
+        sendToAllFriends(postdata.attrs.id, res, callbackSkeleton(res, function(data){
+            res.json(postdata);
+        }));
+    }));
 }
 
 var getComments = function(req, res){
@@ -140,6 +145,38 @@ var numLikes = function(req, res) {
     }));
 }
 
+var homepage = function(req, res) {
+    db.homepage
+        .query(req.session.user)
+        .usingIndex("TimestampIndex")
+        .descending()
+        .loadAll()
+        .exec(db.extractCallback(res, "post"))
+}
+
+var wall = function(req, res){
+    db.posts
+    .query(req.params.id)
+    .usingIndex('WallIndex')
+    .descending()
+    .loadAll()
+    .exec(db.extractCallback(res, "id"))
+}
+
+var sendToAllFriends = function(post, res, callback){
+    db.friends
+        .query(res.req.session.user)
+        .usingIndex("AcceptedIndex")
+        .where("accepted").equals(1)
+        .exec(db.extractCallbackSkeleton(res,"friend",function(data){
+            params = [{"PBuser":res.req.session.user, "post": post}];
+            data.forEach(function(friendID){
+                params.push({"PBuser":friendID, "post": post})
+            });
+            db.homepage.create(params, callbackSkeleton(res, callback));
+        }));
+}
+
 var getAllIDs = function(req, res){
     console.log("get all posts ID called")
     db.posts
@@ -181,6 +218,8 @@ var posts = {
 	update: update,
     getAll: getAll,
     getAllIDs: getAllIDs,
+    homepage: homepage,
+    wall: wall,
     createComment: createComment,
     createReaction: createReaction,
     getReactions: getReactions,
