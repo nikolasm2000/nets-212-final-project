@@ -16,7 +16,7 @@ class Friend extends React.Component {
     
 
     handleMessage() {
-        let request = $.post(config.serverUrl + '/chats/' + this.props.id + '/request');
+        let request = $.post(config.serverUrl + '/chats/' + this.props.id + '/invite');
         request.done((result) => {
             this.setState({sent_chat: "Chat request sent!"})
         })

@@ -21,7 +21,7 @@ class Notification extends React.Component {
             <div class="row align-items-center justify-content-between m-0 p-0">
                 <div class="col m-0 ml-2 p-0 pr-0 mr-0">
                     <div class="row p-0 m-0">
-                    <p class="p-0 m-0">{this.props.notification.text} </p> <a href={this.props.url}>{this.props.urlText}</a>
+                    <p class="p-0 m-0">{this.props.notification.text} </p> <a href={this.props.notification.url}>{this.props.notification.url ? <small>Click here to join the chat now</small> : null}</a>
                     </div>
                     <div class="row p-0 m-0">
                     <p class="card-text m-0 p-0"><small class="text-muted">{moment(this.props.notification.createdAt).fromNow()}</small></p>
