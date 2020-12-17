@@ -6,21 +6,21 @@ var config = require('./Config.js')
 class Messages extends React.Component {
     constructor(props){
         super(props)
-        this.state={messages: [], socket: props.socket, ref: React.createRef()}
+        this.state={messages: [], socket: props.socket, ref: React.createRef(), id: this.props.id}
     }
     
     componentDidMount() {
         //Get messages from chat
-        let request = $.post(config.serverUrl + '/chats/' + this.props.id + '/messages');
+        /*let request = $.post(config.serverUrl + '/chats/' + this.state.id + '/messages');
         request.done((result) => {
-            result.items.forEach(element => {
+            result.Items.forEach(element => {
                 element.user = element.PBuser;
             })
             var newMessages = this.state.messages.concat([result.items]);
             newMessages = newMessages.sort((a,b) => {return (a.createdAt > b.createdAt) ? 1 : -1});
             this.setState({messages: newMessages});
             this.state.ref.current.scrollIntoView()
-        });
+        });*/
 
         this.state.socket.on("chat message", data => {
             var newMessages = this.state.messages.concat([data]);
