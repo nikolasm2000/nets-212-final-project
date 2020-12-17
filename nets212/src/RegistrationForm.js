@@ -21,7 +21,7 @@ class RegistrationForm extends React.Component {
             first : "",
             last : "",
             affiliation: undefined,
-            interests: undefined,
+            interests: [],
             birthday: undefined,
             optionsAffiliation: [],
             optionsInterest: [],
@@ -39,7 +39,7 @@ class RegistrationForm extends React.Component {
         request.done((result) => {
             var toR = []
             result.forEach(entry => {
-                let obj = {label: entry}
+                let obj = {value: entry, label: entry}
                 toR.push(obj)
             })
             this.setState({optionsAffiliation: toR})
@@ -49,7 +49,7 @@ class RegistrationForm extends React.Component {
         request1.done((result) => {
             var toC = []
             result.forEach(entry => {
-                let obj = {label: entry}
+                let obj = {value: entry, label: entry}
                 toC.push(obj)
             })
             this.setState({optionsInterest: toC})
@@ -71,7 +71,6 @@ class RegistrationForm extends React.Component {
     
     handleAffiliation(e) {
         //alert("hello is this working")
-        console.log("WORKING ANOTH" + e.label)
         this.setState({
             affiliation: e
         });
@@ -82,12 +81,10 @@ class RegistrationForm extends React.Component {
     }
 
     handleInterest(e) {
-        console.log("WORKING ANOTH" + e.label)
         this.setState({
             interests: e
         });
-        console.log("HELLO" + this.state.interests)
-        //then update 
+        console.log(this.state.interests)
     }
 
     handleSubmit(e) {
@@ -118,9 +115,9 @@ class RegistrationForm extends React.Component {
             this.setState({
                 error : "Please add an Affiliation."
             })
-        } else if (this.state.interests == undefined) {
+        } else if (this.state.interests == undefined || this.state.interests.length < 2) {
             this.setState({
-                error : "Please add an Interest."
+                error : "Please at least 2 interests"
             })
         } else if (this.state.birthday == undefined) {
             this.setState({
@@ -134,7 +131,9 @@ class RegistrationForm extends React.Component {
                 last_name: this.state.last,
                 birthday: moment(this.state.birthday).unix(),
                 affiliation: this.state.affiliation.label,
-                interest: this.state.interests.label,
+                //interests is NOW an array. To do with rafa please dont forget. 
+                interest: this.state.interests,
+                profile_pic: "https://data.whicdn.com/images/346305623/original.jpg"
             };
             
             var request = $.post(config.serverUrl + "/user/create", newUser);
@@ -209,11 +208,15 @@ class RegistrationForm extends React.Component {
         
             Interest:
             <Select
-                value={this.state.interests}
+                className="basic-multi-select"
+                classNamePrefix="select"
                 onChange={this.handleInterest}
+                //value={this.state.interests}
                 options={this.state.optionsInterest}
                 placeholder="Add your interest to Pennbooks"
-        
+                isMulti
+                isSearchable={true}
+                closeMenuOnSelect={false}
               />
         
               Birthday: 

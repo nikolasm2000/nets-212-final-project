@@ -31,7 +31,7 @@ class Update extends React.Component {
         request.done((result) => {
             var toR = []
             result.forEach(entry => {
-                let obj = {label: entry}
+                let obj = {value: entry, label: entry}
                 toR.push(obj)
             })
             this.setState({optionsAffiliation: toR})
@@ -41,7 +41,7 @@ class Update extends React.Component {
         request1.done((result) => {
             var toC = []
             result.forEach(entry => {
-                let obj = {label: entry}
+                let obj = {value: entry, label: entry}
                 toC.push(obj)
             })
             this.setState({optionsInterest: toC})
@@ -61,6 +61,7 @@ class Update extends React.Component {
         });
         console.log("HELLO" + this.state.interests)
         //then update 
+
     }
     
      
@@ -160,6 +161,27 @@ class Update extends React.Component {
                 successInterest : "Successfuly Changed Interest"
             })
         }
+        let x = "";
+        this.state.interests.forEach(interest => {
+            x = x + interest.label + ", "
+        })
+        x = x.substring(0, x.length-1)
+
+        console.log(x + "X is veri sexc")
+        let post = {
+            text:  "I just changed added " + x + " to my interests.",
+            pictures: [this.state.image],
+            author: localStorage.getItem('user'),
+            privacy: 0,
+            parent: "0",
+        };
+        let request = $.post(Config.serverUrl + '/posts/create', post);
+            request.done((result) => {
+                console.log("LESSSSGOOOO")
+            });
+            request.fail((result) => {
+                this.setState({error: "there was an error changing your interests"})
+            })	
         //write route to backend later
         // need to trigger a post. 
     }
@@ -249,13 +271,17 @@ class Update extends React.Component {
                  </p>
 
                 <br></br>
-                <h5>Add an interest in news</h5>
+                <h5>Add a new interest in news</h5>
                 <Select
-                value={this.state.interests}
+                className="basic-multi-select"
+                classNamePrefix="select"
                 onChange={this.handleInterest}
+                //value={this.state.interests}
                 options={this.state.optionsInterest}
                 placeholder="Add your interest to Pennbooks"
-        
+                isMulti
+                isSearchable={true}
+                closeMenuOnSelect={false}
               />
 
                 <button 
