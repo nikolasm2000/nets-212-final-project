@@ -7,7 +7,17 @@ const { callbackSkeleton } = require('./database.js');
 
 var fullGet = function(req,res){
     console.log("user full get called");
-    db.user.get(req.params.id, {AttributesToGet : ['id','first_name', 'last_name', 'profile_pic', 'birthday', 'email']}, db.dataCallback(res));
+    db.user.get(req.params.id, {AttributesToGet : ['id','first_name', 'last_name', 'profile_pic', 'birthday', 'email']}, db.callbackSkeleton(res, function(userdata){
+        console.log("interests:");
+        intaff.getUserInterests(req.params.id, res, function(interests){
+            console.log("affiliations:")
+            intaff.getUserAffiliations(req.params.id, res, function(affiliaitons){
+                userdata.attrs.interests = interests;
+                userdata.attrs.affiliaitons = affiliaitons;
+                res.json(userdata);
+            })
+        })
+    }));
 }
 
 var get = function(req,res){

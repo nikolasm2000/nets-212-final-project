@@ -389,6 +389,32 @@ var extractCallback = function(res, param){
     return callback;
 }
 
+var extractCallbackSkeleton = function(res, param, callback){
+    callbackfunc = function(err, data){
+        console.log("callback for ", res.req.url, " called");
+        if(err){
+            console.log("err:", err);
+			//error from DB - return with error 
+			res.json({'err': err});
+		} else {
+            //return with data
+            if(typeof data != undefined && data != null){
+                var result = [];
+                data.Items.forEach(function(item){
+                    result.push(item.get(param));
+                });
+                //return with data
+                console.log("data:", result);
+                callback(result);
+            } else {
+                console.log("err: Not found")
+                res.status(404).json({"err":"Not found"});
+            }			
+		}
+    }
+    return callbackfunc;
+}
+
 var convertDates = function(params){
     if(params != undefined){
         console.log(params);
@@ -440,7 +466,8 @@ var database = {
     extractCallback: extractCallback,
     callbackSkeleton: callbackSkeleton,
     callbackSkeletonNull: callbackSkeletonNull,
-    keywordCreator: keywordCreator
+    keywordCreator: keywordCreator,
+    extractCallbackSkeleton: extractCallbackSkeleton
 };
 
  module.exports = database;

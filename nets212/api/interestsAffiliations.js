@@ -1,6 +1,6 @@
 const { data } = require('jquery');
 const { builtinModules } = require('module');
-const { extractCallback } = require('./database.js');
+const { extractCallback, user } = require('./database.js');
 
 db = require('./database.js');
 
@@ -49,6 +49,33 @@ var associateWithUser = function(table, usertable, searchtable, name, userid, ca
                
             }
         });
+}
+
+var getUserAffInt = function(table, usertable, userid, res, callback){
+    usertable.query(userid)
+        .loadAll()
+        .exec(db.extractCallbackSkeleton(res, "item_id", function(ids){
+            console.log("trying to get names");
+            console.log(ids);
+            if(ids.length < 2){
+                ids = ids.pop();
+                table.get(ids, db.callbackSkeleton(res, function(data) {
+                    callback([data.attrs.name]);
+                }));
+            } else {
+                table.get(ids, db.extractCallbackSkeleton(res, "name", function(data) {
+                    callback(data);
+                }));
+            }
+        }));
+}
+
+var getUserInterests = function(userid, res, callback){
+    getUserAffInt(db.interests, db.userInterests, userid, res, callback);
+}
+
+var getUserAffiliations = function(userid, res, callback){
+    getUserAffInt(db.affiliations, db.userAffiliations, userid, res, callback);
 }
 
 
@@ -141,6 +168,8 @@ var intAff = {
     getAffiliates: getAffiliates,
     getAllInterests: getAllInterests,
     getAllAffiliations: getAllAffiliations,
+    getUserAffiliations: getUserAffiliations,
+    getUserInterests: getUserInterests,
     getIntUserTable: getIntUserTable,
     getAffUserTable: getAffUserTable
 }
