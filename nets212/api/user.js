@@ -98,13 +98,12 @@ var create = function(req,res){
 }
 
 var update = function(req,res){
-    //req.body.id = req.session.user;
     if(typeof req.body.password != 'undefined'){
         req.body.password = sha256(req.body.password);
     }
     console.log("data received:", req.body);
 
-    req.body.id = req.session.id;
+    req.body.id = req.session.user;
     
     var interest = [];
     var affiliation = [];
@@ -118,7 +117,7 @@ var update = function(req,res){
         delete req.body.affiliation;
     }
     
-    db.user.update(req.body,db.callbackSkeleton(res, function(data1){
+    db.user.update(req.body, db.callbackSkeleton(res, function(data1){
         intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
             intaff.assocAffiliation(affiliation, data1.attrs.id, callbackSkeleton(res, function(data3){
                 //adding back interest and affiliation
