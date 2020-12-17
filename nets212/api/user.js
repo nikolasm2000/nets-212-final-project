@@ -11,9 +11,10 @@ var fullGet = function(req,res){
         console.log("interests:");
         intaff.getUserInterests(req.params.id, res, function(interests){
             console.log("affiliations:")
-            intaff.getUserAffiliations(req.params.id, res, function(affiliaitons){
+            intaff.getUserAffiliations(req.params.id, res, function(affiliations){
                 userdata.attrs.interests = interests;
-                userdata.attrs.affiliaitons = affiliaitons;
+                userdata.attrs.affiliations = affiliations;
+                console.log("user data: ", userdata);
                 res.json(userdata);
             })
         })
