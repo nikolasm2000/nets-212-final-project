@@ -84,7 +84,8 @@ router.post('/articles/:id/get', articles.get);
 router.post('/articles', articles.show);
 router.post('/chats/create', chats.createNewChat);
 router.post('/chats/:id/getusers', chats.getChatUsersRoute);
-router.post('/chats/:id/invite', chats.invite);
+router.post('/chats/:id/invite', chats.getPrivateChat);
+router.post('/chats/:id/messages', chats.getAllMessages);
 //router.post('/chats', chats.getChats);
 
 router.post('/loginhack/:id', function(req, res){

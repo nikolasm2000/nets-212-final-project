@@ -259,7 +259,16 @@ var Chats = dynamo.define('PB_Chat',{
         id: dynamo.types.uuid(),
         name: Joi.string(),
         private: Joi.boolean(),
-    }
+        user1: Joi.string(),
+        user2: Joi.string(),
+    },
+
+    indexes: [
+        {hashKey : 'user1', rangeKey : 'user2', name : 'UserIndex', type : 'global'},
+        {hashKey : 'user2', rangeKey : 'user1', name : 'UserInvIndex', type : 'global'}
+    ]
+
+
 });
 
 var ChatMembers = dynamo.define('PB_ChatMember',{
@@ -286,8 +295,12 @@ var Messages = dynamo.define('PB_Message',{
         id: dynamo.types.uuid(),
         chat: Joi.string(),
         PBuser: Joi.string(),
-        text: Joi.string(),
-    }
+        message: Joi.string(),
+    },
+
+    indexes: [{
+        hashKey : 'chat', rangeKey: 'createdAt', name : 'TimestampIndex', type : 'local'
+    }]
 });
 
 var Articles = dynamo.define('PB_Article',{
