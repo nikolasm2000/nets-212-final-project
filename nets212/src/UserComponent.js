@@ -51,7 +51,7 @@ class UserComponent extends React.Component {
 		request2.done((result) => {
 			console.log(result)
 			this.setState({
-				affiliation: result.affiliation,
+				affiliation: result.affiliations[0],
 				birthday: moment.unix(result.birthday).format("MMMM Do, YYYY")
 			})
 		})
