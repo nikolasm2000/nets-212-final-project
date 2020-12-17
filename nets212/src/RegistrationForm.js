@@ -130,9 +130,9 @@ class RegistrationForm extends React.Component {
                 first_name: this.state.first,
                 last_name: this.state.last,
                 birthday: moment(this.state.birthday).unix(),
-                affiliation: this.state.affiliation.label,
+                affiliation: [this.state.affiliation.label],
                 //interests is NOW an array. To do with rafa please dont forget. 
-                interest: "test",//this.state.interests,
+                interest: this.state.interests,
                 profile_pic: "https://data.whicdn.com/images/346305623/original.jpg"
             };
             
@@ -205,7 +205,7 @@ class RegistrationForm extends React.Component {
                 placeholder="Add your affiliation to Pennbooks"
               />
         
-            Interest (2):
+            Interest (min 2):
             <Select
                 className="basic-multi-select"
                 classNamePrefix="select"
