@@ -11,6 +11,15 @@ var createNewChat = function(req, res){
     db.chat.create({}, callback);
 }
 
+var getAllMessages = function(req, res){
+    db.messages
+    .query(req.params.id)
+    .usingIndex('TimestampIndex')
+    .loadAll()
+    .ascending()
+    .exec(db.dataCallback(res));
+}
+
 var getChatUsers = function(chat, callback){
     db.chatMembers
         .query(chat)
@@ -74,6 +83,7 @@ var chats = {
     getChatUsersRoute: getChatUsersRoute,
     saveMessage: saveMessage,
     invite: invite,
+    getAllMessages: getAllMessages
 };
 
 module.exports = chats;

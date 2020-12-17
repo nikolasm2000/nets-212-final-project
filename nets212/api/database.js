@@ -287,7 +287,11 @@ var Messages = dynamo.define('PB_Message',{
         chat: Joi.string(),
         PBuser: Joi.string(),
         text: Joi.string(),
-    }
+    },
+
+    indexes: [{
+        hashKey : 'chat', rangeKey: 'createdAt', name : 'TimestampIndex', type : 'local'
+    }]
 });
 
 var Articles = dynamo.define('PB_Article',{
