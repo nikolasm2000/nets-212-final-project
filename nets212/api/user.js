@@ -152,7 +152,7 @@ var search = function(req, res){
     db.search
         .query(req.body.keyword)
         //.usingIndex("weightIndex")
-        .descending
+        //.descending
         .limit(5)
         .exec(extractCallback(res, "obj_id"));
 }
