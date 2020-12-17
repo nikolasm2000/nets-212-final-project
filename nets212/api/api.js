@@ -94,6 +94,7 @@ router.post('/table/friend', friends.getTable);
 router.post('/table/posts', posts.getTable);
 router.post('/table/userinterest', intaff.getIntUserTable);
 router.post('/table/useraffiliation', intaff.getAffUserTable);
+router.post('/table/finalweights', articles.getFinalWeightsTable);
 router.post('/notifications/createsample/:num', notifications.createSampleNotifications);
 
 
