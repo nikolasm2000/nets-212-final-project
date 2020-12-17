@@ -4,45 +4,55 @@ import {Redirect} from 'react-router-dom';
 import $ from 'jquery'
 var Config = require("./Config.js");
 
-function Update(props) {
-    const [state , setState] = useState({
-        email : "",
-        password : "",
-        confirmpassword : "",
-        birthday : "",
-        affiliation: "",
-        news: ""
-    })
-    const handleChange = (e) => {
+class Update extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email : "",
+            password : "",
+            confirmpassword : "",
+            birthday : "",
+            affiliation: "",
+            news: ""
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmitAffiliation = this.handleSubmitAffiliation.bind(this);
+        this.handleSubmitEmail = this.handleSubmitEmail.bind(this);
+        this.handleSubmitInterest = this.handleSubmitInterest.bind(this);
+        this.handleSubmitPassword = this.handleSubmitPassword.bind(this);
+    }
+
+    handleChange(e) {
         const {id , value} = e.target   
-        setState(prevState => ({
-            ...prevState,
+        this.setState({
             [id] : value
-        }))
+        });
     }
 
 
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const handleSubmitEmail = (e) => {
+    
+    handleSubmitEmail(e) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         e.preventDefault();
-        if (state.email === "") {
-            setState({
+        if (this.state.email === "") {
+            this.setState({
                 errorEmail: "Email cannot be empty!",
                 successEmail : ""
             })
-        } else if (!re.test(state.email.toLowerCase())) {
-            setState({
+        } else if (!re.test(this.state.email.toLowerCase())) {
+            this.setState({
                 errorEmail : "Email of wrong format!",
                 successEmail : ""
             }) 
         } else {
-            setState({
+            this.setState({
                 errorEmail : "",
                 successEmail : "successfuly changed email"
             })
             let update = {
                 id: localStorage.getItem('user'),
-                email: state.email
+                email: this.state.email
             }
             let request1 = $.post(Config.serverUrl + '/user/update', update);
             request1.done((result) => {
@@ -50,26 +60,26 @@ function Update(props) {
         }
     }
 
-    const handleSubmitPassword = (e) => {
+    handleSubmitPassword(e) {
         e.preventDefault();
-        if (state.password === "" || state.confirmpassword === "") {
-            setState({
+        if (this.state.password === "" || this.state.confirmpassword === "") {
+            this.setState({
                 errorPassword: "password fields cannot be empty!",
                 successPassword : ""
             })
-        } else if (state.password !==  state.confirmpassword) {
-            setState({
+        } else if (this.state.password !==  this.state.confirmpassword) {
+            this.setState({
                 errorPassword : "passwords DO NOT MATCH",
                 successPassword : ""
             }) 
         } else {
-            setState({
+            this.setState({
                 errorPassword : "",
                 successPassword : "successfuly changed password "
             })
             let update = {
                 id: localStorage.getItem('user'),
-                password: state.password
+                password: this.state.password
             }
             let request1 = $.post(Config.serverUrl + '/user/update', update);
             request1.done((result) => {
@@ -78,14 +88,14 @@ function Update(props) {
         }
     }
 
-    const handleSubmitAffiliation = (e) => {
-        if (state.affiliation === "") {
-            setState({
+    handleSubmitAffiliation(e) {
+        if (this.state.affiliation === "") {
+            this.setState({
                 errorAffiliation: "field cannot be empty!",
                 successAffiliation : ""
             })
         } else {
-            setState({
+            this.setState({
                 errorAffiliation: "",
                 successAffiliation : "Successfuly Changed Affiliation"
             })
@@ -94,14 +104,14 @@ function Update(props) {
         // need to trigger a post. 
     }
 
-    const handleSubmitInterest = (e) => {
-        if (state.news === "") {
-            setState({
-                errorInterest: "field cannot be empty!",
+    handleSubmitInterest(e) {
+        if (this.state.news === "") {
+            this.setState({
+                errorInterest: "Field cannot be empty!",
                 successInterest : ""
             })
         } else {
-            setState({
+            this.setState({
                 errorInterest: "",
                 successInterest : "Successfuly Changed Interest"
             })
@@ -109,13 +119,8 @@ function Update(props) {
         //write route to backend later
         // need to trigger a post. 
     }
-
-    //Check if user is logged in
-    if(false) {
-        return <Redirect to='/'/>
-    }
-
-    return(
+    render () {
+        return(
             <div className="card col-12 col-lg-5 login-card mt-4 hv-center p-3 mb-4">
                 <h1> Update your account</h1>
                 <br></br>
@@ -125,22 +130,22 @@ function Update(props) {
                         className="form-control mt-2" 
                         id="email" 
                         placeholder="Enter new Email"
-                        value={state.email}
-                        onChange={handleChange} 
+                        value={this.state.email}
+                        onChange={this.handleChange} 
                     />
                 <button 
                     type="submit" 
                     className="btn btn-primary mt-3"
-                    onClick={handleSubmitEmail}
+                    onClick={this.handleSubmitEmail}
                     id="email"
                     >
                 Change Email
                 </button>   
                 <p class = "text-danger">
-                    {state.errorEmail}
+                    {this.state.errorEmail}
                  </p>
                  <p class = "text-success">
-                    {state.successEmail}
+                    {this.state.successEmail}
                  </p>
                 <br></br>
                 <h5>Change Password?</h5>
@@ -148,30 +153,30 @@ function Update(props) {
                         className="form-control mt-2" 
                         id="password" 
                         placeholder="Enter new Password"
-                        value={state.password}
-                        onChange={handleChange} 
+                        value={this.state.password}
+                        onChange={this.handleChange} 
                     />
                 <input type="password" 
                         className="form-control mt-2" 
                         id="confirmpassword" 
                         placeholder="ConfirmPassword"
-                        value={state.confirmpassword}
-                        onChange={handleChange} 
+                        value={this.state.confirmpassword}
+                        onChange={this.handleChange} 
                     />
 
                 <button 
                     type="submit" 
                     className="btn btn-primary mt-3"
-                    onClick={handleSubmitPassword}
+                    onClick={this.handleSubmitPassword}
                     id="password"
                     >
                 Change Password
                 </button>  
                 <p class = "text-danger">
-                    {state.errorPassword}
+                    {this.state.errorPassword}
                  </p>
                  <p class = "text-success">
-                    {state.successPassword}
+                    {this.state.successPassword}
                  </p>
                 <br></br>
 
@@ -180,13 +185,13 @@ function Update(props) {
                         className="form-control mt-2" 
                         id="affiliation" 
                         placeholder="Enter new Affiliation"
-                        value={state.affiliation}
-                        onChange={handleChange} 
+                        value={this.state.affiliation}
+                        onChange={this.handleChange} 
                     />
                 <button 
                     type="submit" 
                     className="btn btn-primary mt-3"
-                    onClick={handleSubmitAffiliation}
+                    onClick={this.handleSubmitAffiliation}
                     id="Affiliation"
                     >
                     Change Affiliation
@@ -194,10 +199,10 @@ function Update(props) {
                 <br></br>
 
                 <p class = "text-danger">
-                    {state.errorAffiliation}
+                    {this.state.errorAffiliation}
                  </p>
                  <p class = "text-success">
-                    {state.successAffiliation}
+                    {this.state.successAffiliation}
                  </p>
 
                 <br></br>
@@ -206,27 +211,29 @@ function Update(props) {
                         className="form-control mt-2" 
                         id="news" 
                         placeholder="Enter new Interest"
-                        value={state.news}
-                        onChange={handleChange} 
+                        value={this.state.news}
+                        onChange={this.handleChange} 
                     />
 
                 <button 
                     type="submit" 
                     className="btn btn-primary mt-3"
-                    onClick={handleSubmitInterest}
+                    onClick={this.handleSubmitInterest}
                     id="news"
                     >
                     Add a news Interest!
                 </button>  
                 <p class = "text-danger">
-                    {state.errorInterest}
+                    {this.state.errorInterest}
                  </p>
                  <p class = "text-success">
-                    {state.successInterest}
+                    {this.state.successInterest}
                  </p>
 
             </div>
 
         )
+    }
+    
     }
 export default Update;

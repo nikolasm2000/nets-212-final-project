@@ -10,9 +10,8 @@ class Notifications extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {notifications: [], text: "Notifications", open:false}
+        this.state = {notifications: [], text: "Notifications"}
         this.refresh = this.refresh.bind(this);
-        this.setOpen = this.setOpen.bind(this);
     }
 
     componentDidMount() {
@@ -43,10 +42,6 @@ class Notifications extends React.Component{
         });
     }
 
-    setOpen () {
-        this.setState({open: !this.state.open});
-    }
-
     render() {
         const notifications = this.state.notifications.map((notification) => {
             if(notification.type === 0) {
@@ -73,12 +68,10 @@ class Notifications extends React.Component{
                                 <h5 class="card-title ml-2"><b>{this.state.text}</b></h5>	
                             </div>
                         </div>
-                    </div>
-                    <Collapse in={this.state.open}>                    
+                    </div>                 
                     <div class="card-body p-0">
                         {notifications}
                     </div>
-                    </Collapse>
                 </div>
             </div>
         );
