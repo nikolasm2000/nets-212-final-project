@@ -1,42 +1,41 @@
 import React, {useState} from 'react'
 import Username from './Username.js'
 import './friendstyle.css';
+import {useHistory} from 'react-router-dom';
 import $ from 'jquery'
 var config = require('./Config.js')
 
 //should just take in a userID ---> props is id
-class Friend extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleMessage = this.handleMessage.bind(this);
-      this.handleRemoveFriend = this.handleRemoveFriend.bind(this);
-    }
+const Friend = (props) => {
+    const history = useHistory()
     
 
-    handleMessage() {
-
-    }
-
-    handleRemoveFriend() {
-        let request = $.post(config.serverUrl + '/friends/' + this.props.id + '/remove');
+    const handleMessage = () => {
+        history.push('/chats/'+'123')
+        let request = $.post(config.serverUrl + '/chats/create');
         request.done((result) => {
-            this.props.refresh();
+            var chat_id = result.id;
+
         })
     }
 
-    render() {
-    
+    const handleRemoveFriend = () => {
+        let request = $.post(config.serverUrl + '/friends/' + props.id + '/remove');
+        request.done((result) => {
+            props.refresh();
+        })
+    }
         return (
         <div class="container p-2 friend m-0">
             <div class="row align-items-center justify-content-between">
                 <div class="col-auto pr-0 mr-3 ml-3">
-                    <Username id={this.props.id} showImage="true"/>
+                    <Username id={props.id} showImage="true"/>
                 </div>
 
                 <div class="col-auto p-0 m-0 mr-4">
                     <div class="row p-0 m-0 align-items-center justify-content-center">
                         <div class="col-auto p-0 m-0">                       
-                            <button type="button" class="btn btn-sm btn-outline-primary p-0 pr-1 pl-1 mr-2" onClick={this.handleMessage}>
+                            <button type="button" class="btn btn-sm btn-outline-primary p-0 pr-1 pl-1 mr-2" onClick={handleMessage}>
                                 <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
                                     <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
@@ -44,7 +43,7 @@ class Friend extends React.Component {
                             </button>
                         </div>
                         <div class="col-auto p-0 m-0">
-                            <button type="button" class="btn btn-sm btn-outline-danger p-0 pr-1 pl-1" onClick={this.handleRemoveFriend}>
+                            <button type="button" class="btn btn-sm btn-outline-danger p-0 pr-1 pl-1" onClick={handleRemoveFriend}>
                                 <div class="row align-items-end">
                                     <div class="col">
                                         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +58,7 @@ class Friend extends React.Component {
             </div>
         </div>
         );
-      }
+      
 }
 
 

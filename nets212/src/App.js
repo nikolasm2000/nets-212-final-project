@@ -34,7 +34,7 @@ return (
             <PrivateRoute path="/user/:id" exact={true} component={UserPage}/>
             <PrivateRoute path = "/home" exact={true} component={HomePage}/>
             <PrivateRoute path = "/update" exact={true} component={Update}/>
-            <PrivateRoute path = '/messages/:id' exact={true} component={Messagetable}/>
+            <PrivateRoute path = '/chats/:id' exact={true} component={Messagetable}/>
             <PrivateRoute path = '/graph' exact={true} component={GraphVisualizer}/>
           </Switch>
        </div>

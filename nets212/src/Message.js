@@ -32,7 +32,7 @@ import moment from 'moment'
                 </div>
                 <div className="card text-right ml-auto border-0" style={{borderRadius:"15px", maxWidth:"200px"}}>
                     <div class="card-body p-0" style={{fontSize:"0.6em"}}>
-                    Sent by {this.state.name} on {this.state.timestamp}. 
+                    Sent by {this.state.name} on {this.state.createdAt}. 
                     </div>
                 </div>
         </div>
