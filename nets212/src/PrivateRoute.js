@@ -16,7 +16,7 @@ class PrivateRoute extends React.Component {
         request.done((result) => {
             console.log("successful authentication");
             localStorage.setItem('user', result.id);
-            this.setState({redirect: <Route pure path={this.props.path} component={this.props.component} exact={this.props.exact}/>});
+            this.setState({redirect: <Route path={this.props.path} component={this.props.component} exact={this.props.exact}/>});
         });
 
         request.fail((result) => {

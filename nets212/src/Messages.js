@@ -1,6 +1,8 @@
 import React, { useRef } from 'react'
 import Message from './Message'
+import $ from 'jquery'
 
+var config = require('./Config.js')
 class Messages extends React.Component {
     constructor(props){
         super(props)
@@ -8,6 +10,15 @@ class Messages extends React.Component {
     }
     
     componentDidMount() {
+        //Get messages from chat
+        let request = $.post(config.serverUrl + '/chats/' + this.props.id);
+        request.done((result) => {
+            var newMessages = this.state.messages.concat([result]);
+            newMessages = newMessages.sort((a,b) => {return (a.createdAt > b.createdAt) ? 1 : -1});
+            this.setState({messages: newMessages});
+            this.state.ref.current.scrollIntoView()
+        });
+
         this.state.socket.on("chat message", data => {
             var newMessages = this.state.messages.concat([data]);
             newMessages = newMessages.sort((a,b) => {return (a.createdAt > b.createdAt) ? 1 : -1});
@@ -18,7 +29,7 @@ class Messages extends React.Component {
 
     render() {
         const messages = this.state.messages.map((item) =>
-        <Message key={item.timeStamp} msg={item}/>
+        <Message key={item.createdAt} msg={item}/>
         );
         return (
             <div className="container mt-2 mb-2" style={{maxHeight:"75%"}}>

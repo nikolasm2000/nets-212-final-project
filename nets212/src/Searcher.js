@@ -8,19 +8,7 @@ import $ from 'jquery';
 
 var config = require('./Config.js')
 
-const getSuggestions = (value) => {
-    console.log("value searched is" + value.trim().toLowerCase());
 
-    let send = {keyword: value};
-    var request = $.post(config.serverUrl + '/search', send);
-    let toDisplay = []
-    request.done((result) => {
-        console.log(result);
-        toDisplay = result
-
-    })
-    return toDisplay;
-}
 
 //need to take a look at what this does. DON't NEED. 
 const displaySuggestion = (suggestion) => suggestion.name;
@@ -28,7 +16,7 @@ const displaySuggestion = (suggestion) => suggestion.name;
 const renderSuggest = suggestion => (
     suggestion.article != undefined ? 
     <div> 
-        <articleName id = {suggestion.id} />
+        {suggestion.id}
     </div> :
     <div>
         <Username id = {suggestion.id} showImage="true"/>
@@ -41,6 +29,8 @@ class Searcher extends React.Component{
         this.state = {suggestion: [], value: "", placeholder: this.props.placeholder}
     };
 
+ 
+
     onChange = (event, { newValue }) => {
         this.setState({
             value: newValue
@@ -48,9 +38,14 @@ class Searcher extends React.Component{
     };
 
     onSuggestionFetch = ({value}) => {
-        this.setState({
-            suggestion : getSuggestions(value)
-        });
+        console.log("value searched is" + value.trim().toLowerCase());
+    
+        let send = {keyword: value};
+        var request = $.post(config.serverUrl + '/search', send);
+        request.done((result) => {
+            console.log(result);
+            this.setState({suggestion: result})
+        })
     };
 
     onSuggestionsClear = () => {
@@ -59,6 +54,7 @@ class Searcher extends React.Component{
             value : ""
         });
     };
+
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, index, method }) => {
         if (this.props.chat === "true") {
