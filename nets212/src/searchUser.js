@@ -17,17 +17,17 @@ const renderSuggest = suggestion => (
     </div>
 );
 
-class searchUser extends React.Component{
+class Searchuser extends React.Component{
     constructor (props) {
         super(props);
-        this.state = {suggestion: [], value: "", placeholder: this.props.placeholder, users:[]}
+        this.state = {suggestion: [], value: "", users:[]}
     };
 
     componentDidMount () {
         var request = $.post(config.serverUrl + '/table/user')
         request.done((result) => {
             console.log(result)
-            this.setState({users: result})
+            this.setState({users: result.Items})
         })
     }
 
@@ -43,7 +43,9 @@ class searchUser extends React.Component{
         const length = trimmedInput.length;
         let toR = [];
         if (length !== 0) {
-             toR = this.state.users.filter(person => person.name.toLowerCase().slice(0,length) === trimmedInput);
+            console.log(this.state.users)
+             toR = this.state.users.filter(person => 
+                person.first_name ? person.first_name.toLowerCase().slice(0,length) === trimmedInput : 4);
         } 
         this.setState({
             suggestion: toR
@@ -59,15 +61,12 @@ class searchUser extends React.Component{
 
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, index, method }) => {
-        if (this.props.chat === "true") {
-            //need different functionality for adding users to the chat"
-        }
         this.setState({ selectedURL: suggestion.userUrl})  
         console.log(this.state.selectedURL);     
     };
     render () {
         const { value, suggestion } = this.state; 
-        var displayText = 'Search for ' + this.state.placeholder
+        var displayText = 'Search for users'
 
         const inputProps = {
             placeholder: displayText,
@@ -91,4 +90,4 @@ class searchUser extends React.Component{
     
 }
 
-export default searchUser;
+export default Searchuser;

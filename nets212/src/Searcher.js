@@ -65,7 +65,7 @@ class Searcher extends React.Component{
     };
     render () {
         const { value, suggestion } = this.state; 
-        var displayText = 'Search for ' + this.state.placeholder
+        var displayText = 'Search for articles'
 
         const inputProps = {
             placeholder: displayText,
