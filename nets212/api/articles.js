@@ -1,5 +1,7 @@
+const { exec } = require('child_process');
 const { syncBuiltinESMExports } = require('module');
-const { extractCallback } = require('./database.js');
+const { extractCallback, callbackSkeleton } = require('./database.js');
+const { update } = require('./user.js');
 
 db = require('./database.js');
 
@@ -12,8 +14,15 @@ show = function(req, res){
     .query(req.session.user)
     .usingIndex("WeightIndex")
     .descending()
+    .filter('seen').ne(true)
     .limit(2)
-    .exec(extractCallback(res, "article"));
+    .exec(db.extractCallbackSkeleton(res, "article", function (data){
+        db.finalWeights.update({PBuser: req.session.user, article: data[0], seen: true}, db.callbackSkeleton(res, function(data2){
+            db.finalWeights.update({PBuser: req.session.user, article: data[1], seen: true}, db.callbackSkeleton(res, function(data3){
+                res.json(data);
+            }));
+        }));
+    }));
 }
 
 var articles = {

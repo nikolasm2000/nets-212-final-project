@@ -241,10 +241,11 @@ var FinalWeights = dynamo.define('PB_FinalWeight',{
         PBuser: Joi.string(),
         article: Joi.string(),
         weight: Joi.number(),
+        seen: Joi.boolean(),
     },
 
     indexes: [{
-        hashKey : 'PBuser', rangeKey:'weight', name : 'WeightIndex', type : 'local'
+        hashKey : 'PBuser', rangeKey:'weight', name : 'WeightIndex', type : 'global'
     }]
 });
 
