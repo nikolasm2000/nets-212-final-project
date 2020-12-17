@@ -51,6 +51,20 @@ var associateWithUser = function(table, usertable, searchtable, name, userid, ca
         });
 }
 
+var associateMultipleWithUser = function(table, usertable, searchtable, objs, userid, callback){
+    if (objs.length > 2){
+        associateWithUser(table, usertable, searchtable, objs.pop(), userid, function(err, data){
+            if (err) {
+                callback (err, null);
+            } else {
+                associateMultipleWithUser(table, usertable, searchtable, objs, userid, callback);
+            }
+        });
+    } else {
+        associateWithUser(table, usertable, searchtable, objs.pop(), userid, callback);
+    }
+}
+
 var getUserAffInt = function(table, usertable, userid, res, callback){
     usertable.query(userid)
         .loadAll()
@@ -87,12 +101,12 @@ var addAffiliation = function (name, callback) {
     add(db.affiliations, db.affiliationSearch, name, callback);
 }
 
-var assocAffiliation = function(name, userid, callback){
-    associateWithUser(db.affiliations, db.userAffiliations, db.affiliationSearch, name, userid, callback)
+var assocAffiliation = function(names, userid, callback){
+    associateMultipleWithUser(db.affiliations, db.userAffiliations, db.affiliationSearch, names, userid, callback)
 }
 
-var assocInterest = function(name, userid, callback){
-    associateWithUser(db.interests, db.userInterests, db.interestSearch, name, userid, callback)
+var assocInterest = function(names, userid, callback){
+    associateMultipleWithUser(db.interests, db.userInterests, db.interestSearch, names, userid, callback)
 }
 
 var search = function(searchtable, req, res){
