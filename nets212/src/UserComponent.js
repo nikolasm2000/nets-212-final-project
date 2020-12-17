@@ -2,8 +2,6 @@ import React, {useState} from 'react'
 import { Button } from 'react-bootstrap'
 import $ from 'jquery'
 import moment from 'moment'
-import ImageInput from './ImageInput.js'
-import ReactS3 from 'react-s3'
 import S3FileUpload from 'react-s3';
 
 var Config = require('./Config.js')

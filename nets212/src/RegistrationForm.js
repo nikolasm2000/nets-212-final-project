@@ -82,7 +82,6 @@ class RegistrationForm extends React.Component {
     }
 
     handleInterest(e) {
-        console.log("WORKING ANOTH" + e.label)
         this.setState({
             interests: e
         });
@@ -138,7 +137,6 @@ class RegistrationForm extends React.Component {
             };
             
             var request = $.post(config.serverUrl + "/user/create", newUser);
-            alert("hello")
             request.done((result) => {
                 this.setState({
                     error : ""
@@ -213,7 +211,7 @@ class RegistrationForm extends React.Component {
                 onChange={this.handleInterest}
                 options={this.state.optionsInterest}
                 placeholder="Add your interest to Pennbooks"
-        
+                isMulti
               />
         
               Birthday: 

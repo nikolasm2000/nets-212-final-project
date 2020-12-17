@@ -3,8 +3,6 @@ import Navbar from './NavbarComponent.js'
 import Newsfeed from './Newsfeed.js'
 import UserComponent from './UserComponent.js'
 import Notifications from './Notifications.js'
-import $ from 'jquery'
-import {Redirect} from 'react-router-dom'
 import './column.css';
 var config = require('./Config.js')
 

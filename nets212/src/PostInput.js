@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ReactS3 from 'react-s3'
 import S3FileUpload from 'react-s3';
 import $ from 'jquery'
+import Loader from 'react-loader-spinner'
 
 var Config = require('./Config.js')
 
@@ -22,7 +23,8 @@ class PostInput extends React.Component {
             imageUploadText: "Choose an image to share",
             errorMessage:"",
             clearImageField:"",
-            writeText: ""
+            writeText: "",
+            posting:false
         }
     }
 
@@ -54,7 +56,8 @@ class PostInput extends React.Component {
 
     handleClick = e => {
         e.preventDefault(); 
-        if(!this.state.uploading && this.state.text !== "") {
+        if(!this.state.uploading && this.state.text !== "" && !this.state.posting) {
+            this.setState({posting:true});
             let post = {
                 text: this.state.text,
                 pictures: this.state.pictures,
@@ -67,7 +70,7 @@ class PostInput extends React.Component {
             request.done((result) => {
                 //Make post show on newsfeed
                 this.props.addPost(result.id);
-                this.setState({text:"", clearImageField:Date.now(), imageUploadText:"Choose an image to share", errorMessage:"", pictures: []});
+                this.setState({posting:false, text:"", clearImageField:Date.now(), imageUploadText:"Choose an image to share", errorMessage:"", pictures: []});
             });
         } else if (this.state.uploading) {
             this.setState({errorMessage: "Please wait for the image to finish uploading!"});
@@ -91,11 +94,11 @@ class PostInput extends React.Component {
                 <div className="input-group mb-3 p-0">
                     <input id="theInput" className ="form-control input-lg m-0 pb-0 pt-0" type = 'text' value={this.state.text} placeholder= {this.state.writeText} onChange={this.handleChange}/> 
                     <div className="input-group-append m-0">
-                        <button className="btn btn-primary m-0" style={{width:79}} onClick = {this.handleClick}> Post </button>
+                        <button className="btn btn-primary m-0" style={{width:79}} onClick = {this.handleClick}> {this.state.posting ? <Loader type="TailSpin" color="#00BFFF" height={20} width={20} /> : <div class="m-0 p-0">Post</div>} </button>
                     </div>
                 </div>
                     <div className="custom-file m-0 p-0">
-                        <input key={this.state.clearImageField} className="form-control input-lg m-0 p-0 custom-file-input" type="file" accept="image/x-png,image/gif,image/jpeg" onChange= {this.fileChange} />
+                        <input key={this.state.clearImageField} className="form-control input-lg m-0 p-0 custom-file-input" type="file" accept="image/x-png,image/gif,image/jpeg" onChange= {this.fileChange}/>
                         <label className="custom-file-label m-0" for="inputGroupFile02">{this.state.imageUploadText}</label>
                         <div class="small pt-2 text-danger">{this.state.errorMessage}</div>
                     </div>
