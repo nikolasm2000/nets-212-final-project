@@ -101,20 +101,34 @@ http.listen(8081, () => {
 });
 
 socketIo.on('connection', (socket) => {
-   console.log('user connected');
+   var user_id = socket.handshake.query.id;
+   db.sockets.create({user_id: user_id, socket_id:socket.id}, (err,data) => {
+      console.log("successfully saved socket id");
+   })
+   //Associate this user_id to socket.id
+   console.log('user connected, id: ' + user_id);
    socket.on('chat message', (msg) => {
       //Check that msg.user is equal to user currently logged in
       //Use socket.emit() to send the message to everyone in the group chat (msg.chat)
       //Add the user's name to the msg object please (msg.name = ____)
-      db.user.get(msg.user, (err, data) => {
-         if (err){
-            //handle error
-            console.log(err);
-         } else {
-            msg.name = data.attrs.first_name + ' ' + data.attrs.last_name;
-            socketIo.emit('chat message', msg);
-         }
-      } )
+     
    })
 
 })
+
+/*db.user.get(msg.user, (err, data) => {
+   if (err){
+      //handle error
+      console.log(err);
+   } else {
+      msg.name = data.attrs.first_name + ' ' + data.attrs.last_name;
+      db.sockets.get({user_id: msg.user}, (err, data) => {
+         var senderId = data.attrs.socket_id;
+         socketIo.to(senderId).emit('chat message', msg);
+         db.sockets.get({user_id: "629e7a19-aba2-4f0d-bb88-300be589565f"}, (err, data) => {
+            var otherId = data.attrs.socket_id;
+            socketIo.to(otherId).emit('chat message', msg);
+         });
+      })
+   }
+} )*/

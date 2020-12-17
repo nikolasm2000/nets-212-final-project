@@ -11,9 +11,10 @@ var fullGet = function(req,res){
         console.log("interests:");
         intaff.getUserInterests(req.params.id, res, function(interests){
             console.log("affiliations:")
-            intaff.getUserAffiliations(req.params.id, res, function(affiliaitons){
+            intaff.getUserAffiliations(req.params.id, res, function(affiliations){
                 userdata.attrs.interests = interests;
-                userdata.attrs.affiliaitons = affiliaitons;
+                userdata.attrs.affiliations = affiliations;
+                console.log("user data: ", userdata);
                 res.json(userdata);
             })
         })
@@ -62,7 +63,9 @@ var create = function(req,res){
                     
                     console.log("item being sent", req.body);
                     db.user.create(req.body,db.callbackSkeleton(res, function(data1){
+                        console.log('hit 1');
                         intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
+                            console.log('hit 2');
                             intaff.assocAffiliation(affiliation, data1.attrs.id, callbackSkeleton(res, function(data3){
                                 //adding back interest and affiliation
                                 data1.attrs.interest = interest;
@@ -160,7 +163,7 @@ var search = function(req, res){
             if(typeof data != undefined && data != null){
                 var result = [];
                 data.Items.forEach(function(item){
-                    result.push({'id': item.obj_id, 'article': item.attrs.article, 'user': item.attrs.user});
+                    result.push({'id': item.obj_id, 'article': item.attrs.article, 'user': item.attrs.PBuser});
                 });
                 //return with data
                 console.log("data:", result);

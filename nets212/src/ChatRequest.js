@@ -1,20 +1,22 @@
 import React, {useState} from 'react'
 import './friendstyle.css';
 import Username from './Username.js'
+import $ from 'jquery'
 
+var config = require('./Config.js')
 class ChatRequest extends React.Component {
     constructor(props) {
       super(props);
       this.handleAcceptChat = this.handleAcceptChat.bind(this);
-      this.handleAcceptChat = this.handleDismiss.bind(this);
+      this.handleDismiss = this.handleDismiss.bind(this);
     }
 
     handleAcceptChat() {
-
+        
     }
 
     handleDismiss() {
-
+        $.post(config.serverUrl + '/notifications/' + this.props.notification.id + '/dismiss', () => {this.props.refresh()});
     }
 
     render() {

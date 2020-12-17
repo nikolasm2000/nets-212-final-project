@@ -292,6 +292,15 @@ var Search = dynamo.define('PB_Inverted',{
 
 });
 
+var Sockets = dynamo.define('PB_Socket',{
+    hashKey: 'user_id',
+
+    schema: {
+        user_id: Joi.string(),
+        socket_id: Joi.string(),
+    }
+});
+
 //var News = dynamo.define()
 
 
@@ -443,6 +452,7 @@ var keywordCreator = function (table, keyword, object, callback){
 }
 
 
+
 //create database object with database classes
 var database = {
     user: Users,
@@ -460,6 +470,7 @@ var database = {
 	chats: Chats,
     chatMembers: ChatMembers,
     messages: Messages,
+    sockets: Sockets,
     search: Search,
     create_table: createTables,
     dataCallback: dataCallback,
