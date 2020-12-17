@@ -23,12 +23,11 @@ class Post extends React.Component {
         if (this.props.id) {
             var request = $.post(config.serverUrl + '/posts/' + this.props.id + '/get');
             request.done((result) => {
-
                 this.setState({
                     //posted by
                     userID: result.author,
                     //optional, posted on whose wall
-                    user2: result.wall,
+                    user2: (result.author === result.wall) ? undefined : result.wall,
                     //time posted
                     timeStamp: "Posted " + moment.unix(result.createdAt).fromNow(),
                     //URL of image
@@ -42,7 +41,7 @@ class Post extends React.Component {
                     //list of comment IDs on the post
                     commentIDs: result.comments,
                 });
-                
+                this.props.setOldest(result.createdAt);
             });
         }
     }

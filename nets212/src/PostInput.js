@@ -64,11 +64,12 @@ class PostInput extends React.Component {
                 author: localStorage.getItem('user'),
                 privacy: 0,
                 parent: "0",
-                wall: this.props.id !== localStorage.getItem('user') ? this.props.id : undefined
+                wall: this.props.id ? this.props.id : undefined
             };
             let request = $.post(Config.serverUrl + '/posts/create', post);
             request.done((result) => {
                 //Make post show on newsfeed
+                console.log(result)
                 this.props.addPost(result.id);
                 this.setState({posting:false, text:"", clearImageField:Date.now(), imageUploadText:"Choose an image to share", errorMessage:"", pictures: []});
             });

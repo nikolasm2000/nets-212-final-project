@@ -11,7 +11,7 @@ var config = require('./Config.js')
 class Newsfeed extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { posts: []}
+        this.state = { posts: [], oldestTimestamp:undefined}
         this.handleScroll = this.handleScroll.bind(this);
     }
 
@@ -22,27 +22,36 @@ class Newsfeed extends React.Component {
         });
     }
 
+    setOldest = (timeStamp) => {
+        if(this.state.oldestTimestamp == undefined) {
+            this.setState({oldestTimestamp: timeStamp});
+        }
+        else if (timeStamp < this.state.oldestTimestamp) {
+            this.setState({oldestTimestamp: timeStamp});
+        }
+    }
+
     componentDidMount() {
         //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
         //Make call to backend to get POST details
         window.addEventListener("scroll", this.handleScroll);
+        var url = config.serverUrl;
         //TWO SEPARATE CALLS
         if (this.props.id) {
-            var request = $.post(config.serverUrl + '/posts/wall/' +  this.props.id);
-            request.done((result) => {
-                this.setState ({
-                    posts: result
-                });
-            });
+            url += '/posts/wall/' +  this.props.id;
         } else {
-            var request = $.post(config.serverUrl + '/posts/homepage');
-            request.done((result) => {
-                this.setState({ 
-                    posts: result
-                });
-            });
-
+            url += '/posts/homepage';
         }
+
+        var request = $.post(url, {oldest: this.state.oldestTimestamp});
+        request.done((result) => {
+            this.setState ({
+                posts: result
+            }); 
+        });
+        
+
+        
     }
     
     componentWillUnmount() {
@@ -53,10 +62,24 @@ class Newsfeed extends React.Component {
         const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
         const body = document.body;
         const html = document.documentElement;
-        const docHeight = html.scrollHeight;
+        const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
         const windowBottom = windowHeight + window.pageYOffset;
         if (windowBottom >= docHeight) {
-            alert("bottom reached")
+            console.log(this.state.oldestTimestamp)
+            var url = config.serverUrl;
+            //TWO SEPARATE CALLS
+            if (this.props.id) {
+                url += '/posts/wall/' +  this.props.id;
+            } else {
+                url += '/posts/homepage';
+            }
+
+            var request = $.post(url, {oldest: this.state.oldestTimestamp});
+            request.done((result) => {
+            this.setState ({
+                posts: this.state.posts.concat(result)
+            }); 
+        });
         } else {
             this.setState({
                 message: 'not at bottom'
@@ -67,7 +90,7 @@ class Newsfeed extends React.Component {
 
     render () {
         const posts = this.state.posts.map((post) => {
-            return <Post key={post} id={post}/>
+            return <Post key={post} id={post} setOldest={this.setOldest}/>
         });
 
         return (
