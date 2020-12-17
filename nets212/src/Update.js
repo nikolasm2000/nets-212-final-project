@@ -162,11 +162,12 @@ class Update extends React.Component {
             })
         }
         let x = "";
-        this.state.interests.forEach(interest => {
-            x = x + interest.label + ", "
-        })
+        if (this.state.interests != undefined) {
+            this.state.interests.forEach(interest => {
+                x = x + interest.label + ", "
+            })
+        }
         x = x.substring(0, x.length-1)
-
         console.log(x + "X is veri sexc")
         let post = {
             text:  "I just  added " + x + " to my interests.",

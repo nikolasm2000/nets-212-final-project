@@ -14,6 +14,7 @@ const getSuggestions = (value) => {
     var request = $.post(config.serverUrl + '/search', send);
     let toDisplay = []
     request.done((result) => {
+        console.log(result);
         toDisplay = result
     })
     return toDisplay;

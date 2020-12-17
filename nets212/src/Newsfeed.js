@@ -21,30 +21,6 @@ class Newsfeed extends React.Component {
         });
     }
 
-    componentWillMount() {
-        //this.refreshID = setInterval(() => this.refresh(), config.refreshTime);
-        //Make call to backend to get POST details
-
-        //TWO SEPARATE CALLS
-        if (this.props.id) {
-            var request = $.post(config.serverUrl + '/posts/wall/' +  this.props.id);
-            request.done((result) => {
-                this.setState ({
-                    posts: result
-                });
-            });
-        } else {
-            var request = $.post(config.serverUrl + '/posts/homepage');
-            request.done((result) => {
-                this.setState({
-                    posts: result
-                });
-            });
-
-        }
-    }
-
-
     //need to iteate over the set postIDs and call each post then. 
 
     render () {

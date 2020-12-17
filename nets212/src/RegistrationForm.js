@@ -38,11 +38,13 @@ class RegistrationForm extends React.Component {
         var request = $.post(config.serverUrl + "/affiliations/getAll");
         request.done((result) => {
             var toR = []
-            result.forEach(entry => {
-                let obj = {value: entry, label: entry}
-                toR.push(obj)
-            })
-            this.setState({optionsAffiliation: toR})
+            if (result != undefined) {
+                result.forEach(entry => {
+                    let obj = {value: entry, label: entry}
+                    toR.push(obj)
+                })
+                this.setState({optionsAffiliation: toR})
+            }
         }
             );
         var request1 = $.post(config.serverUrl + "/interests/getAll");
@@ -124,6 +126,10 @@ class RegistrationForm extends React.Component {
                 error : "Come on add your birthday!"
             })
         } else {
+            let intereststoSend = []
+            this.state.interests.forEach(item => {
+                intereststoSend.push(item.value);
+            })
             let newUser = {
                 email: this.state.email,
                 password: this.state.password,
@@ -131,8 +137,8 @@ class RegistrationForm extends React.Component {
                 last_name: this.state.last,
                 birthday: moment(this.state.birthday).unix(),
                 affiliation: [this.state.affiliation.label],
-                interest: this.state.interests,
-               profile_pic: "https://pennbook.s3.amazonaws.com/default-profile.jpg"
+                interest: intereststoSend,
+                profile_pic: "https://pennbook.s3.amazonaws.com/default-profile.jpg"
             };
             
             var request = $.post(config.serverUrl + "/user/create", newUser);

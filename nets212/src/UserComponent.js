@@ -38,8 +38,6 @@ class UserComponent extends React.Component {
 			this.setState({
 				id : result.id,
 				name: result.first_name + ' ' + result.last_name,
-				affiliation: result.affiliation,
-				birthday: moment.unix(result.birthday).format("MMMM Do, YYYY")
 			});
 			if (result.profile_pic == undefined) {
 				this.setState({image: "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png"})
@@ -48,7 +46,17 @@ class UserComponent extends React.Component {
 					image: result.profile_pic
 				})
 			}
-        });
+		});
+		let request2 = $.post(Config.serverUrl + '/user/' + this.props.id + '/getfull');
+		request2.done((result) => {
+			alert("hello!")
+			console.log(result)
+			this.setState({
+				affiliation: result.affiliation,
+				birthday: moment.unix(result.birthday).format("MMMM Do, YYYY")
+			})
+		})
+
 		
 		if (!this.state.isProfile) {
 			let request2 = $.post(Config.serverUrl + '/friends/' + this.props.id + '/isfriend');
