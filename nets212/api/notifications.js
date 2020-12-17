@@ -71,7 +71,7 @@ var createSampleNotifications = function(req, res){
 }
 
 var getTable = function(req, res){
-    db.friends
+    db.notifications
         .scan()
         .loadAll()
         .exec(db.dataCallback(res));

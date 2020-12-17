@@ -96,6 +96,7 @@ router.post('/allusers', user.allUserIds);
 router.post('/table/user', user.getTable);
 router.post('/table/friend', friends.getTable);
 router.post('/table/posts', posts.getTable);
+router.post('/table/notifications', notifications.getTable);
 router.post('/table/userinterest', intaff.getIntUserTable);
 router.post('/table/useraffiliation', intaff.getAffUserTable);
 router.post('/table/finalweights', articles.getFinalWeightsTable);

@@ -20,7 +20,8 @@ var getChatUsers = function(chat, callback){
                 callback(err, null)
             } else {
                 result = [];
-                data.Items.foreach(function(item){
+                console.log(data);
+                data.Items.forEach(function(item){
                     result.push(item.attrs.PBuser);
                 })
                 callback(null, result);
