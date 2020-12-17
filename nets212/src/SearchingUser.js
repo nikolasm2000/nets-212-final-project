@@ -17,7 +17,7 @@ const renderSuggest = suggestion => (
     </div>
 );
 
-class Searchuser extends React.Component{
+class SearchingUser extends React.Component{
     constructor (props) {
         super(props);
         this.state = {suggestion: [], value: "", users:[]}
@@ -90,4 +90,4 @@ class Searchuser extends React.Component{
     
 }
 
-export default Searchuser;
+export default SearchingUser;

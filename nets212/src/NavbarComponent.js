@@ -3,7 +3,7 @@ import { Navbar,Nav,Form, Button, NavDropdown } from 'react-bootstrap'
 import _default from 'react-bootstrap/esm/CardColumns';
 import Username from './Username';
 import Searcher from './Searcher';
-import Searchuser from './Searchuser';
+import SearchingUser from './SearchingUser';
 import './autosuggest.css';
 import './friendstyle.css';
 import Logout from './Logout';
@@ -24,7 +24,7 @@ class NavigationBar extends React.Component {
                     <Username id= {localStorage.getItem('user')}/>
                  </Nav>
                 </Navbar.Collapse>
-                <Searchuser/>
+                <SearchingUser/>
                 <Searcher placeholder="users"/>
                 <Logout/>
             </Navbar>

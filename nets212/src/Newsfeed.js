@@ -98,16 +98,15 @@ class Newsfeed extends React.Component {
             return <Post key={post} id={post} setOldest={this.setOldest}/>
         });
 
-        const articles = this.state.articles.map((article) => {
-            return <NewsArticle key={article} id={article}/>
-        })
+        // const articles = this.state.articles.map((article) => {
+        //     return <NewsArticle key={article} id={article}/>
+        // })
 
         return (
             <div>
                 <PostInput addPost={this.addPost} id={this.props.id}/>
                 <hr class="mt-4 mb-0 p-0"/>
                 <div class="d-flex flex-column align-items-center">
-                    {articles}
                     {posts}
                 </div>
                 <br/>

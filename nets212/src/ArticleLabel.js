@@ -3,7 +3,7 @@ import $ from 'jquery';
 
 var config = require('./Config.js')
 
-class ArticleName extends React.Component {
+class ArticleLabel extends React.Component {
     constructor(props) {
         super(props)
         this.state= {name: "", url: "", author: ""}
@@ -32,4 +32,4 @@ class ArticleName extends React.Component {
     }
 }
 
-export default ArticleName;
+export default ArticleLabel;
