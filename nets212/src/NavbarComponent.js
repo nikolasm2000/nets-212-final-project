@@ -19,7 +19,7 @@ class NavigationBar extends React.Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/messages">Messages</Nav.Link>
+                    <Nav.Link href="/graph">Visualizer</Nav.Link>
                     <Username id= {localStorage.getItem('user')}/>
                  </Nav>
                 </Navbar.Collapse>

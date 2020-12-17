@@ -3,8 +3,10 @@ import Username from './Username';
 import Likes from './Likes';
 import Comments from './Comments.js';
 import moment from 'moment';
-import $ from 'jquery'
+import Loader from 'react-loader-spinner'
+import $ from 'jquery';
 var config = require('./Config.js')
+
 
 
 //should just take in a POST ID. it will then make the call to the backend.
@@ -69,7 +71,7 @@ class Post extends React.Component {
                 <p class="card-text m-0 p-0"><small class="text-muted">{this.state.timeStamp}</small></p>
             </div>
             <div class="card-body">
-                <p class="card-text">{this.state.text}</p>
+                <p class="card-text">{this.state.text ? this.state.text : <Loader type="ThreeDots" color="#00BFFF" height={30} width={30} />}</p>
                 {this.state.imageURL ? <div> <hr/> <div class="d-flex flex-column align-items-center"> <img class="img-fluid" src={this.state.imageURL}/> </div> </div>: null}
                 <hr/>
                 <div class="row p-0 m-0 d-flex align-items-center">
