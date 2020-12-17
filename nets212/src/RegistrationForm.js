@@ -69,7 +69,6 @@ function RegistrationForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(state.affiliation.label + "BOOOK YAHHHH")
         if (state.email === "") {
             setState({
                 error: "Email cannot be empty!"
