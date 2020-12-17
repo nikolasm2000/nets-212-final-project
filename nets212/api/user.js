@@ -62,7 +62,9 @@ var create = function(req,res){
                     
                     console.log("item being sent", req.body);
                     db.user.create(req.body,db.callbackSkeleton(res, function(data1){
+                        console.log('hit 1');
                         intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
+                            console.log('hit 2');
                             intaff.assocAffiliation(affiliation, data1.attrs.id, callbackSkeleton(res, function(data3){
                                 //adding back interest and affiliation
                                 data1.attrs.interest = interest;
