@@ -62,9 +62,9 @@ var create = function(req,res){
     console.log("create post called");
     req.body.parent = "0";
     db.posts.create(req.body, db.callbackSkeleton(res, function(postdata){
-        sendToAllFriends(postdata.attrs.id, res, callbackSkeleton(res, function(data){
+        sendToAllFriends(postdata.attrs.id, res, function(data){
             res.json(postdata);
-        }));
+        });
     }));
 }
 
