@@ -6,7 +6,7 @@ var config = require("./Config.js");
 class Username extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {status: "Online"};
+      this.state = {status: "Offline"};
     }
 
     componentDidMount() {
