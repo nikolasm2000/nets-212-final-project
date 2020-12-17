@@ -460,6 +460,7 @@ var database = {
 	chats: Chats,
     chatMembers: ChatMembers,
     messages: Messages,
+    search: Search,
     create_table: createTables,
     dataCallback: dataCallback,
     convertDates: convertDates,
