@@ -131,6 +131,15 @@ var toggleLike = function(req, res) {
         }));
 }
 
+var numLikes = function(req, res) {
+    db.reactions
+    .query(req.params.id)
+    .loadAll()
+    .exec(db.callbackSkeleton(res, function(data){
+        res.json({'likes': data.Count});
+    }));
+}
+
 var getAllIDs = function(req, res){
     console.log("get all posts ID called")
     db.posts
@@ -176,6 +185,7 @@ var posts = {
     createReaction: createReaction,
     getReactions: getReactions,
     getComments: getComments,
+    numLikes: numLikes,
     toggleLike: toggleLike,
     getTable: getTable
 };
