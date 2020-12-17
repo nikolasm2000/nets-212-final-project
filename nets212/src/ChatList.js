@@ -34,9 +34,9 @@ class ChatList extends React.Component{
     render() {
         const chats = this.state.chats.map((chat) => {
             if(chat.groupName) {
-                return <div class="m-0 p-0" ><OngoingChat groupChat="true"/><hr class="m-0 p-0"/></div>
+                return <div class="m-0 p-0" key={chat.id} ><OngoingChat groupChat="true"/><hr class="m-0 p-0"/></div>
             } else {
-                return <div class="m-0 p-0" ><OngoingChat/><hr class="m-0 p-0"/></div>
+                return <div class="m-0 p-0" key={chat.id}><OngoingChat/><hr class="m-0 p-0"/></div>
             } 
         });
 

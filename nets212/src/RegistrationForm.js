@@ -137,7 +137,6 @@ class RegistrationForm extends React.Component {
             };
             
             var request = $.post(config.serverUrl + "/user/create", newUser);
-            alert("hello")
             request.done((result) => {
                 this.setState({
                     error : ""
