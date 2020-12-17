@@ -69,7 +69,6 @@ class PostInput extends React.Component {
             let request = $.post(Config.serverUrl + '/posts/create', post);
             request.done((result) => {
                 //Make post show on newsfeed
-                console.log(result)
                 this.props.addPost(result.id);
                 this.setState({posting:false, text:"", clearImageField:Date.now(), imageUploadText:"Choose an image to share", errorMessage:"", pictures: []});
             });

@@ -148,14 +148,15 @@ var numLikes = function(req, res) {
 var homepage = function(req, res) {
     var time = DateTime.local().setZone("utc");
     if (req.body.oldest != undefined){
-        time = DateTime.fromSeconds(req.body.oldest);
+        console.log("received time: ", req.body.oldest);
+        time = DateTime.fromSeconds(parseInt(req.body.oldest));
     }
     db.homepage
         .query(req.session.user)
         .usingIndex("TimestampIndex")
         .where("createdAt").lt(time.toISO())
         .descending()
-        .limit(10)
+        .loadAll()//.limit(3)
         .exec(db.extractCallback(res, "post"))
 }
 
@@ -163,6 +164,7 @@ var wall = function(req, res){
     
     var time = DateTime.local.setZone("utc");
     if (req.body.oldest != undefined){
+        console.log("received time: ", req.body.oldest);
         time = DateTime.fromSeconds(req.body.oldest);
     }
     time = DateTime.fromSeconds(time);
@@ -171,7 +173,7 @@ var wall = function(req, res){
     .usingIndex('WallIndex')
     .where("createdAt").lt(time.toISO())
     .descending()
-    .limit(10)
+    .loadAll()//.limit(10)
     .exec(db.extractCallback(res, "id"))
 }
 

@@ -25,7 +25,7 @@ var Users = dynamo.define('PB_User', {
         password: Joi.string(),
         first_name: Joi.string(),
         last_name: Joi.string(),
-        last_login: Joi.number(),
+        last_action: Joi.number(),
         profile_pic: Joi.string(),
         birthday: Joi.number()
     },
@@ -495,7 +495,8 @@ var database = {
     homepage: Homepage,
     notifications: Notifications,
 	pictures: Pictures,
-	reactions: Reactions,
+    reactions: Reactions,
+    articles: Articles,
 	chats: Chats,
     chatMembers: ChatMembers,
     messages: Messages,
