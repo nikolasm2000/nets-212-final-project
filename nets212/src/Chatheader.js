@@ -11,7 +11,7 @@ class Chatheader extends React.Component {
     }
 
     handleLeave() {
-        this.setState({leave: <Redirect to="/home"/>})
+        this.setState({leave: <div> <Redirect to="/home"/></div>})
     }
 
     render () {

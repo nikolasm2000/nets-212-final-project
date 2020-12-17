@@ -10,7 +10,7 @@ var config = require('./Config.js')
 class Messagetable extends React.Component {
     constructor(props) {
         super(props);
-        const socket = socketIOClient(config.socketUrl)
+        const socket = socketIOClient(config.socketUrl, {query: {id: localStorage.getItem('user')}})
         this.state = {id: this.props.match.params.id, socket: socket};
     }
 
