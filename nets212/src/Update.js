@@ -225,7 +225,7 @@ class Update extends React.Component {
                 <input type="password" 
                         className="form-control mt-2" 
                         id="confirmpassword" 
-                        placeholder="ConfirmPassword"
+                        placeholder="Confirm Password"
                         value={this.state.confirmpassword}
                         onChange={this.handleChange} 
                     />
@@ -298,7 +298,8 @@ class Update extends React.Component {
                  <p class = "text-success">
                     {this.state.successInterest}
                  </p>
-                 <a class="text-center text-center lead" href='/home'>Return to homepage </a>
+                 <div class="d-flex justify-content-center">
+      <button class="btn-secondary btn-sm" onClick={() => this.props.history.go(-1)}> <a class="text-center lead">Return to profile </a></button> </div>
 
             </div>
 
