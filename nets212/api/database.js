@@ -392,12 +392,12 @@ var extractCallback = function(res, param){
 var convertDates = function(params){
     if(params != undefined){
         console.log(params);
-        if(typeof params.createdAt != undefined){
+        if(params.createdAt != undefined){
             var createDate = DateTime.fromISO(params.createdAt);
             params.createdAt = createDate.toSeconds();
         }
 
-        if(typeof params.updatedAt != undefined){
+        if(params.updatedAt != undefined){
             var updateDate = DateTime.fromISO(params.updatedAt);
             params.updatedAt = updateDate.toSeconds();
         }
