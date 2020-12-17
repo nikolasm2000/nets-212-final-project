@@ -1,6 +1,6 @@
 const { data } = require('jquery');
 const { builtinModules } = require('module');
-const { extractCallback } = require('./database.js');
+const { extractCallback, user } = require('./database.js');
 
 db = require('./database.js');
 
@@ -51,6 +51,47 @@ var associateWithUser = function(table, usertable, searchtable, name, userid, ca
         });
 }
 
+var associateMultipleWithUser = function(table, usertable, searchtable, objs, userid, callback){
+    if (objs.length > 2){
+        associateWithUser(table, usertable, searchtable, objs.pop(), userid, function(err, data){
+            if (err) {
+                callback (err, null);
+            } else {
+                associateMultipleWithUser(table, usertable, searchtable, objs, userid, callback);
+            }
+        });
+    } else {
+        associateWithUser(table, usertable, searchtable, objs.pop(), userid, callback);
+    }
+}
+
+var getUserAffInt = function(table, usertable, userid, res, callback){
+    usertable.query(userid)
+        .loadAll()
+        .exec(db.extractCallbackSkeleton(res, "item_id", function(ids){
+            console.log("trying to get names");
+            console.log(ids);
+            if(ids.length < 2){
+                ids = ids.pop();
+                table.get(ids, db.callbackSkeleton(res, function(data) {
+                    callback([data.attrs.name]);
+                }));
+            } else {
+                table.get(ids, db.extractCallbackSkeleton(res, "name", function(data) {
+                    callback(data);
+                }));
+            }
+        }));
+}
+
+var getUserInterests = function(userid, res, callback){
+    getUserAffInt(db.interests, db.userInterests, userid, res, callback);
+}
+
+var getUserAffiliations = function(userid, res, callback){
+    getUserAffInt(db.affiliations, db.userAffiliations, userid, res, callback);
+}
+
 
 var addInterest = function (name, callback) {
     add(db.interests, db.interestSearch, name, callback);
@@ -60,12 +101,12 @@ var addAffiliation = function (name, callback) {
     add(db.affiliations, db.affiliationSearch, name, callback);
 }
 
-var assocAffiliation = function(name, userid, callback){
-    associateWithUser(db.affiliations, db.userAffiliations, db.affiliationSearch, name, userid, callback)
+var assocAffiliation = function(names, userid, callback){
+    associateMultipleWithUser(db.affiliations, db.userAffiliations, db.affiliationSearch, names, userid, callback)
 }
 
-var assocInterest = function(name, userid, callback){
-    associateWithUser(db.interests, db.userInterests, db.interestSearch, name, userid, callback)
+var assocInterest = function(names, userid, callback){
+    associateMultipleWithUser(db.interests, db.userInterests, db.interestSearch, names, userid, callback)
 }
 
 var search = function(searchtable, req, res){
@@ -141,6 +182,8 @@ var intAff = {
     getAffiliates: getAffiliates,
     getAllInterests: getAllInterests,
     getAllAffiliations: getAllAffiliations,
+    getUserAffiliations: getUserAffiliations,
+    getUserInterests: getUserInterests,
     getIntUserTable: getIntUserTable,
     getAffUserTable: getAffUserTable
 }
