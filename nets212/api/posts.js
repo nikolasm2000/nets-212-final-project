@@ -146,20 +146,32 @@ var numLikes = function(req, res) {
 }
 
 var homepage = function(req, res) {
+    var time = DateTime.local().setZone("utc");
+    if (req.body.oldest != undefined){
+        time = DateTime.fromSeconds(req.body.oldest);
+    }
     db.homepage
         .query(req.session.user)
         .usingIndex("TimestampIndex")
+        .where("createdAt").lt(time.toISO())
         .descending()
-        .loadAll()
+        .limit(10)
         .exec(db.extractCallback(res, "post"))
 }
 
 var wall = function(req, res){
+    
+    var time = DateTime.local.setZone("utc");
+    if (req.body.oldest != undefined){
+        time = DateTime.fromSeconds(req.body.oldest);
+    }
+    time = DateTime.fromSeconds(time);
     db.posts
     .query(req.params.id)
     .usingIndex('WallIndex')
+    .where("createdAt").lt(time.toISO())
     .descending()
-    .loadAll()
+    .limit(10)
     .exec(db.extractCallback(res, "id"))
 }
 
