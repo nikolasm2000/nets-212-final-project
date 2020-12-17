@@ -13,7 +13,8 @@ var friends = require('./friends.js');
 var posts = require('./posts.js');
 var notifications = require('./notifications.js');
 var intaff = require('./interestsAffiliations.js');
-var chats = require('./chats.js')
+var chats = require('./chats.js');
+var articles = require('./articles.js');
 
 var db = require('./database.js');
 
@@ -79,6 +80,7 @@ router.post('/affiliations/getAll', intaff.getAllAffiliations);
 router.post('/affiliations/getaffiliates', intaff.getAffiliates);
 router.post('/affiliations/getaffiliates/:id', intaff.getAffiliates);
 router.post('/search', user.search);
+router.post('/articles/:id/get', articles.get);
 
 router.post('/loginhack/:id', function(req, res){
    req.session.user = req.params.id;
