@@ -133,7 +133,7 @@ class RegistrationForm extends React.Component {
                 affiliation: this.state.affiliation.label,
                 //interests is NOW an array. To do with rafa please dont forget. 
                 interest: "test",//this.state.interests,
-                profile_pic: "https://data.whicdn.com/images/346305623/original.jpg"
+                profile_pic: "https://pennbook.s3.amazonaws.com/default-profile.jpg"
             };
             
             var request = $.post(config.serverUrl + "/user/create", newUser);
