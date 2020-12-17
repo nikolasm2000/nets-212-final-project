@@ -53,6 +53,15 @@ if(process.argv[2] == undefined){
                 }
               });
             break;
+        case "reactions":
+            db.reactions.deleteTable(function(err) {
+                if (err) {
+                  console.log('Error deleting table: ', err);
+                } else {
+                  console.log('Table Reactions has been deleted');
+                }
+              });
+            break;
     }
 
     

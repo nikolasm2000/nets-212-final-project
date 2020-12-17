@@ -64,15 +64,21 @@ var create = function(req,res){
                     console.log("item being sent", req.body);
                     db.user.create(req.body,db.callbackSkeleton(res, function(data1){
                         console.log('hit 1');
-                        intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
+                        intaff.assocInterest(interest, data1.attrs.id, db.callbackSkeleton(res, function(data2){
                             console.log('hit 2');
-                            intaff.assocAffiliation(affiliation, data1.attrs.id, callbackSkeleton(res, function(data3){
-                                //adding back interest and affiliation
-                                data1.attrs.interest = interest;
-                                data1.attrs.affiliation = affiliation;
-                                //logging user in
-                                req.session.user = data1.attrs.id;
-                                res.json({data1});
+                            intaff.assocAffiliation(affiliation, data1.attrs.id, db.callbackSkeleton(res, function(data3){
+                                console.log("hit 7")
+                                db.keywordCreator(db.search, data1.attrs.first_name, {'article': false, 'PBuser': true, 'obj_id': data1.attrs.id}, db.callbackSkeleton(res, function (data){
+                                    console.log('hit 8');
+                                    db.keywordCreator(db.search, data1.attrs.last_name, {'article': false, 'PBuser': true, 'obj_id': data1.attrs.id}, db.callbackSkeleton(res, function (data){
+                                        //adding back interest and affiliation
+                                        data1.attrs.interest = interest;
+                                        data1.attrs.affiliation = affiliation;
+                                        //logging user in
+                                        req.session.user = data1.attrs.id;
+                                        res.json({data1});
+                                    }));
+                                }));
                             }));
                         }));
                     }));
@@ -167,7 +173,7 @@ var search = function(req, res){
                 });
                 //return with data
                 console.log("data:", result);
-                callback(result);
+                res.json(result);
             } else {
                 console.log("err: Not found")
                 res.status(404).json({"err":"Not found"});

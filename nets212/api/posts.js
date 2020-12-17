@@ -31,8 +31,22 @@ var get = function(req,res){
                                 });
                                 //return with data
                                 data.attrs.comments = comments;
-                                console.log("Returning post:", data.attrs);
-                                res.json(data.attrs);
+                                db.reactions
+                                    .query(req.params.id)
+                                    .loadAll()
+                                    .exec(db.callbackSkeleton(res, function(reaction_data){
+                                        data.attrs.likes = reaction_data.Count;
+                                        console.log("likes: ", data.attrs.likes)
+                                        db.reactions
+                                        .query(req.params.id)
+                                        .usingIndex("AuthorIndex")
+                                        .where('author').equals(req.session.user)
+                                        .exec(db.callbackSkeleton(res, function(reaction_data){
+                                            data.attrs.has_liked = (reaction_data.Count > 0);
+                                            console.log("Returning post:", data.attrs);
+                                            res.json(data.attrs);
+                                        }));
+                                    }))
                             }
                         });
                 } else {
@@ -98,6 +112,25 @@ var getAll = function(req, res){
     .exec(db.dataCallback(res));
 }
 
+var toggleLike = function(req, res) {
+    db.reactions
+        .query(req.params.id)
+        .usingIndex("AuthorIndex")
+        .where('author').equals(req.session.user)
+        .exec(db.callbackSkeleton(res, function(data){
+            if(data.Count == 0){
+                db.reactions.create({'post': req.params.id, 'author': req.session.user, 'reaction': 0}, db.callbackSkeleton(res, function(data){
+                    res.json({liked: true});
+                }));
+            } else {
+                console.log(data.Items[0].attrs.id);
+                db.reactions.destroy(req.params.id,data.Items[0].attrs.id, db.callbackSkeletonNull(res, function(data){
+                    res.json({liked: false});
+                }));
+            }
+        }));
+}
+
 var getAllIDs = function(req, res){
     console.log("get all posts ID called")
     db.posts
@@ -143,6 +176,7 @@ var posts = {
     createReaction: createReaction,
     getReactions: getReactions,
     getComments: getComments,
+    toggleLike: toggleLike,
     getTable: getTable
 };
 

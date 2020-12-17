@@ -22,6 +22,7 @@ var add = function(table, searchtable, name, callback){
 }
 
 var associateWithUser = function(table, usertable, searchtable, name, userid, callback){
+    console.log("name: ", name)
     table.query(name)
         .limit(1)
         .usingIndex("NameIndex")
@@ -33,6 +34,7 @@ var associateWithUser = function(table, usertable, searchtable, name, userid, ca
                 //check if item already exists
                 if (data.Count == 0){
                     //create if not
+                    console.log("hit 6")
                     add(table, searchtable, name, function(err, data){
                         if (err){
                             callback(err, null);
@@ -42,6 +44,7 @@ var associateWithUser = function(table, usertable, searchtable, name, userid, ca
                         }
                     })
                 } else {
+                    console.log("hit 6 and a half")
                     //associate item
                     usertable.create({'PBuser':userid, 'item_id': data.Items[0].attrs.id}, callback);
                 }
@@ -156,13 +159,13 @@ var getAffiliates = function(req, res){
 var getAllAffiliations = function(req, res){
     db.affiliations
         .scan()
-        .exec(extractCallback(res, "name"));
+        .exec(db.extractCallback(res, "name"));
 }
 
 var getAllInterests = function(req, res){
     db.interests
         .scan()
-        .exec(extractCallback(res, "name"));
+        .exec(db.extractCallback(res, "name"));
 }
 
 var getIntUserTable = function(req, res){

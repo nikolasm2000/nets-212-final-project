@@ -199,7 +199,11 @@ var Reactions = dynamo.define('PB_Reaction',{
         post: Joi.string(),
         author: Joi.string(),
         reaction: Joi.number(),
-    }
+    },
+
+    indexes: [{
+        hashKey : 'post', rangeKey:'author', name : 'AuthorIndex', type : 'local'
+    }]
 });
 
 var NewsLikes = dynamo.define('PB_NewsLike',{
