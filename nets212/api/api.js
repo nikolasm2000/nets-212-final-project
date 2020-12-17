@@ -127,9 +127,16 @@ socketIo.on('connection', (socket) => {
    //Associate this user_id to socket.id
    console.log('user connected, id: ' + user_id);
    socket.on('chat message', (msg) => {
-      //Check that msg.user is equal to user currently logged in
-      //Use socket.emit() to send the message to everyone in the group chat (msg.chat)
-      //Add the user's name to the msg object please (msg.name = ____)
+      //Get the id of the chat group msg.chat
+      //Look up the ids of all users in that group
+      chats.getChatUsers(msg.chat, (err, data) => {
+         data.forEach(element => {
+            db.sockets.get({user_id: element}, (err, data) => {
+               socketIo.to(data.attrs.socket_id).emit('chat message', msg);
+            });
+         });
+      })
+      //Emit msg to all users in that group using sockets db
      
    })
 

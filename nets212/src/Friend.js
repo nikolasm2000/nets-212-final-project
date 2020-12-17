@@ -11,15 +11,14 @@ class Friend extends React.Component {
       super(props);
       this.handleMessage = this.handleMessage.bind(this);
       this.handleRemoveFriend = this.handleRemoveFriend.bind(this);
-      this.state = {chat_received: undefined, chat_link:""}
+      this.state = {sent_chat:""}
     }
     
 
     handleMessage() {
-        let request = $.post(config.serverUrl + '/chats/create');
+        let request = $.post(config.serverUrl + '/chats/' + this.props.id + '/request');
         request.done((result) => {
-            var chat_id = result.id;
-            this.setState({chat_received:true, chat_link: '/chats/' + chat_id})
+            this.setState({sent_chat: "Chat request sent!"})
         })
     }
 
@@ -37,6 +36,7 @@ class Friend extends React.Component {
             <div class="row align-items-center justify-content-between">
                 <div class="col-auto pr-0 mr-3 ml-3">
                     <Username id={this.props.id} showImage="true"/>
+                    <p class="card-text m-0 p-0"><small class="text-muted">{this.state.sent_chat}</small></p>
                 </div>
 
                 <div class="col-auto p-0 m-0 mr-4">

@@ -21,7 +21,7 @@ class NavigationBar extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="/graph">Visualizer</Nav.Link>
-                    <Username id= {localStorage.getItem('user')}/>
+                    <Username id= {localStorage.getItem('user')} showImage="true"/>
                  </Nav>
                 </Navbar.Collapse>
                 <SearchingUser/>
