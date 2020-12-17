@@ -298,7 +298,7 @@ class Update extends React.Component {
                  <p class = "text-success">
                     {this.state.successInterest}
                  </p>
-                 <a href='/home'>Return to homepage </a>
+                 <a class="text-center text-center lead" href='/home'>Return to homepage </a>
 
             </div>
 

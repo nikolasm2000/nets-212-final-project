@@ -4,13 +4,13 @@ import Truncate from 'react-truncate'
 function FriendSugg(props) {
     const [state , setState] = useState({
         name1 : "Nikolas Mihailidis",
-		pic1 : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
+		pic1 : "https://pennbook.s3.amazonaws.com/default-profile.jpg",
 		name2 : "Pranav Aurora",
-		pic2 : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
+		pic2 : "https://pennbook.s3.amazonaws.com/default-profile.jpg",
 		name3 : "Rafael Marques",
-		pic3 : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
+		pic3 : "https://pennbook.s3.amazonaws.com/default-profile.jpg",
 		name4 : "Henrique Lorente",
-		pic4 : "https://pennbook.s3.amazonaws.com/Screen+Shot+2020-01-14+at+3.24.25+AM.png",
+		pic4 : "https://pennbook.s3.amazonaws.com/default-profile.jpg",
 		userUrl: "/id?123"
 	})
 	

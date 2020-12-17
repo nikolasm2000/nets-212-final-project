@@ -34,6 +34,7 @@ router.use(function (req, res, next) {
  })
 router.post('/authenticate', user.authenticate);
 router.post('/user/:id/get', user.get);
+router.post('/user/:id/getfull', user.fullGet);
 router.post('/user/create', user.create);
 router.post('/user/update', user.update);
 router.post('/login', user.login);

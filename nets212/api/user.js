@@ -5,10 +5,25 @@ var intaff = require('./interestsAffiliations.js')
 const { assocInterest, assocAffiliation } = require('./interestsAffiliations.js');
 const { callbackSkeleton } = require('./database.js');
 
-var get = function(req,res){
-    console.log("user get called");
+var fullGet = function(req,res){
+    console.log("user full get called");
+    db.user.get(req.params.id, {AttributesToGet : ['id','first_name', 'last_name', 'profile_pic', 'birthday', 'email']}, db.callbackSkeleton(res, function(userdata){
+        console.log("interests:");
+        intaff.getUserInterests(req.params.id, res, function(interests){
+            console.log("affiliations:")
+            intaff.getUserAffiliations(req.params.id, res, function(affiliaitons){
+                userdata.attrs.interests = interests;
+                userdata.attrs.affiliaitons = affiliaitons;
+                res.json(userdata);
+            })
+        })
+    }));
+}
 
-    db.user.get(req.params.id, db.dataCallback(res));
+var get = function(req,res){
+    console.log("user light get called");
+
+    db.user.get(req.params.id, {AttributesToGet : ['id','first_name', 'last_name', 'profile_pic']}, db.dataCallback(res));
 }
 
 var create = function(req,res){
@@ -44,9 +59,11 @@ var create = function(req,res){
                     delete req.body.interest;
                     var affiliation = req.body.affiliation;
                     delete req.body.affiliation;
+                    
+                    console.log("item being sent", req.body);
                     db.user.create(req.body,db.callbackSkeleton(res, function(data1){
                         intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
-                            intaff.assocAffiliation(interest, data1.attrs.id, callbackSkeleton(res, function(data3){
+                            intaff.assocAffiliation(affiliation, data1.attrs.id, callbackSkeleton(res, function(data3){
                                 //adding back interest and affiliation
                                 data1.attrs.interest = interest;
                                 data1.attrs.affiliation = affiliation;
@@ -67,7 +84,24 @@ var update = function(req,res){
         req.body.password = sha256(req.body.password);
     }
     console.log("data received:", req.body);
-    db.user.update(req.body,db.dataCallback(res));
+
+    req.body.id = req.session.id;
+
+    var interest = req.body.interest;
+    delete req.body.interest;
+    var affiliation = req.body.affiliation;
+    delete req.body.affiliation;
+    db.user.update(req.body,db.callbackSkeleton(res, function(data1){
+        intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
+            intaff.assocAffiliation(affiliation, data1.attrs.id, callbackSkeleton(res, function(data3){
+                //adding back interest and affiliation
+                data1.attrs.interest = interest;
+                data1.attrs.affiliation = affiliation;
+                //logging user in
+                res.json({data1});
+            }));
+        }));
+    }));
 }
 
 var login = function(req,res){
@@ -120,9 +154,22 @@ var search = function(req, res){
     db.search
         .query(req.body.keyword)
         //.usingIndex("weightIndex")
-        .descending
+        //.descending
         .limit(5)
-        .exec(extractCallback(res, "obj_id"));
+        .exec(db.callbackSkeleton(res, function(data){
+            if(typeof data != undefined && data != null){
+                var result = [];
+                data.Items.forEach(function(item){
+                    result.push({'id': item.obj_id, 'article': item.attrs.article, 'user': item.attrs.user});
+                });
+                //return with data
+                console.log("data:", result);
+                callback(result);
+            } else {
+                console.log("err: Not found")
+                res.status(404).json({"err":"Not found"});
+            }	
+        }));
 }
 
 var allUserIds = function(req, res){
@@ -140,7 +187,8 @@ var getTable = function(req, res){
 }
 
 var user = {
-	get: get,
+    get: get,
+    fullGet: fullGet,
 	create: create,
 	update: update,
 	login: login,
