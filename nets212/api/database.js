@@ -194,6 +194,8 @@ var Notifications = dynamo.define('PB_Notification',{
         type: Joi.number(), //0 = notification, 1 = friend request, 2 = chat request
         text: Joi.string(),
         relevant_id: Joi.string(),
+        urlText: Joi.string(),
+        url: Joi.string(),
         read: Joi.boolean(),
         dismissed: Joi.boolean(),
     },

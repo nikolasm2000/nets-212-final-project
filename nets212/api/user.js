@@ -161,7 +161,7 @@ var login = function(req,res){
 }
 
 var logout = function(req,res){
-    db.user.update({id: req.session.user, last_action: Date.now() - 181}, db.callbackSkeleton(res, function(data){
+    db.user.update({id: req.session.user, last_action: Date.now() - 18100}, db.callbackSkeleton(res, function(data){
         req.session.user = undefined;
         res.json({'success' : true});
      }))
