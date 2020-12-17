@@ -11,7 +11,7 @@ class Messages extends React.Component {
     
     componentDidMount() {
         //Get messages from chat
-        let request = $.post(config.serverUrl + '/chats/' + this.state.id + '/messages');
+        /*let request = $.post(config.serverUrl + '/chats/' + this.state.id + '/messages');
         request.done((result) => {
             result.Items.forEach(element => {
                 element.user = element.PBuser;
@@ -20,7 +20,7 @@ class Messages extends React.Component {
             newMessages = newMessages.sort((a,b) => {return (a.createdAt > b.createdAt) ? 1 : -1});
             this.setState({messages: newMessages});
             this.state.ref.current.scrollIntoView()
-        });
+        });*/
 
         this.state.socket.on("chat message", data => {
             var newMessages = this.state.messages.concat([data]);
