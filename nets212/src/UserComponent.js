@@ -173,7 +173,7 @@ class UserComponent extends React.Component {
 
 									{this.state.id === localStorage.getItem('user') ? 
 										<div className="custom-file mt-3">
-											<button type="button mt-1 mb-1" class="btn btn-secondary" onClick={this.changeImageButton}> change profile picture </button>
+											<button type="button mt-1 mb-1" class="btn btn-secondary" onClick={this.changeImageButton}> Change profile picture </button>
 											{this.state.displaychooser === "true" ?
 												<input type="file" accept="image/x-png,image/gif,image/jpeg" onChange= {this.fileChange} />
 												: <div> </div>
