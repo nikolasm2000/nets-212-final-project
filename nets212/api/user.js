@@ -169,7 +169,7 @@ var search = function(req, res){
             if(typeof data != undefined && data != null){
                 var result = [];
                 data.Items.forEach(function(item){
-                    result.push({'id': item.obj_id, 'article': item.attrs.article, 'user': item.attrs.PBuser});
+                    result.push({'id': item.attrs.obj_id, 'article': item.attrs.article, 'user': item.attrs.PBuser});
                 });
                 //return with data
                 console.log("data:", result);
