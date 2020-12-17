@@ -73,10 +73,12 @@ router.post('/loginhack/:id', function(req, res){
    console.log("logging in with hack, session: ", req.session.user);
    res.end('hack completed');
 })
-router.post('/allusers', user.allUserIds)
-router.post('/table/user', user.getTable)
-router.post('/table/friend', friends.getTable)
-router.post('/table/posts', posts.getTable)
+router.post('/allusers', user.allUserIds);
+router.post('/table/user', user.getTable);
+router.post('/table/friend', friends.getTable);
+router.post('/table/posts', posts.getTable);
+router.post('/table/userinterest', intaff.getIntUserTable);
+router.post('/table/useraffiliation', intaff.getAffUserTable);
 router.post('/notifications/createsample/:num', notifications.createSampleNotifications);
 
 
