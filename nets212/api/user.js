@@ -69,8 +69,10 @@ var create = function(req,res){
                             intaff.assocAffiliation(affiliation, data1.attrs.id, db.callbackSkeleton(res, function(data3){
                                 console.log("hit 7")
                                 db.keywordCreator(db.search, data1.attrs.first_name, {'article': false, 'PBuser': true, 'obj_id': data1.attrs.id}, db.callbackSkeleton(res, function (data){
+                                    console.log(data);
                                     console.log('hit 8');
                                     db.keywordCreator(db.search, data1.attrs.last_name, {'article': false, 'PBuser': true, 'obj_id': data1.attrs.id}, db.callbackSkeleton(res, function (data){
+                                        console.log(data);
                                         //adding back interest and affiliation
                                         data1.attrs.interest = interest;
                                         data1.attrs.affiliation = affiliation;
@@ -95,11 +97,19 @@ var update = function(req,res){
     console.log("data received:", req.body);
 
     req.body.id = req.session.id;
+    
+    var interest = [];
+    var affiliation = [];
 
-    var interest = req.body.interest;
-    delete req.body.interest;
-    var affiliation = req.body.affiliation;
-    delete req.body.affiliation;
+    if (req.body.interest != undefined){
+        interest = req.body.interest;
+        delete req.body.interest;
+    }
+    if (req.body.affiliation != undefined){
+        affiliation = req.body.affiliation;
+        delete req.body.affiliation;
+    }
+    
     db.user.update(req.body,db.callbackSkeleton(res, function(data1){
         intaff.assocInterest(interest, data1.attrs.id, callbackSkeleton(res, function(data2){
             intaff.assocAffiliation(affiliation, data1.attrs.id, callbackSkeleton(res, function(data3){
