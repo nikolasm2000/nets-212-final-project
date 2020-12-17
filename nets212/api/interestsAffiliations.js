@@ -72,18 +72,21 @@ var getUserAffInt = function(table, usertable, userid, res, callback){
         .loadAll()
         .exec(db.extractCallbackSkeleton(res, "item_id", function(ids){
             console.log(ids);
-            if(ids.length < 2){
+            if(ids.length == 1){
                 console.log("hit 10")
                 ids = ids.pop();
                 table.get(ids, db.callbackSkeleton(res, function(data) {
                     callback([data.attrs.name]);
                 }));
-            } else {
+            } else if (ids.length > 1) {
                 console.log("hit 11")
                 table.getItems(ids, db.extractCallbackSkeleton(res, "name", function(data) {
                     console.log("hit 12");
                     callback(data);
                 }));
+            } else {
+                console.log("hit 13");
+                callback([]);
             }
         }));
 }
