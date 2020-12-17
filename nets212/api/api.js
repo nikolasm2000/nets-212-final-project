@@ -31,6 +31,7 @@ router.use(function (req, res, next) {
    console.log("\n ========================================= \n");
    console.log('Request received on route ', req.url);
    console.log('Logged in user: ', req.session.user);
+   console.log('Current time: ', Date.now());
 
    if(req.session.user != undefined){
       db.user.update({id: req.session.user, last_action: Date.now()}, db.callbackSkeleton(res, function(data){

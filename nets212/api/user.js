@@ -8,7 +8,7 @@ const { callbackSkeleton } = require('./database.js');
 var fullGet = function(req,res){
     console.log("user full get called");
     db.user.get(req.params.id, {AttributesToGet : ['id','first_name', 'last_name', 'profile_pic', 'birthday', 'email']}, db.callbackSkeleton(res, function(userdata){
-        userdata.attrs.online = (userdata.attrs.last_action - Date.now() < 180);
+        userdata.attrs.online = (Date.now() - userdata.attrs.last_action  > 180);
         console.log("interests:");
         intaff.getUserInterests(req.params.id, res, function(interests){
             console.log("affiliations:")
@@ -26,7 +26,7 @@ var get = function(req,res){
     console.log("user light get called");
 
     db.user.get(req.params.id, {AttributesToGet : ['id','first_name', 'last_name', 'profile_pic', 'last_action']}, db.callbackSkeleton(res, function (data) {
-        data.attrs.online = (Date.now() - data.attrs.last_action  < 180);
+        data.attrs.online = (Date.now() - data.attrs.last_action  > 180);
         res.json(data.attrs);
     }));
 }
@@ -159,8 +159,10 @@ var login = function(req,res){
 }
 
 var logout = function(req,res){
-    req.session.user = undefined;
-    res.json({'success' : true});
+    db.user.update({id: req.session.user, last_action: Date.now() - 181}, db.callbackSkeleton(res, function(data){
+        req.session.user = undefined;
+        res.json({'success' : true});
+     }))
 }
 
 var authenticate = function(req,res){
