@@ -452,6 +452,7 @@ var convertDates = function(params){
 }
 
 var keywordCreator = function (table, keyword, object, callback){
+    console.log("creating keywords for ", keyword);
     var items = [];
     for (var i = 1; i <= keyword.length; i++){
         var item = object;

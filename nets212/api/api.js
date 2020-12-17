@@ -56,6 +56,7 @@ router.post('/posts/comments/create', posts.createComment);
 router.post('/posts/comments/:id/get', posts.get);
 router.post('/posts/:id/comments', posts.getComments);
 router.post('/posts/:id/togglelike', posts.toggleLike);
+router.post('/posts/:id/numlikes', posts.numLikes);
 router.post('/posts/reactions/:id', posts.getReactions);
 router.post('/posts/homepage', posts.getAllIDs);//homepage);
 router.post('/posts/wall/:id', posts.getAllIDs);//wall);
