@@ -1,6 +1,5 @@
 const { data } = require('jquery');
 const { builtinModules } = require('module');
-const { extractCallback, user } = require('./database.js');
 
 db = require('./database.js');
 
@@ -74,12 +73,15 @@ var getUserAffInt = function(table, usertable, userid, res, callback){
         .exec(db.extractCallbackSkeleton(res, "item_id", function(ids){
             console.log(ids);
             if(ids.length < 2){
+                console.log("hit 10")
                 ids = ids.pop();
                 table.get(ids, db.callbackSkeleton(res, function(data) {
                     callback([data.attrs.name]);
                 }));
             } else {
-                table.get(ids, db.extractCallbackSkeleton(res, "name", function(data) {
+                console.log("hit 11")
+                table.getItems(ids, db.extractCallbackSkeleton(res, "name", function(data) {
+                    console.log("hit 12");
                     callback(data);
                 }));
             }

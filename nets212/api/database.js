@@ -408,10 +408,17 @@ var extractCallbackSkeleton = function(res, param, callback){
 		} else {
             //return with data
             if(typeof data != undefined && data != null){
+                console.log(data);
                 var result = [];
-                data.Items.forEach(function(item){
-                    result.push(item.get(param));
-                });
+                if(data.Items == undefined){
+                    data.forEach(function(item){
+                        result.push(item.get(param));
+                    });
+                } else {
+                    data.Items.forEach(function(item){
+                        result.push(item.get(param));
+                    });
+                }
                 //return with data
                 console.log("data:", result);
                 callback(result);

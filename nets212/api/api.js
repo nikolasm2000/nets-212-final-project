@@ -12,7 +12,8 @@ var user = require('./user.js');
 var friends = require('./friends.js');
 var posts = require('./posts.js');
 var notifications = require('./notifications.js');
-var intaff = require('./interestsAffiliations.js')
+var intaff = require('./interestsAffiliations.js');
+var chats = require('./chats.js')
 
 var db = require('./database.js');
 
