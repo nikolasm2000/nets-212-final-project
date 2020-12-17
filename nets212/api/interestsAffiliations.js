@@ -64,9 +64,11 @@ var associateMultipleWithUser = function(table, usertable, searchtable, objs, us
                 associateMultipleWithUser(table, usertable, searchtable, objs, userid, callback);
             }
         });
-    } else {
+    } else if (objs.length == 1) {
         console.log('hit 5');
         associateWithUser(table, usertable, searchtable, objs.pop(), userid, callback);
+    } else {
+        callback(null, {'result': 'Nothing received'})
     }
 }
 

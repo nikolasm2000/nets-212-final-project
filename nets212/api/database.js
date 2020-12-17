@@ -457,9 +457,10 @@ var keywordCreator = function (table, keyword, object, callback){
     for (var i = 1; i <= keyword.length; i++){
         var item = object;
         item.keyword = keyword.slice(0,i);
+        console.log(item.keyword);
         items.push(item);
     }
-    
+    console.log(items);
     table.create(items, callback);
 }
 
