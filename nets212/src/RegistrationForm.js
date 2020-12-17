@@ -132,7 +132,7 @@ class RegistrationForm extends React.Component {
                 birthday: moment(this.state.birthday).unix(),
                 affiliation: this.state.affiliation.label,
                 //interests is NOW an array. To do with rafa please dont forget. 
-                interest: this.state.interests,
+                interest: "test",//this.state.interests,
                 profile_pic: "https://data.whicdn.com/images/346305623/original.jpg"
             };
             

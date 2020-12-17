@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Notification from './Notification.js'
 import FriendRequest from './FriendRequest'
 import ChatRequest from './ChatRequest'
+import UserNotification from './UserNotification'
 import $ from 'jquery'
 import { Collapse } from 'react-bootstrap'
 
@@ -50,6 +51,8 @@ class Notifications extends React.Component{
                 return <div class="m-0 p-0" key={notification.createdAt}><FriendRequest notification={notification} refresh={this.refresh}/><hr class="m-0 p-0"/></div>
             } else if(notification.type === 2) {
                 return <div class="m-0 p-0" key={notification.createdAt}><ChatRequest notification={notification} refresh={this.refresh}/><hr class="m-0 p-0"/></div>
+            } else if(notification.type === 3) {
+                return <div class="m-0 p-0" key={notification.createdAt}><UserNotification notification={notification} refresh={this.refresh}/><hr class="m-0 p-0"/></div>
             }
             
         });
