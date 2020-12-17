@@ -22,7 +22,7 @@ function App() {
        withCredentials: true
     },
     //type: "POST",
-    timeout: 10000,
+    timeout: 20000,
 });
 return (
     <Router>

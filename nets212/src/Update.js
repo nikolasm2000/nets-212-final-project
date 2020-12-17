@@ -140,10 +140,18 @@ class Update extends React.Component {
                 successAffiliation : ""
             })
         } else {
-            this.setState({
-                errorAffiliation: "",
-                successAffiliation : "Successfuly Changed Affiliation"
-            })
+            let update = {
+                id: localStorage.getItem('user'),
+                affiliations: [this.state.affiliation.label]
+            }
+            let request1 = $.post(Config.serverUrl + '/user/update', update);
+            request1.done((result) => {
+                this.setState({
+                    errorAffiliation: "",
+                    successAffiliation : "Successfuly Changed Affiliation"
+                })
+            });
+
         } 
         //write route to backend later
         // need to trigger a post. 
