@@ -37,6 +37,25 @@ var getFinalWeightsTable = function(req, res){
         .exec(db.dataCallback(res));
 }
 
+var toggleLike = function(req, res) {
+    db.reactions
+        .query(req.params.id)
+        .usingIndex("AuthorIndex")
+        .where('author').equals(req.session.user)
+        .exec(db.callbackSkeleton(res, function(data){
+            if(data.Count == 0){
+                db.reactions.create({'post': req.params.id, 'author': req.session.user, 'reaction': 0}, db.callbackSkeleton(res, function(data){
+                    res.json({liked: true});
+                }));
+            } else {
+                console.log(data.Items[0].attrs.id);
+                db.reactions.destroy(req.params.id,data.Items[0].attrs.id, db.callbackSkeletonNull(res, function(data){
+                    res.json({liked: false});
+                }));
+            }
+        }));
+}
+
 var articles = {
     get: get,
     show: show,

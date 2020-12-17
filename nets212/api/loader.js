@@ -89,6 +89,33 @@ if(process.argv[2] == undefined){
                 }
               });
             break;
+        case "chats":
+            db.chats.deleteTable(function(err) {
+                if (err) {
+                  console.log('Error deleting table: ', err);
+                } else {
+                  console.log('Table Chats has been deleted');
+                }
+              });
+            break;
+        case "chatmembers":
+            db.chatMembers.deleteTable(function(err) {
+                if (err) {
+                  console.log('Error deleting table: ', err);
+                } else {
+                  console.log('Table Chat Members has been deleted');
+                }
+              });
+            break;
+        case "messages":
+            db.messages.deleteTable(function(err) {
+                if (err) {
+                  console.log('Error deleting table: ', err);
+                } else {
+                  console.log('Table Messages has been deleted');
+                }
+              });
+            break;     
     }
 
     

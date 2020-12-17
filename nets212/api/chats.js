@@ -35,7 +35,7 @@ var getChatUsersRoute = function(req, res){
 }
 
 var invite = function(req, res){
-    db.chat.create({}, db.callbackSkeleton(res, function(chatdata){
+    db.chats.create({}, db.callbackSkeleton(res, function(chatdata){
         params1 = {"chat": chatdata.attrs.id, "PBuser": req.session.user}
         params2 = {"chat": chatdata.attrs.id, "PBuser": req.params.id}
         db.chatMembers.create([params1, params2], db.callbackSkeleton(res, function(data){
