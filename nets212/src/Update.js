@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import DatePicker from 'react-date-picker';
-import {Redirect} from 'react-router-dom';
+import Select from 'react-select';
 import $ from 'jquery'
 var Config = require("./Config.js");
 
@@ -12,8 +11,10 @@ class Update extends React.Component {
             password : "",
             confirmpassword : "",
             birthday : "",
+            interests: "",
             affiliation: "",
-            news: ""
+            optionsAffiliation: [],
+            optionsInterest: []
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,6 +22,30 @@ class Update extends React.Component {
         this.handleSubmitEmail = this.handleSubmitEmail.bind(this);
         this.handleSubmitInterest = this.handleSubmitInterest.bind(this);
         this.handleSubmitPassword = this.handleSubmitPassword.bind(this);
+        this.handleInterest = this.handleInterest.bind(this);
+        this.handleAffiliation = this.handleAffiliation.bind(this);
+    }
+
+    componentDidMount() {
+        var request = $.post(Config.serverUrl + "/affiliations/getAll");
+        request.done((result) => {
+            var toR = []
+            result.forEach(entry => {
+                let obj = {label: entry}
+                toR.push(obj)
+            })
+            this.setState({optionsAffiliation: toR})
+        }
+            );
+        var request1 = $.post(Config.serverUrl + "/interests/getAll");
+        request1.done((result) => {
+            var toC = []
+            result.forEach(entry => {
+                let obj = {label: entry}
+                toC.push(obj)
+            })
+            this.setState({optionsInterest: toC})
+        });
     }
 
     handleChange(e) {
@@ -30,8 +55,27 @@ class Update extends React.Component {
         });
     }
 
-
+    handleInterest(e) {
+        this.setState({
+            interests: e
+        });
+        console.log("HELLO" + this.state.interests)
+        //then update 
+    }
     
+     
+    handleAffiliation(e) {
+        //alert("hello is this working")
+        console.log("WORKING ANOTH" + e.label)
+        this.setState({
+            affiliation: e
+        });
+
+        console.log("HELLO" + this.state.affiliation)
+        //will make the call to the backend here. 
+        //then update 
+    }
+
     handleSubmitEmail(e) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         e.preventDefault();
@@ -105,7 +149,7 @@ class Update extends React.Component {
     }
 
     handleSubmitInterest(e) {
-        if (this.state.news === "") {
+        if (this.state.interests === "") {
             this.setState({
                 errorInterest: "Field cannot be empty!",
                 successInterest : ""
@@ -181,13 +225,12 @@ class Update extends React.Component {
                 <br></br>
 
                 <h5>Change Affiliation?</h5>
-                <input type="email" 
-                        className="form-control mt-2" 
-                        id="affiliation" 
-                        placeholder="Enter new Affiliation"
-                        value={this.state.affiliation}
-                        onChange={this.handleChange} 
-                    />
+                <Select
+                value={this.state.affiliation}
+                onChange={this.handleAffiliation}
+                options={this.state.optionsAffiliation}
+                placeholder="Add your affiliation to Pennbooks"
+              /> 
                 <button 
                     type="submit" 
                     className="btn btn-primary mt-3"
@@ -207,13 +250,13 @@ class Update extends React.Component {
 
                 <br></br>
                 <h5>Add an interest in news</h5>
-                <input type="email" 
-                        className="form-control mt-2" 
-                        id="news" 
-                        placeholder="Enter new Interest"
-                        value={this.state.news}
-                        onChange={this.handleChange} 
-                    />
+                <Select
+                value={this.state.interests}
+                onChange={this.handleInterest}
+                options={this.state.optionsInterest}
+                placeholder="Add your interest to Pennbooks"
+        
+              />
 
                 <button 
                     type="submit" 

@@ -37,14 +37,12 @@ class RegistrationForm extends React.Component {
     componentDidMount() {
         var request = $.post(config.serverUrl + "/affiliations/getAll");
         request.done((result) => {
-            console.log("CHECKED THIS BRO " + result);
             var toR = []
             result.forEach(entry => {
                 let obj = {label: entry}
                 toR.push(obj)
             })
             this.setState({optionsAffiliation: toR})
-            console.log("what does this look like" + this.state.optionsAffiliation[0].label)
         }
             );
         var request1 = $.post(config.serverUrl + "/interests/getAll");
@@ -55,7 +53,6 @@ class RegistrationForm extends React.Component {
                 toC.push(obj)
             })
             this.setState({optionsInterest: toC})
-            console.log("what does this look like" + this.state.optionsInterest[0].label)
         });
     }
     
