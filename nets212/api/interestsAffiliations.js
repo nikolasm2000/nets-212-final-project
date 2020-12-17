@@ -52,7 +52,9 @@ var associateWithUser = function(table, usertable, searchtable, name, userid, ca
 }
 
 var associateMultipleWithUser = function(table, usertable, searchtable, objs, userid, callback){
+    console.log('hit 3');
     if (objs.length > 2){
+        console.log('hit 4');
         associateWithUser(table, usertable, searchtable, objs.pop(), userid, function(err, data){
             if (err) {
                 callback (err, null);
@@ -61,6 +63,7 @@ var associateMultipleWithUser = function(table, usertable, searchtable, objs, us
             }
         });
     } else {
+        console.log('hit 5');
         associateWithUser(table, usertable, searchtable, objs.pop(), userid, callback);
     }
 }
@@ -69,7 +72,6 @@ var getUserAffInt = function(table, usertable, userid, res, callback){
     usertable.query(userid)
         .loadAll()
         .exec(db.extractCallbackSkeleton(res, "item_id", function(ids){
-            console.log("trying to get names");
             console.log(ids);
             if(ids.length < 2){
                 ids = ids.pop();
