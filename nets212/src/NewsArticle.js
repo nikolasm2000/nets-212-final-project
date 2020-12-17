@@ -27,11 +27,11 @@ class NewsArticle extends React.Component {
                     //optional, posted on whose wall
                     headline: result.headline,
                     //time posted
-                    articledate: "Posted " + moment.unix(result.articleDate).fromNow(),
+                    articledate: "Posted on " +  result.articleDate,
                     //URL of image
                     link: result.link,
                     //text of the post
-                    authors: result.authors,
+                    authors: result.authors.split(" ")[0],
                     //list of comment IDs on the post
                     short_description: result.short_description,
                 });
@@ -49,7 +49,7 @@ class NewsArticle extends React.Component {
                     
                     <div class="container p-0 m-0 d-flex flex-row align-items-center">
                 <div class="d-flex flex-column align-items-start pl-2 justify-content-center">
-                    <a class="p-0 m-0" href= "https://www.google.com/">{this.state.headline}.</a>
+                    <a class="p-0 m-0" href= {this.state.link}>{this.state.headline}.</a>
                     <small class= "text-muted m-0 p-0">Written by: {this.state.authors}</small>
                 </div>
             </div>
@@ -65,12 +65,7 @@ class NewsArticle extends React.Component {
                 <hr/>
                 <div class="row p-0 m-0 d-flex align-items-center">
                     <div class="col p-0 m-0">
-                        <Likes number= {12} liked={true} postid={11}/>
-                    </div>
-                </div>
-                <div class="row p-0 m-0 d-flex align-items-center">
-                    <div class="col">
-                        <Comments postid={11}/>
+                        <Likes liked={false} postid={this.state.articleID}/>
                     </div>
                 </div>
             </div>
