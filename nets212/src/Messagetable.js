@@ -19,7 +19,7 @@ class Messagetable extends React.Component {
             <div className="container mb-10 p-40 w-75% max-auto">
                 <div class="row">
                     <div class="col">
-                        <Chatheader/>
+                        <Chatheader id={this.state.id}/>
                     </div>
                 </div>
                 <div class="row">
