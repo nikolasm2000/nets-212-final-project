@@ -8,6 +8,7 @@ const { callbackSkeleton } = require('./database.js');
 var fullGet = function(req,res){
     console.log("user full get called");
     db.user.get(req.params.id, {AttributesToGet : ['id','first_name', 'last_name', 'profile_pic', 'birthday', 'email']}, db.callbackSkeleton(res, function(userdata){
+        userdata.attrs.online = (userdata.attrs.last_action - Date.now() < 180);
         console.log("interests:");
         intaff.getUserInterests(req.params.id, res, function(interests){
             console.log("affiliations:")
@@ -24,7 +25,10 @@ var fullGet = function(req,res){
 var get = function(req,res){
     console.log("user light get called");
 
-    db.user.get(req.params.id, {AttributesToGet : ['id','first_name', 'last_name', 'profile_pic']}, db.dataCallback(res));
+    db.user.get(req.params.id, {AttributesToGet : ['id','first_name', 'last_name', 'profile_pic', 'last_action']}, db.callbackSkeleton(res, function (data) {
+        data.attrs.online = (Date.now() - data.attrs.last_action  < 180);
+        res.json(data.attrs);
+    }));
 }
 
 var create = function(req,res){
@@ -42,6 +46,7 @@ var create = function(req,res){
         return;
     }
 
+    req.body.last_action = Date.now();
     req.body.password = sha256(req.body.password);
 
     db.user
