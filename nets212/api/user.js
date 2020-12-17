@@ -154,7 +154,7 @@ var search = function(req, res){
         //.usingIndex("weightIndex")
         //.descending
         .limit(5)
-        .exec(extractCallback(res, "obj_id"));
+        .exec(db.extractCallback(res, "obj_id"));
 }
 
 var allUserIds = function(req, res){
