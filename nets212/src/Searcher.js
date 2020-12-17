@@ -3,49 +3,28 @@ import Autosuggest from 'react-autosuggest';
 import { Navbar,Nav,Form, Button, NavDropdown } from 'react-bootstrap'
 import Username from './Username';
 import './autosuggest.css';
+import $ from 'jquery';
 
-const people = [ 
-    {
-        name: "Pranav Aurora", 
-        userUrl: "user/123"
-    },
-    {
-        name: "Pra", 
-        userUrl: "user/126"
-    },
-    {
-        name: "Pr", 
-        userUrl: "user/127"
-    },
-    {
-        name: "Pran", 
-        userUrl: "user/128"
-    },
-    {   name: "Rafa Marquez", 
-        userUrl: "user/124"
-    },
-    {   name: "henrique Lorente",
-        userUrl: "user/125"
-    },
-        {name: "nico legend",
-        userUrl: "user/126"
-    }]
+var config = require('./Config.js')
 
 const getSuggestions = (value) => {
-    const trimmedInput = value.trim().toLowerCase();
-    const length = trimmedInput.length;
-    let toR = [];
-    if (length !== 0) {
-         toR = people.filter(person => person.name.toLowerCase().slice(0,length) === trimmedInput);
-    } 
-    return toR;
+    console.log("value searched is" + value.trim().toLowerCase());
+
+    let send = {keyword: value};
+    var request = $.post(config.serverUrl + '/search', send);
+    let toDisplay = []
+    request.done((result) => {
+        toDisplay = result
+    })
+    return toDisplay;
 }
 
+//need to take a look at what this does
 const displaySuggestion = (suggestion) => suggestion.name;
 
 const renderSuggest = suggestion => (
     <div>
-        <Username firstName = {suggestion.name} userURL = {suggestion.userUrl} showImage="true"/>
+        <Username id = {suggestion.id} showImage="true"/>
     </div>
 );
 
