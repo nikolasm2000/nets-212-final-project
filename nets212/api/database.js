@@ -1,8 +1,3 @@
-// var AWS = require('aws-sdk');
-// AWS.config.loadFromPath('./config.json');
-// AWS.config.update({region:'us-east-1'});
-//var db = new AWS.DynamoDB();
-
 var dynamo = require('dynamodb');
 dynamo.AWS.config.loadFromPath('config.json');
 dynamo.AWS.config.update({region:'us-east-1'});
