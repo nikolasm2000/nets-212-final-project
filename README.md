@@ -22,8 +22,8 @@ We are quite proud of some of our extra-credit features we have implemented incl
 We have also managed to implement the required features including facebook style newsfeed, chat, and article recommendation on the newsfeed. (Full list includes user registration, posts, likes, comments, walls, friends, etc.)
 
 A full list of frontend source files can be found in nets212/src, which contains all components and frontend routes used.
-
 Backend source files can be found in nets212/api, where all backend functions and routes can be found.
+All Spark code can be found in Spark-Absorption
 
 All of the code has been written by us.
 
